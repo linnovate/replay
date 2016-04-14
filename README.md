@@ -17,8 +17,6 @@ This repo serves as a minimal starter for those looking to get up-and-running wi
 * A full testing system in place
 * [Stylus](https://learnboost.github.io/stylus/) support
 
-**Check out the [JSPM version](https://github.com/angularclass/NG6-starter/tree/jspm)--an alternative to Webpack as an ES6 build system.**
-
 ___
 
 # Table of Contents
