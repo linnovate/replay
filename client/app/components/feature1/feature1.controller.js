@@ -1,8 +1,9 @@
-class Feature1Controller {
-  constructor() {
+export default class Feature1Controller {
+
+  constructor(dataService) {
+    "ngInject";
+
     this.name = 'feature1';
-    this.cities = ['New York', 'San Francisco', 'Tel-Aviv', 'Los Angeles'];
+    this.cities = dataService.getData();
   }
 }
-
-export default Feature1Controller;
