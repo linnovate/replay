@@ -1,8 +1,26 @@
 <navbar></navbar>
 <h1>{{ vm.name }}</h1>
 <h2>AngularJS + Sails app demonstration</h2>
-<section>
-  <ul>
-    <li data-ng-repeat="item in vm.cities">{{ item }}</li>
-  </ul>
-</section>
+
+<div class="center-block">
+  <form class="frm-comment" name="frmComment" ng-submit="vm.submit()">
+    <input required type="text" name="authorName" ng-model="vm.comment.name" placeholder="Name"/>
+    <textarea required name="commentText" cols="30" ng-model="vm.comment.text" rows="4" placeholder="Write your comment..."></textarea>
+    <input ng-show="!vm.isEditing" type="submit" name="submit" value="Add comment" />
+    <input ng-show="vm.isEditing" type="submit" name="submit" value="Edit comment" />
+  </form>
+
+  <section>
+    <div class="comment-item" data-ng-repeat="item in vm.comments.list">
+      <div class="fl-left">
+        Name: <span class="name">{{ item.name }}</span><br>
+        <span class="text">{{ item.text }}</span>
+      </div>
+      <div class="fl-right">
+        <a href="" ng-click="vm.editComment(item)">Edit</a>
+        <a href="" ng-click="vm.removeComment(item)">Delete</a>
+      </div>
+
+    </div>
+  </section>
+</div>
