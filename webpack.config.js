@@ -1,16 +1,25 @@
-var path    = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+'use strict';
+
+function addHash(template, hash) {
+  return !debug ? template.replace(/\.[^.]+$/, `.[${hash}]$&`) : template;
+}
+
+const debug = process.env.NODE_ENV !== 'production',
+      path    = require('path'),
+      webpack = require('webpack'),
+      HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'sourcemap',
   entry: {},
   module: {
     loaders: [
-       { test: /\.js$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate!babel' },
+       { test: /\.js$/, include: /client/, loader: 'ng-annotate!babel' },
        { test: /\.html$/, loader: 'raw' },
        { test: /\.styl$/, loader: 'style!css!stylus' },
-       { test: /\.css$/, loader: 'style!css' }
+       { test: /\.css$/, loader: 'style!css' },
+       { test: /\.(gif|png|jpg|jpeg|svg|eot|woff2|woff|ttf)$/,
+        loader: debug ? 'file?name=assets/[path][name].[hash:6].[ext]' : 'file?name=assets/[hash].[ext]' },
     ]
   },
   plugins: [

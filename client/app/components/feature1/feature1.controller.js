@@ -10,11 +10,12 @@ export default class Feature1Controller {
   }
 
   submit() {
-    if (!this.isEditing) this.comments.add(this.comment);
-    else {
+    if (!this.isEditing)
+      this.comments.add(this.comment);
+    else
       this.comments.update(this.comment);
-      this.editFinish();
-    }
+
+    this.editFinish();
   }
 
   removeComment(item) {
