@@ -4,7 +4,7 @@ class PlayerController {
   constructor() {
     this.name = 'player';
     this.player = dashjs.MediaPlayer().create();
-    this.url = "http://dash.edgesuite.net/envivio/EnvivioDash3/manifest.mpd";
+    this.url = "http://178.79.165.97:1935/vod/mp4:sample.mp4/manifest.mpd";
     this.display = false;
 
     this.init()
