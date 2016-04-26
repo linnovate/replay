@@ -5,7 +5,6 @@ import feature1Component from './feature1.component';
 let feature1Module = angular.module('feature1', [
   uiRouter
 ])
-
 .config(($stateProvider) => {
   "ngInject";
   $stateProvider

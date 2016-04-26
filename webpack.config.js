@@ -20,6 +20,8 @@ module.exports = {
        { test: /\.css$/, loader: 'style!css' },
        { test: /\.(gif|png|jpg|jpeg|svg|eot|woff2|woff|ttf)$/,
         loader: debug ? 'file?name=assets/[path][name].[hash:6].[ext]' : 'file?name=assets/[hash].[ext]' },
+       { test: /leaflet-src.js$/, loader: 'exports?L' },
+       { test: /dash.all.debug.js$/, loader: 'exports?dashjs' },
     ]
   },
   plugins: [
