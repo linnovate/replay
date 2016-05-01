@@ -7,7 +7,6 @@ import Components from './components/components';
 import AppComponent from './app.component';
 //import 'normalize.css';
 import ngMaterial from 'angular-material';
-import socialIcons from 'angular-material/demos/icon/demoSvgIconSets/assets/social-icons.svg';
 import 'angular-material/angular-material.css';
 
 angular.module('app', [
@@ -25,8 +24,6 @@ angular.module('app', [
     $mdThemingProvider.theme('forest')
       .primaryPalette('brown')
       .accentPalette('green');
-    $mdIconProvider
-      .defaultIconSet(socialIcons, 24);
   })
   .service({
     commentService

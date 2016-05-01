@@ -1,3 +1,5 @@
-<div class="player-wrap" ng-show="vm.display">
-  <video id="videoPlayer" controls></video>
+<div>{{vm.video.visible}}</div>
+<a href="" ng-click="vm.video.toggleVisibility()">Toggle player</a>
+<div class="player-wrap" ng-show="vm.video.visible">
+  <video id="video-player" controls></video>
 </div>

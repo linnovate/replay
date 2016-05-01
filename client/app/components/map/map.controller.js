@@ -1,41 +1,14 @@
 import L from 'leaflet/dist/leaflet-src';
 import        'leaflet/dist/leaflet.css';
+const videoSM = 'http://178.79.165.97:1935/vod/mp4:sample.mp4/manifest.mpd';
 
 class MapController {
-  constructor() {
+
+  constructor(dashJS) {
+    "ngInject";
+
     this.name = 'map';
-
-    setTimeout(() => this.init(), 1000);
-
-
-/*    L.marker([51.5, -0.09]).addTo(mymap)
-      .bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
-
-    L.circle([51.508, -0.11], 500, {
-      color: 'red',
-      fillColor: '#f03',
-      fillOpacity: 0.5
-    }).addTo(mymap).bindPopup("I am a circle.");
-
-    L.polygon([
-      [51.509, -0.08],
-      [51.503, -0.06],
-      [51.51, -0.047]
-    ]).addTo(mymap).bindPopup("I am a polygon.");
-
-
-    var popup = L.popup();
-
-    function onMapClick(e) {
-      popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(mymap);
-    }
-
-    mymap.on('click', onMapClick);*/
-
-
+    this.video = dashJS;
   }
 
   init() {
@@ -52,10 +25,15 @@ class MapController {
       fillColor: '#f03',
       fillOpacity: 0.5
     }).addTo(mymap)
-      .bindPopup("Dron covered area, video will started now")
-      .on('click', function (e) {
-
+      .bindPopup("Dron covered area, video will start now")
+      .on('click', (e) => {
+        this.video.init(videoSM, true);
       })
+  }
+
+  $onInit() {
+    setTimeout(() => this.init(), 1);
+    console.log('MapController', this);
   }
 }
 

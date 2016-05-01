@@ -10,10 +10,10 @@ import About from './about/about';
 let componentModule = angular.module('app.components', [
   Home.name,
   Feature1.name,
+  Player.name,
   MapLayout.name,
   Map.name,
   Search.name,
-  Player.name,
   About.name
 ]);
 
