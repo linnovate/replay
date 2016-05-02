@@ -5,7 +5,6 @@ import MapLayout from './maplayout/maplayout';
 import Map from './map/map';
 import Search from './search/search';
 import Player from './player/player';
-import About from './about/about';
 
 let componentModule = angular.module('app.components', [
   Home.name,
@@ -14,7 +13,6 @@ let componentModule = angular.module('app.components', [
   MapLayout.name,
   Map.name,
   Search.name,
-  About.name
 ]);
 
 export default componentModule;
