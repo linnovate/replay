@@ -1,4 +1,4 @@
-import dashjsLib from 'dashjs/dist/dash.all.debug.js';
+import dashjsLib from 'dashjs';
 const  playerID = 'video-player';
 
 export default class dashJS {

@@ -24,6 +24,15 @@ module.exports = {
        { test: /dash.all.debug.js$/, loader: 'exports?dashjs' },
     ]
   },
+  resolve: {
+    root: [
+      path.join(__dirname, 'bower_components'),
+      path.join(__dirname, 'vendor')
+    ],
+    alias: {
+      'dashjs$': 'dashjs/dash.all.debug',
+    }
+  },
   externals: {
     gapi: 'gapi'
   },
