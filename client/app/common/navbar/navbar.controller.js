@@ -1,5 +1,8 @@
 class NavbarController {
+
   constructor() {
+    "ngInject";
+
     this.name = 'navbar';
   }
 }
