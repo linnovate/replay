@@ -28,6 +28,7 @@ class MapController {
       .bindPopup("Dron covered area, video will start now")
       .on('click', (e) => {
         this.video.init(videoSM, true);
+        this.video.setVisible(true);
       })
   }
 
