@@ -1,1 +1,12 @@
-<div class="g-signin2" data-onsuccess=""></div>
+<!--<div class="g-signin2" data-onsuccess=""></div>-->
+<div id="gSignInWrapper">
+  <div ng-show="!vm.user.isSignedIn" id="customGglBtn" class="customGPlusSignIn">
+    <span class="icon"></span>
+    <span class="buttonText">Google Sign-In</span>
+  </div>
+
+  <div ng-show="vm.user.isSignedIn">
+    <span id="name"></span>,
+    <a href="" ng-click="vm.user.logout()" id="logout">logout</a>
+  </div>
+</div>

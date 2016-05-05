@@ -1,5 +1,8 @@
 class UserController {
-  constructor() {
+  constructor(User) {
+    "ngInject";
+
+    this.user = User;
     this.name = 'user';
   }
 }
