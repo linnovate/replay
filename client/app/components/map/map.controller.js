@@ -4,11 +4,12 @@ const videoSM = 'http://178.79.165.97:1935/vod/mp4:sample.mp4/manifest.mpd';
 
 class MapController {
 
-  constructor(dashJS) {
+  constructor(dashJS, $timeout) {
     "ngInject";
 
     this.name = 'map';
     this.video = dashJS;
+    this.$timeout = $timeout;
   }
 
   init() {
@@ -33,8 +34,9 @@ class MapController {
   }
 
   $onInit() {
-    setTimeout(() => this.init(), 1);
-    console.log('MapController', this);
+    this.$timeout(() => {
+      this.init()
+    });
   }
 }
 
