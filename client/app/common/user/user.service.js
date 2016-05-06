@@ -5,25 +5,19 @@ export default class UserService {
   constructor(gapiLoaded, safeApply) {
     "ngInject";
 
-    console.log('UserSerivce');
     this.safeApply = safeApply;
     gapiLoaded().then(() => {
       gapi.load('auth2', this.initSigninV2.bind(this));
-      console.log('promise resolved');
     });
     this.isSignedIn = false;
   }
 
   initSigninV2() {
-    console.log('initSigninV2');
-    //this.authInstance = gapi.auth2.getAuthInstance();
-    //this.googleUser = this.authInstance.currentUser.get();
     gapi.auth2.init({
       client_id: misc.google.client_id,
       scope: misc.google.scope,
       fetch_basic_profile: true
     }).then((auth) => {
-      console.log('auth inited', auth);
       this.authInstance = auth;
       this.googleUser = auth.currentUser.get();
       if (this.isLogged()) {
