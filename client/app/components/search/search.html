@@ -1,3 +1,5 @@
-<div>
-  <h1>{{ vm.name }}</h1>
-</div>
+<ul>
+  <li data-ng-repeat="video in vm.videoSrv.list">
+    <a href="" ng-click="vm.playVideo(video.id)">{{video.name}}</a>
+  </li>
+</ul>

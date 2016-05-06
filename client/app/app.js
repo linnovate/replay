@@ -3,6 +3,7 @@ import ngResource from 'angular-resource';
 import uiRouter from 'angular-ui-router';
 import commentService from './service/comment.service';
 import gapiLoaded from './service/gapiLoad.service';
+import videoService from './service/video.service.js';
 import Common from './common/common';
 import Components from './components/components';
 import AppComponent from './app.component';
@@ -16,6 +17,7 @@ angular.module('app', [
   Common.name,
   Components.name
 ])
+  .service({videoService})
   .service({commentService})
   .factory({gapiLoaded})
   .config(($locationProvider, $mdThemingProvider, $mdIconProvider) => {
