@@ -16,6 +16,6 @@ export default class videoService {
   }
 
   getStream(videoId) {
-    return endPoint.base+'/dash/mpd/'+videoId;
+    return endPoint.base+'/dash/mpd/'+videoId+'.mpd';
   }
 }
