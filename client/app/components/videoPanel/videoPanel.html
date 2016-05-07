@@ -1,0 +1,25 @@
+<ul class="video-panel">
+  <li class="panel-item-play">
+    <a title="Play video" href="" ng-click="vm.playVideo(vm.video.id)">
+      <md-icon class="material-icons md-10">play_arrow</md-icon>
+    </a>
+  </li>
+
+  <li class="panel-item-playlist" ng-switch="vm.playList.isAdded(vm.video)">
+    <a ng-switch-when="false" title="Add to playlist" href="" ng-click="vm.playList.add(vm.video)">
+      <md-icon class="material-icons md-10">add</md-icon>
+    </a>
+    <a ng-switch-when="true" title="Remove from playlist" href="" ng-click="vm.playList.remove(vm.video)">
+      <md-icon class="material-icons md-10">close</md-icon>
+    </a>
+  </li>
+
+  <li class="panel-item-star" ng-switch="vm.star.isAdded(vm.video)">
+    <a ng-switch-when="false" title="Add to favourite" href="" ng-click="vm.star.add(vm.video)">
+      <md-icon class="material-icons md-10">star_border</md-icon>
+    </a>
+    <a ng-switch-when="true" title="Remove from favourite" href="" ng-click="vm.star.remove(vm.video)">
+      <md-icon class="material-icons md-10">star</md-icon>
+    </a>
+  </li>
+</ul>

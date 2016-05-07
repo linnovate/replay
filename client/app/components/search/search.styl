@@ -1,2 +1,29 @@
-.search
-  color red
+$border-color = #ccc
+$border-color-active = #adadad
+
+.search-results
+  .search-title
+    text-align center
+    color: #fff;
+    background-color #999
+    margin 0 0 15px
+    padding 10px 0
+
+  .video-panel
+    display: none;
+  table
+    thead
+      td
+        font-weight: bold;
+    border-collapse: collapse;
+    .td-video-panel
+      width: 24px;
+    tbody
+      td
+        padding: 0;
+        height: 72px;
+      tr.active
+        .video-panel
+          display: block;
+      tr:hover td, tr.active td
+        background-color: #e3e0e0;

@@ -4,6 +4,7 @@ import Feature1 from './feature1/feature1';
 import MapLayout from './maplayout/maplayout';
 import Map from './map/map';
 import Search from './search/search';
+import VideoPanel from './videoPanel/videoPanel';
 import Player from './player/player';
 
 let componentModule = angular.module('app.components', [
@@ -13,6 +14,7 @@ let componentModule = angular.module('app.components', [
   MapLayout.name,
   Map.name,
   Search.name,
+  VideoPanel.name,
 ]);
 
 export default componentModule;

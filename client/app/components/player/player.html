@@ -1,4 +1,6 @@
 <div class="player-wrap" ng-show="vm.video.visible">
-  <a href="" ng-click="vm.video.close()">Close</a>
+  <a class="player-btn-close" href="" ng-click="vm.video.close()">
+    <md-icon class="material-icons md-40">close</md-icon>
+  </a>
   <video id="video-player" controls></video>
 </div>

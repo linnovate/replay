@@ -3,7 +3,9 @@ import ngResource from 'angular-resource';
 import uiRouter from 'angular-ui-router';
 import commentService from './service/comment.service';
 import gapiLoaded from './service/gapiLoad.service';
-import videoService from './service/video.service.js';
+import videoService from './service/video.service';
+import playListService from './service/playList.service';
+import starService from './service/star.service';
 import Common from './common/common';
 import Components from './components/components';
 import AppComponent from './app.component';
@@ -19,6 +21,8 @@ angular.module('app', [
 ])
   .service({videoService})
   .service({commentService})
+  .service({playListService})
+  .service({starService})
   .factory({gapiLoaded})
   .config(($locationProvider, $mdThemingProvider, $mdIconProvider) => {
     "ngInject";
