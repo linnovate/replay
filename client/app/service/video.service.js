@@ -7,6 +7,7 @@ export default class videoService {
 
     this.$resource = $resource;
     this.Video = $resource(endPoint.base+'/video/:id', { id: '@id' });
+    this.Stream = $resource(endPoint.base+'/dash/mpd/:id', { id: '@id' });
     this.list = [];
   }
 
@@ -16,6 +17,6 @@ export default class videoService {
   }
 
   getStream(videoId) {
-    return endPoint.base+'/dash/mpd/'+videoId+'.mpd';
+    return this.Stream.get({id: videoId}).$promise;
   }
 }
