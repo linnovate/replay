@@ -11,8 +11,15 @@ let maplayoutModule = angular.module('maplayout', [
   $stateProvider
     .state('map', {
       url: '/map',
-      template: '<maplayout></maplayout>'
-    });
+      template: '<maplayout></maplayout>',
+      resolve: {
+        userService: 'User',
+        userAuth: function(userService) {
+          return userService.authInitialize();
+        },
+      }
+    }
+    );
 })
 .component('maplayout', maplayoutComponent);
 

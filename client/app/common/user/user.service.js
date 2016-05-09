@@ -2,10 +2,11 @@ import misc from '../../config/misc';
 
 export default class UserService {
 
-  constructor(gapiLoaded, safeApply) {
+  constructor(gapiLoaded, safeApply, $q) {
     "ngInject";
 
     this.safeApply = safeApply;
+    this.authDefered = $q.defer();
     gapiLoaded().then(() => {
       gapi.load('auth2', this.initSigninV2.bind(this));
     });
@@ -18,13 +19,14 @@ export default class UserService {
       scope: misc.google.scope,
       fetch_basic_profile: true
     }).then((auth) => {
+      this.authDefered.resolve(true);
+      // call $apply is a MUST because we are outside of angular
+      this.safeApply();
+
       this.authInstance = auth;
       this.googleUser = auth.currentUser.get();
       if (this.isLogged()) {
-        // TODO: move to function
-        document.getElementById('name').innerText = this.getName();
-        this.isSignedIn = true;
-        this.safeApply();
+        this._finalizeLogin();
       }
       this.attachSignin(document.getElementById('customGglBtn'));
     });
@@ -33,10 +35,7 @@ export default class UserService {
   attachSignin(element) {
     this.authInstance.attachClickHandler(element, {},(googleUser) => {
         this.googleUser = googleUser;
-        // TODO: move to function
-        document.getElementById('name').innerText = this.getName();
-        this.isSignedIn = true;
-        this.safeApply();
+        this._finalizeLogin();
         console.log('googleUser!', googleUser);
       }, function (error) {
         console.error(error);
@@ -72,6 +71,16 @@ export default class UserService {
         this.isSignedIn = false;
         this.safeApply();
       })
+  }
+
+  _finalizeLogin() {
+    document.getElementById('name').innerText = this.getName();
+    this.isSignedIn = true;
+    this.safeApply();
+  }
+
+  authInitialize() {
+      return this.authDefered.promise;
   }
 
 }
