@@ -6,6 +6,7 @@ import Map from './map/map';
 import Search from './search/search';
 import VideoPanel from './videoPanel/videoPanel';
 import Player from './player/player';
+import userLoginPage from './userLoginPage/userLoginPage';
 
 let componentModule = angular.module('app.components', [
   Home.name,
@@ -15,6 +16,7 @@ let componentModule = angular.module('app.components', [
   Map.name,
   Search.name,
   VideoPanel.name,
+  userLoginPage.name,
 ]);
 
 export default componentModule;
