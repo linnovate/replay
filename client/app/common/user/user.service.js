@@ -37,34 +37,34 @@ export default class UserService {
       this.authInstance.attachClickHandler(element, {}, (googleUser) => {
         this.googleUser = googleUser;
         this._finalizeLogin();
-        console.log('googleUser!', googleUser);
+        console.log('googleUser: ', googleUser);
       }, function (error) {
         console.error(error);
       });
     });
   }
 
-  getUser() {
-    if (this.authInstance)
-      return this.googleUser.getBasicProfile();
-  }
-
   isLogged() {
     return this.googleUser && this.googleUser.isSignedIn();
   }
 
+  getUser() {
+    if (this.isLogged())
+      return this.googleUser.getBasicProfile();
+  }
+
   getEmail() {
-    if (this.authInstance)
+    if (this.isLogged())
       return this.googleUser.getBasicProfile().getEmail();
   }
 
   getName() {
-    if (this.authInstance)
+    if (this.isLogged())
       return this.googleUser.getBasicProfile().getName();
   }
 
   getIdToken() {
-    if (this.authInstance)
+    if (this.isLogged())
       return this.googleUser.getAuthResponse().id_token;
   }
 
