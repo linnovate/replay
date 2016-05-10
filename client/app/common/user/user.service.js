@@ -28,18 +28,20 @@ export default class UserService {
       if (this.isLogged()) {
         this._finalizeLogin();
       }
-      this.attachSignin(document.getElementById('customGglBtn'));
+      this.attachSignin(document.querySelectorAll('.customGPlusSignIn'));
     });
   }
 
-  attachSignin(element) {
-    this.authInstance.attachClickHandler(element, {},(googleUser) => {
+  attachSignin(elements) {
+    angular.forEach(elements, (element) => {
+      this.authInstance.attachClickHandler(element, {}, (googleUser) => {
         this.googleUser = googleUser;
         this._finalizeLogin();
         console.log('googleUser!', googleUser);
       }, function (error) {
         console.error(error);
       });
+    });
   }
 
   getUser() {
@@ -67,20 +69,19 @@ export default class UserService {
   }
 
   logout() {
-      this.authInstance.signOut().then(() => {
-        this.isSignedIn = false;
-        this.safeApply();
-      })
+    this.authInstance.signOut().then(() => {
+      this.isSignedIn = false;
+      this.safeApply();
+    })
   }
 
   _finalizeLogin() {
-    document.getElementById('name').innerText = this.getName();
     this.isSignedIn = true;
     this.safeApply();
   }
 
   authInitialize() {
-      return this.authDefered.promise;
+    return this.authDefered.promise;
   }
 
 }
