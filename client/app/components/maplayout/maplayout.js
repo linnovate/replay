@@ -9,15 +9,9 @@ let maplayoutModule = angular.module('maplayout', [
   "ngInject";
 
   $stateProvider
-    .state('map', {
+    .state('main.map', {
       url: '/map',
-      template: '<maplayout></maplayout>',
-      resolve: {
-        userService: 'User',
-        userAuth: function(userService) {
-          return userService.authInitialize();
-        },
-      }
+      template: '<maplayout></maplayout>'
     }
     );
 })

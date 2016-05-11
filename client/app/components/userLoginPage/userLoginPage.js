@@ -11,6 +11,7 @@ let userLoginPageModule = angular.module('userLoginPage', [
     $stateProvider
       .state('loginPage', {
         url: '/login',
+        //params: { from: null, },
         template: '<user-login-page></user-login-page>'
       });
   })

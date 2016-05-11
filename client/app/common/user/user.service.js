@@ -7,6 +7,7 @@ export default class UserService {
 
     this.safeApply = safeApply;
     this.authDefered = $q.defer();
+    this.authInitialized = false;
     gapiLoaded().then(() => {
       gapi.load('auth2', this.initSigninV2.bind(this));
     });
@@ -19,12 +20,15 @@ export default class UserService {
       scope: misc.google.scope,
       fetch_basic_profile: true
     }).then((auth) => {
+      this.authInstance = auth;
+      this.googleUser = auth.currentUser.get();
+      this.authInitialized = true;
+
+      console.log('auth just inited');
       this.authDefered.resolve(true);
       // call $apply is a MUST because we are outside of angular
       this.safeApply();
 
-      this.authInstance = auth;
-      this.googleUser = auth.currentUser.get();
       if (this.isLogged()) {
         this._finalizeLogin();
       }
