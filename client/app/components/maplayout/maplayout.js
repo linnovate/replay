@@ -9,8 +9,13 @@ let maplayoutModule = angular.module('maplayout', [
   "ngInject";
 
   $stateProvider
-    .state('main.map', {
+    .state('map', {
       url: '/map',
+      data: {
+        access: {
+          requiredLogin: true
+        }
+      },
       template: '<maplayout></maplayout>'
     }
     );

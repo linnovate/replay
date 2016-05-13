@@ -24,7 +24,7 @@ angular.module('app', [
   .service({playListService})
   .service({starService})
   .factory({gapiLoaded})
-  .config(($locationProvider, $mdThemingProvider, $stateProvider) => {
+  .config(($locationProvider, $mdThemingProvider) => {
     "ngInject";
 
     $locationProvider.html5Mode(true).hashPrefix('!');
@@ -32,46 +32,5 @@ angular.module('app', [
     $mdThemingProvider.theme('forest')
       .primaryPalette('brown')
       .accentPalette('green');
-
-    $stateProvider
-      .state('main', {
-        abstract: true,
-        template: '<ui-view/>'
-      });
-  })
-  .run(($rootScope, $urlRouter, $state, User) => {
-    "ngInject";
-
-    var loginState = 'loginPage';
-
-    $rootScope.$on('$stateChangeStart',
-      (event, toState, toParams, fromState, fromParams, options) => {
-        $rootScope.$state = $state;
-        $rootScope.fromState = fromState;
-
-        console.log('$stateChangeStart');
-        //debugger;
-
-        if (toState.name === loginState) return;
-
-        if (User.authInitialized) {
-          if (!User.isLogged()) {
-            event.preventDefault();
-            console.log('going to login page 1');
-            $state.go(loginState);
-          }
-        } else {
-            event.preventDefault();
-            User.authInitialize().then(() => {
-              if (!User.isLogged()) {
-                console.log('going to login page 2');
-                $state.go(loginState);
-              } else {
-                $urlRouter.sync();
-              }
-            })
-        }
-
-      })
   })
   .component('app', AppComponent);

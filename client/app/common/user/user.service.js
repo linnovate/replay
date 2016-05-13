@@ -2,16 +2,40 @@ import misc from '../../config/misc';
 
 export default class UserService {
 
-  constructor(gapiLoaded, safeApply, $q) {
+  constructor(gapiLoaded, safeApply, $q, $rootScope, $state) {
     "ngInject";
 
+    this.$rootScope = $rootScope;
+    this.$state = $state;
     this.safeApply = safeApply;
     this.authDefered = $q.defer();
     this.authInitialized = false;
+    this.isSignedIn = false;
+    this._stateChangeBypass = false;
     gapiLoaded().then(() => {
       gapi.load('auth2', this.initSigninV2.bind(this));
     });
-    this.isSignedIn = false;
+    $rootScope.$on('$stateChangeStart', this.stateChange.bind(this));
+  }
+
+  stateChange(event, toState, toParams, fromState, fromParams, options) {
+    if (this._stateChangeBypass ||
+      (!toState.data || !toState.data.access || !toState.data.access.requiredLogin)) {
+      this._stateChangeBypass = false;
+      return;
+    }
+    event.preventDefault();
+
+    console.log('$stateChangeStart');
+
+    this.authInitialize().then(() => {
+      if (this.isLogged()) {
+        this._stateChangeBypass = true;
+        this.$state.go(toState, toParams);
+      } else {
+        this.$state.go('loginPage');
+      }
+    });
   }
 
   initSigninV2() {
@@ -33,6 +57,8 @@ export default class UserService {
         this._finalizeLogin();
       }
       this.attachSignin(document.querySelectorAll('.customGPlusSignIn'));
+    }, (reason) => {
+      this.authDefered.reject(reason);
     });
   }
 
