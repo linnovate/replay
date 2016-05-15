@@ -12,6 +12,7 @@ export default class UserService {
     this.authInitialized = false;
     this.isSignedIn = false;
     this._stateChangeBypass = false;
+    this._loginState = 'loginPage';
     gapiLoaded().then(() => {
       gapi.load('auth2', this.initSigninV2.bind(this));
     });
@@ -26,14 +27,12 @@ export default class UserService {
     }
     event.preventDefault();
 
-    console.log('$stateChangeStart');
-
     this.authInitialize().then(() => {
       if (this.isLogged()) {
         this._stateChangeBypass = true;
         this.$state.go(toState, toParams);
       } else {
-        this.$state.go('loginPage');
+        this.$state.go(this._loginState);
       }
     });
   }
@@ -47,8 +46,8 @@ export default class UserService {
       this.authInstance = auth;
       this.googleUser = auth.currentUser.get();
       this.authInitialized = true;
+      this.authInstance.isSignedIn.listen(this.signinChanged.bind(this));
 
-      console.log('auth just inited');
       this.authDefered.resolve(true);
       // call $apply is a MUST because we are outside of angular
       this.safeApply();
@@ -62,12 +61,19 @@ export default class UserService {
     });
   }
 
+  signinChanged(signedIn) {
+    var state = this.$state.current;
+
+    if (!signedIn && (state.data && state.data.access && state.data.access.requiredLogin)) {
+      this.$state.go('home');
+    }
+  }
+
   attachSignin(elements) {
     angular.forEach(elements, (element) => {
       this.authInstance.attachClickHandler(element, {}, (googleUser) => {
         this.googleUser = googleUser;
         this._finalizeLogin();
-        console.log('googleUser: ', googleUser);
       }, function (error) {
         console.error(error);
       });
