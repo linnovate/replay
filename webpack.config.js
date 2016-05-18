@@ -14,7 +14,8 @@ module.exports = {
   entry: {},
   module: {
     loaders: [
-       { test: /\.js$/, include: [/client/, /dashjs/], loader: 'ng-annotate!babel' },
+       { test: /\.js$/, include: /client/, loader: 'ng-annotate!babel' },
+       { test: /\.js$/, include: /dashjs/, loader: 'babel' },
        { test: /\.html$/, loader: 'raw' },
        { test: /\.styl$/, loader: 'style!css!stylus' },
        { test: /\.css$/, loader: 'style!css' },
