@@ -1,12 +1,10 @@
-import endPoint from '../config/endpoint';
-
 export default class commentService {
 
-  constructor($resource) {
+  constructor($resource, ENV) {
     "ngInject";
 
     this.$resource = $resource;
-    this.Comment = $resource(endPoint.base+'/comment/:id', { id: '@id' }, {
+    this.Comment = $resource(ENV.API_URL+'/comment/:id', { id: '@id' }, {
       'update': { method:'PUT' }
     });
     this.list = [];
