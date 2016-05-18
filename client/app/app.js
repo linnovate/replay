@@ -1,4 +1,5 @@
 import angular from 'angular';
+import env from './config';
 import ngResource from 'angular-resource';
 import uiRouter from 'angular-ui-router';
 import commentService from './service/comment.service';
@@ -16,6 +17,7 @@ angular.module('app', [
   uiRouter,
   ngResource,
   ngMaterial,
+  env.name,
   Common.name,
   Components.name
 ])

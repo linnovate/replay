@@ -1,13 +1,11 @@
-import endPoint from '../config/endpoint';
-
 export default class videoService {
 
-  constructor($resource) {
+  constructor($resource, ENV) {
     "ngInject";
 
     this.$resource = $resource;
-    this.Video = $resource(endPoint.base+'/video/:id', { id: '@id' });
-    this.Stream = $resource(endPoint.base+'/dash/mpd/:id', { id: '@id' });
+    this.Video = $resource(ENV.API_URL+'/video/:id', { id: '@id' });
+    this.Stream = $resource(ENV.API_URL+'/dash/mpd/:id', { id: '@id' });
     this.list = [];
   }
 

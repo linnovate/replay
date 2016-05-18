@@ -1,4 +1,3 @@
-import endPoint from '../config/endpoint';
 import _ from 'lodash';
 
 export default class playListService {

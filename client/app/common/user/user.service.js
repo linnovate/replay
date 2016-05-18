@@ -1,10 +1,9 @@
-import misc from '../../config/misc';
-
 export default class UserService {
 
-  constructor(gapiLoaded, safeApply, $q, $rootScope, $state) {
+  constructor(gapiLoaded, safeApply, $q, $rootScope, $state, ENV) {
     "ngInject";
 
+    this.ENV = ENV;
     this.$rootScope = $rootScope;
     this.$state = $state;
     this.safeApply = safeApply;
@@ -39,8 +38,8 @@ export default class UserService {
 
   initSigninV2() {
     gapi.auth2.init({
-      client_id: misc.google.client_id,
-      scope: misc.google.scope,
+      client_id: this.ENV.GOOGLE.CLIENT_ID,
+      scope: this.ENV.GOOGLE.SCOPE,
       fetch_basic_profile: true
     }).then((auth) => {
       this.authInstance = auth;
