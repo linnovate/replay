@@ -13,6 +13,7 @@
     "angular-route": "^1.5.0",
     "angular-ui-router": "^0.2.15",
     "angular-sanitize": "^1.5.0",
+    "dashjs": "orangr1989/LotusTeam",
     "leaflet": "^0.7.7",
     "lodash": "^4.11.1",
     "normalize.css": "^3.0.3"
@@ -65,14 +66,15 @@
     "test": "karma start"
   },
   "keywords": [
+    "replay",
     "angular",
     "webpack",
     "es6"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/angularclass/NG6-starter.git"
+    "url": "https://github.com/linnovate/replay"
   },
-  "author": "AngularClass",
+  "author": "Linnovate",
   "license": "Apache-2.0"
 }

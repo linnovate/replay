@@ -14,14 +14,14 @@ module.exports = {
   entry: {},
   module: {
     loaders: [
-       { test: /\.js$/, include: /client/, loader: 'ng-annotate!babel' },
+       { test: /\.js$/, include: [/client/, /dashjs/], loader: 'ng-annotate!babel' },
        { test: /\.html$/, loader: 'raw' },
        { test: /\.styl$/, loader: 'style!css!stylus' },
        { test: /\.css$/, loader: 'style!css' },
        { test: /\.(gif|png|jpg|jpeg|svg|eot|woff2|woff|ttf)$/,
         loader: debug ? 'file?name=assets/[path][name].[hash:6].[ext]' : 'file?name=assets/[hash].[ext]' },
        { test: /leaflet-src.js$/, loader: 'exports?L' },
-       { test: /dash.all.debug.js$/, loader: 'exports?dashjs' },
+       { test: /dash.all.debug.js$/, loader: 'exports?dashjs' }
     ]
   },
   resolve: {
@@ -30,7 +30,7 @@ module.exports = {
       path.join(__dirname, 'vendor')
     ],
     alias: {
-      'dashjs$': 'dashjs/dash.all.debug',
+      //'dashjs$': 'dashjs/dash.all.debug',
     }
   },
   externals: {
