@@ -2,7 +2,8 @@ import angular from 'angular';
 import env from './config';
 import ngResource from 'angular-resource';
 import uiRouter from 'angular-ui-router';
-import TokenInterceptor from './service/tokenInterceptor.service.js';
+import TokenInterceptor from './service/tokenInterceptor.service';
+import SessionRecoverer from './service/sessionRecoverer';
 import gapiLoaded from './service/gapiLoad.service';
 import videoService from './service/video.service';
 import playListService from './service/playList.service';
@@ -22,6 +23,7 @@ angular.module('app', [
   Components.name
 ])
   .factory({TokenInterceptor})
+  .factory({SessionRecoverer})
   .service({videoService})
   .service({playListService})
   .service({starService})
@@ -35,6 +37,7 @@ angular.module('app', [
       .primaryPalette('brown')
       .accentPalette('green');
 
+    $httpProvider.interceptors.push('SessionRecoverer');
     $httpProvider.interceptors.push('TokenInterceptor');
   })
   .component('app', AppComponent);
