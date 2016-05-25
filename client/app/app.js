@@ -2,7 +2,7 @@ import angular from 'angular';
 import env from './config';
 import ngResource from 'angular-resource';
 import uiRouter from 'angular-ui-router';
-import commentService from './service/comment.service';
+import TokenInterceptor from './service/tokenInterceptor.service.js';
 import gapiLoaded from './service/gapiLoad.service';
 import videoService from './service/video.service';
 import playListService from './service/playList.service';
@@ -21,12 +21,12 @@ angular.module('app', [
   Common.name,
   Components.name
 ])
+  .factory({TokenInterceptor})
   .service({videoService})
-  .service({commentService})
   .service({playListService})
   .service({starService})
   .factory({gapiLoaded})
-  .config(($locationProvider, $mdThemingProvider) => {
+  .config(($locationProvider, $mdThemingProvider, $httpProvider) => {
     "ngInject";
 
     $locationProvider.html5Mode(true).hashPrefix('!');
@@ -34,5 +34,7 @@ angular.module('app', [
     $mdThemingProvider.theme('forest')
       .primaryPalette('brown')
       .accentPalette('green');
+
+    $httpProvider.interceptors.push('TokenInterceptor');
   })
   .component('app', AppComponent);

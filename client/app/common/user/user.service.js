@@ -1,9 +1,10 @@
 export default class UserService {
 
-  constructor(gapiLoaded, safeApply, $q, $rootScope, $state, ENV) {
+  constructor(gapiLoaded, safeApply, ENV, $q, $rootScope, $state, $window) {
     "ngInject";
 
     this.ENV = ENV;
+    this.$window = $window;
     this.$rootScope = $rootScope;
     this.$state = $state;
     this.safeApply = safeApply;
@@ -63,6 +64,11 @@ export default class UserService {
   signinChanged(signedIn) {
     var state = this.$state.current;
 
+    // remove token when logout
+    if (!signedIn) {
+      delete this.$window.sessionStorage.id_token;
+    }
+
     if (!signedIn && (state.data && state.data.access && state.data.access.requiredLogin)) {
       this.$state.go('home');
     }
@@ -111,6 +117,7 @@ export default class UserService {
   }
 
   _finalizeLogin() {
+    this.$window.sessionStorage.id_token = this.getIdToken();
     this.isSignedIn = true;
     this.safeApply();
   }
