@@ -1,9 +1,8 @@
-class SearchController {
+class FilterResultController {
 
   constructor(VideoService) {
     "ngInject";
 
-    this.name = 'search';
     this.videoSrv = VideoService;
   }
 
@@ -17,9 +16,9 @@ class SearchController {
   }
 
   $onInit() {
-      this.videoSrv.query();
+    this.videoSrv.query();
   }
 
 }
 
-export default SearchController;
+export default FilterResultController;
