@@ -1,10 +1,10 @@
 class SearchController {
 
-  constructor(videoService) {
+  constructor(VideoService) {
     "ngInject";
 
     this.name = 'search';
-    this.videoSrv = videoService;
+    this.videoSrv = VideoService;
   }
 
   setActiveRow($event) {

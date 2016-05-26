@@ -1,13 +1,13 @@
 class VideoPanelController {
 
-  constructor(dashJS, playListService, starService, videoService) {
+  constructor(dashJS, playListService, starService, VideoService) {
     "ngInject";
 
     this.name = 'videoPanel';
     this.videoPlayer = dashJS;
     this.playList = playListService;
     this.star = starService;
-    this.videoSrv = videoService;
+    this.videoSrv = VideoService;
   }
 
   playVideo(videoId) {

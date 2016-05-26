@@ -1,4 +1,4 @@
-export default class videoService {
+export default class VideoService {
 
   constructor($resource, ENV) {
     "ngInject";

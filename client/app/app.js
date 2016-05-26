@@ -5,7 +5,7 @@ import uiRouter from 'angular-ui-router';
 import TokenInterceptor from './service/tokenInterceptor.service';
 import SessionRecoverer from './service/sessionRecoverer';
 import gapiLoaded from './service/gapiLoad.service';
-import videoService from './service/video.service';
+import VideoService from './service/video.service';
 import playListService from './service/playList.service';
 import starService from './service/star.service';
 import Common from './common/common';
@@ -24,7 +24,7 @@ angular.module('app', [
 ])
   .factory({TokenInterceptor})
   .factory({SessionRecoverer})
-  .service({videoService})
+  .service({VideoService})
   .service({playListService})
   .service({starService})
   .factory({gapiLoaded})
