@@ -1,9 +1,17 @@
-<div layout="row" layout-fill layout-xs="column" class="map-layout">
-  <md-content flex class="sidebar">
-    <search></search>
-  </md-content>
-  <div flex class="viewport">
-    <map></map>
-    <player></player>
+<div class="map-layout" layout="row" layout-fill>
+
+  <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+    <filter-form></filter-form>
+    <filter-result></filter-result>
+  </md-sidenav>
+
+  <div layout="column" flex="auto">
+    <navbar flex="none"></navbar>
+
+    <div class="viewport" flex="auto">
+      <map></map>
+      <player></player>
+    </div>
   </div>
+
 </div>

@@ -33,9 +33,16 @@ angular.module('app', [
 
     $locationProvider.html5Mode(true).hashPrefix('!');
 
-    $mdThemingProvider.theme('forest')
-      .primaryPalette('brown')
-      .accentPalette('green');
+    $mdThemingProvider.theme('default')
+      .primaryPalette('indigo', {
+        'default': '500',
+        //'hue-1': '300',
+        //'hue-2': '600',
+        //'hue-3': 'A100'
+      })
+      .accentPalette('pink', {
+        'default': '500'
+      });
 
     $httpProvider.interceptors.push('SessionRecoverer');
     $httpProvider.interceptors.push('TokenInterceptor');
