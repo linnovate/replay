@@ -1,10 +1,16 @@
 class NavbarController {
 
-  constructor() {
+  constructor($mdSidenav) {
     "ngInject";
 
-    this.name = 'navbar';
+    this.$mdSidenav = $mdSidenav;
   }
+
+
+  openMenu($mdOpenMenu, ev) {
+    $mdOpenMenu(ev);
+  }
+
 }
 
 export default NavbarController;

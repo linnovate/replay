@@ -1,7 +1,36 @@
-<nav class="navbar">
-  <ul class="nav-links">
-    <li><a ui-sref="home">Home</a></li>
-    <li><a ui-sref="map">Map</a></li>
-  </ul>
-  <div class="login-block"><user-login></user-login></div>
-</nav>
+<md-toolbar class="md-toolbar-slim">
+  <div class="md-toolbar-tools">
+    <md-menu>
+      <md-button class="md-icon-button"
+                 aria-label="Left panel"
+                 ng-click="vm.openMenu($mdOpenMenu, $event)">
+        <md-icon class="material-icons">menu</md-icon>
+      </md-button>
+
+      <md-menu-content width="4">
+
+        <md-menu-item>
+          <md-button>
+            <md-icon class="material-icon" ng-click="vm.toggleHeatmap()">add_location</md-icon>
+            Toggle HeatMap
+          </md-button>
+        </md-menu-item>
+
+        <md-menu-item>
+          <md-button>
+            <md-icon class="material-icon" ng-click="vm.togglePath()">timeline</md-icon>
+            Toggle Path
+          </md-button>
+        </md-menu-item>
+
+      </md-menu-content>
+
+    </md-menu>
+
+
+    <md-button ui-sref="home">Home</md-button>
+    <md-button ui-sref="map">Map</md-button>
+    <span flex></span>
+    <div class="login-block"><user-login></user-login></div>
+  </div>
+</md-toolbar>
