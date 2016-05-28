@@ -1,8 +1,9 @@
 class NavbarController {
 
-  constructor($mdSidenav) {
+  constructor($mdSidenav, MapService) {
     "ngInject";
 
+    this.map = MapService;
     this.$mdSidenav = $mdSidenav;
   }
 
