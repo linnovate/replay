@@ -7,7 +7,6 @@ let mapModule = angular.module('map', [
   uiRouter
 ])
   .service({MapService})
-
-.component('map', mapComponent);
+  .component('map', mapComponent);
 
 export default mapModule;

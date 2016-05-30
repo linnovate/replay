@@ -10,23 +10,26 @@
       <md-menu-content width="4">
 
         <md-menu-item>
-          <md-button ng-click="vm.map.toggleHeatmap()">
+          <md-button ng-click="vm.map.heat.drawToggle()">
             <md-icon class="material-icon">add_location</md-icon>
-            Toggle HeatMap
+            <span ng-if="!vm.map.heat.enabled">Start drawing HeatMap</span>
+            <span ng-if="vm.map.heat.enabled">Stop drawing HeatMap</span>
           </md-button>
         </md-menu-item>
 
         <md-menu-item>
-          <md-button ng-click="vm.map.togglePolygon()">
+          <md-button ng-click="vm.map.polygon.toggle()">
             <md-icon class="material-icon">timeline</md-icon>
-            Toggle Path
+            <span ng-if="!vm.map.polygon.enabled">Start polygon tool</span>
+            <span ng-if="vm.map.polygon.enabled">Stop polygon tool</span>
           </md-button>
         </md-menu-item>
 
         <md-menu-item>
-          <md-button ng-click="vm.map.toggleCircle('http://178.79.165.97:1935/vod/mp4:sample.mp4/manifest.mpd')">
+          <md-button ng-click="vm.map.circle.toggle()">
             <md-icon class="material-icon">data_usage</md-icon>
-            Toggle Circle
+            <span ng-if="!vm.map.circle.enabled">Start adding circles</span>
+            <span ng-if="vm.map.circle.enabled">Stop adding circles</span>
           </md-button>
         </md-menu-item>
 
