@@ -1,9 +1,15 @@
 class UserController {
+
   constructor(User) {
     "ngInject";
 
     this.user = User;
-    this.name = 'user';
+    this.attachedSignin = false;
+
+    this.user.authInitialize().then(() => {
+      var atObjs = document.querySelectorAll('.customGPlusSignIn');
+      this.user.attachSignin(atObjs);
+    });
   }
 }
 

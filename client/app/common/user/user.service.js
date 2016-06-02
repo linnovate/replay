@@ -25,6 +25,7 @@ export default class UserService {
       this._stateChangeBypass = false;
       return;
     }
+
     event.preventDefault();
 
     this.authInitialize().then(() => {
@@ -55,7 +56,6 @@ export default class UserService {
       if (this.isLogged()) {
         this._finalizeLogin();
       }
-      this.attachSignin(document.querySelectorAll('.customGPlusSignIn'));
     }, (reason) => {
       this.authDefered.reject(reason);
     });
@@ -76,12 +76,15 @@ export default class UserService {
 
   attachSignin(elements) {
     angular.forEach(elements, (element) => {
-      this.authInstance.attachClickHandler(element, {}, (googleUser) => {
-        this.googleUser = googleUser;
-        this._finalizeLogin();
-      }, function (error) {
-        console.error(error);
-      });
+      if (!element.classList.contains('signin-attached')) {
+        element.classList.add('signin-attached');
+        this.authInstance.attachClickHandler(element, {}, (googleUser) => {
+          this.googleUser = googleUser;
+          this._finalizeLogin();
+        }, function (error) {
+          console.error(error);
+        });
+      }
     });
   }
 
