@@ -1,0 +1,12 @@
+<div layout="row" layout-align="center center">
+  <label flex="25">{{vm.label}}</label>
+
+  <md-input-container flex="75">
+    <md-icon class="material-icon">{{vm.labelIcon}}</md-icon>
+    <md-select ng-change="vm.changed()" ng-model="vm.value" placeholder="{{vm.label}}">
+      <md-option ng-repeat="opt in vm.options" value="{{opt.value}}">
+        {{opt.name}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+</div>
