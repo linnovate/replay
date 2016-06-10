@@ -5,6 +5,7 @@ import MapLayout from './maplayout/maplayout';
 import Map from './map/map';
 import filterResult from './filterResult/filterResult';
 import filterForm from './filterForm/filterForm';
+import sidebar from './sidebar/sidebar';
 import VideoPanel from './videoPanel/videoPanel';
 import Player from './player/player';
 import userLoginPage from './userLoginPage/userLoginPage';
@@ -19,6 +20,7 @@ let componentModule = angular.module('app.components', [
   filterForm.name,
   VideoPanel.name,
   userLoginPage.name,
+  sidebar.name,
 ]);
 
 export default componentModule;
