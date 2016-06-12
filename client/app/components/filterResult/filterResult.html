@@ -1,4 +1,4 @@
-<div class="search-results">
+<div class="video-results">
   <md-toolbar class="md-hue-3 md-toolbar-slim">
     <h2 class="md-toolbar-tools">Query Results ({{vm.videoSrv.list.length}})</h2>
   </md-toolbar>
@@ -19,7 +19,10 @@
     </thead>
 
     <tbody>
-    <tr data-ng-repeat="video in vm.videoSrv.list" ng-click="vm.setActiveRow($event)">
+    <tr
+      data-ng-repeat="video in vm.videoSrv.list"
+      ng-click="vm.setActiveRow($event)"
+      ng-class="{ 'playing-video': video.id == vm.videoSrv.currentVideoId }">
       <td>13/12/16 13:02:14</td>
       <td>{{video.name}}</td>
       <td>- 00:12, "Protest start" - 04:12 "Police activity"</td>

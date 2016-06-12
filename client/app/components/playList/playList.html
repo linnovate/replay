@@ -1,0 +1,58 @@
+<div class="video-results">
+  <md-toolbar class="md-hue-3 md-toolbar-slim">
+
+    <div class="md-toolbar-tools">
+      <h2>List items ({{vm.playList.count()}})</h2>
+      <span flex></span>
+
+
+      <md-button class="md-icon-button"
+                 aria-label="Playlist play"
+                 flex="none"
+                 ng-click=""
+                 ng-disabled="!vm.playList.count()">
+        <md-icon class="material-icons">playlist_play</md-icon>
+      </md-button>
+
+    </div>
+
+  </md-toolbar>
+
+  <table ng-if="vm.playList.count()">
+    <thead>
+    <tr>
+      <td>Date</td>
+      <td>Title</td>
+      <td>Bookmarks</td>
+      <td>Tags</td>
+      <td>Sensor ID</td>
+      <td>Source</td>
+      <td>Length</td>
+      <td>Views</td>
+      <td></td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr data-ng-repeat="video in vm.playList.list"
+        ng-click="vm.setActiveRow($event)"
+        ng-class="{ 'playing-video': video.id == vm.videoSrv.currentVideoId }">
+      <td>13/12/16 13:02:14</td>
+      <td>{{video.name}}</td>
+      <td>- 00:12, "Protest start" - 04:12 "Police activity"</td>
+      <td>Protest, Journalism</td>
+      <td>1231QC</td>
+      <td>Quadcopter</td>
+      <td>00:34:16</td>
+      <td>12</td>
+      <td class="td-video-panel">
+        <video-panel data-video="video" favourite="false"></video-panel>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <md-subheader class="md-primary" ng-if="!vm.playList.count()">
+    No playlist items added yet
+  </md-subheader>
+</div>

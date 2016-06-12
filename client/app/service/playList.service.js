@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export default class playListService {
+export default class PlayListService {
 
   constructor() {
     this.list = {};
@@ -16,5 +16,9 @@ export default class playListService {
 
   isAdded(video) {
     return !_.isUndefined(this.list[video.id]);
+  }
+
+  count() {
+    return _.size(this.list);
   }
 }

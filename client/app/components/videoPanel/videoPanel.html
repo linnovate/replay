@@ -1,6 +1,6 @@
 <ul class="video-panel">
   <li class="panel-item-play">
-    <a title="Play video" href="" ng-click="vm.playVideo(vm.video.id)">
+    <a title="Play video" href="" ng-click="vm.videoSrv.playVideo(vm.video.id)">
       <md-icon class="material-icons md-10">play_arrow</md-icon>
     </a>
   </li>
@@ -14,7 +14,7 @@
     </a>
   </li>
 
-  <li class="panel-item-star" ng-switch="vm.star.isAdded(vm.video)">
+  <li ng-if="vm.favourite != 'false'" class="panel-item-star" ng-switch="vm.star.isAdded(vm.video)">
     <a ng-switch-when="false" title="Add to favourite" href="" ng-click="vm.star.add(vm.video)">
       <md-icon class="material-icons md-10">star_border</md-icon>
     </a>

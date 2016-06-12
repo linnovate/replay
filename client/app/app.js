@@ -6,7 +6,7 @@ import TokenInterceptor from './service/tokenInterceptor.service';
 import SessionRecoverer from './service/sessionRecoverer';
 import gapiLoaded from './service/gapiLoad.service';
 import VideoService from './service/video.service';
-import playListService from './service/playList.service';
+import PlayListService from './service/playList.service';
 import starService from './service/star.service';
 import Common from './common/common';
 import Components from './components/components';
@@ -25,7 +25,7 @@ angular.module('app', [
   .factory({TokenInterceptor})
   .factory({SessionRecoverer})
   .service({VideoService})
-  .service({playListService})
+  .service({PlayListService})
   .service({starService})
   .factory({gapiLoaded})
   .config(($locationProvider, $mdThemingProvider, $httpProvider) => {
