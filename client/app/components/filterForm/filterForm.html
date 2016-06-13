@@ -45,17 +45,12 @@
     <form name="filterForm">
       <div ng-repeat="(controlType, actFilter) in vm.filterFormSrv.activeFilters"
            class="filter-item" layout="row" layout-align="center center">
-        <md-button class="md-icon-button md-primary md-hue-1 ml0"
-                   aria-label="Remove filter"
-                   flex="none"
-                   ng-click="vm.filterFormSrv.removeFilter(controlType)">
-          <md-icon class="material-icons">remove_circle_outline</md-icon>
-        </md-button>
         <filter-selectbox flex
                           label="{{actFilter.label}}"
                           label-icon="{{actFilter.menuIcon}}"
                           control-type="{{controlType}}"
-                          on-change="vm.onChange(controlType, value)"></filter-selectbox>
+                          on-change="vm.onChange(controlType, value)"
+                          on-remove="vm.filterFormSrv.removeFilter(controlType)"></filter-selectbox>
       </div>
 
       <div layout="row" layout-align="center center">

@@ -18,6 +18,12 @@ class FilterSelectboxController {
     });
   }
 
+  removeFilter(controlType) {
+    this.onRemove({
+      controlType:  controlType
+    });
+  }
+
 }
 
 export default FilterSelectboxController;

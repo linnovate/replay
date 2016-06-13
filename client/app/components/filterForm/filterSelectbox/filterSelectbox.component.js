@@ -8,7 +8,8 @@ let filterSelectboxComponent = {
     controlType: '@',
     label: '@',
     labelIcon: '@',
-    onChange: '&'
+    onChange: '&',
+    onRemove: '&'
   },
   template,
   controller,
