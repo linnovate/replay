@@ -4,7 +4,17 @@ import './filterNumInterval.styl';
 
 let filterNumIntervalComponent = {
   restrict: 'E',
-  bindings: {},
+  bindings: {
+    controlType: '@',
+    label: '@',
+    labelIcon: '@',
+    labelMin: '@',
+    labelMax: '@',
+    valueMin: '@',
+    valueMax: '@',
+    onChange: '&',
+    onRemove: '&'
+  },
   template,
   controller,
   controllerAs: 'vm'

@@ -44,13 +44,30 @@
   <div class="filter-form-content">
     <form name="filterForm">
       <div ng-repeat="(controlType, actFilter) in vm.filterFormSrv.activeFilters"
-           class="filter-item" layout="row" layout-align="center center">
-        <filter-selectbox flex
+           ng-switch="controlType"
+           class="filter-item"
+           layout="row"
+           layout-align="center center">
+        <filter-selectbox ng-switch-default
+                          flex
                           label="{{actFilter.label}}"
                           label-icon="{{actFilter.menuIcon}}"
                           control-type="{{controlType}}"
                           on-change="vm.onChange(controlType, value)"
                           on-remove="vm.filterFormSrv.removeFilter(controlType)"></filter-selectbox>
+
+        <filter-num-interval
+                          ng-switch-when="length"
+                          flex
+                          label="{{actFilter.label}}"
+                          label-icon="{{actFilter.menuIcon}}"
+                          label-min="Min"
+                          label-max="Max"
+                          control-type="{{controlType}}"
+                          value-min="10"
+                          value-max="40"
+                          on-change="vm.onChange(controlType, value)"
+                          on-remove="vm.filterFormSrv.removeFilter(controlType)"></filter-num-interval>
       </div>
 
       <div layout="row" layout-align="center center">

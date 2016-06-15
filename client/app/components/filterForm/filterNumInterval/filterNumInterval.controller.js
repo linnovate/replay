@@ -1,6 +1,7 @@
 class FilterNumIntervalController {
+
   constructor() {
-    this.name = 'filterNumInterval';
+
   }
 }
 
