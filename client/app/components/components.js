@@ -1,6 +1,5 @@
 import angular from 'angular';
 import Home from './home/home';
-import Feature1 from './feature1/feature1';
 import MapLayout from './maplayout/maplayout';
 import Map from './map/map';
 import filterResult from './filterResult/filterResult';
@@ -13,7 +12,6 @@ import playList from './playList/playList';
 
 let componentModule = angular.module('app.components', [
   Home.name,
-  Feature1.name,
   Player.name,
   MapLayout.name,
   Map.name,
