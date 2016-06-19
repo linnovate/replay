@@ -16,7 +16,8 @@
     "leaflet": "^0.7.7",
     "leaflet.heat": "^0.2.0",
     "lodash": "^4.11.1",
-    "normalize.css": "^3.0.3"
+    "normalize.css": "^3.0.3",
+    "satellizer": "^0.14.1"
   },
   "devDependencies": {
     "angular-mocks": "^1.5.0",

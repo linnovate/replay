@@ -1,11 +1,19 @@
-<div class="gSignInWrapper">
-  <div ng-show="!vm.user.isSignedIn" class="customGPlusSignIn customGglBtn">
-    <span class="icon"></span>
-    <span class="buttonText">Google Sign-In</span>
+<div layout="row">
+  <div flex="none">
+    <md-button ng-if="!vm.auth.isAuthenticated()" class="md-accent" ng-click="vm.auth.authenticate('google')">Sign In</md-button>
+    <md-button ng-if="vm.auth.isAuthenticated()" class="md-accent" ng-click="vm.auth.logout()">Logout</md-button>
   </div>
 
-  <div ng-show="vm.user.isSignedIn">
-    <span class="logged-name">{{vm.user.getName()}}</span>
-    <a href="" ng-click="vm.user.logout()" id="logout">logout</a>
-  </div>
+  <!--<div flex="none" class="gSignInWrapper">
+    <div ng-show="!vm.user.isSignedIn" class="customGPlusSignIn customGglBtn">
+      <span class="icon"></span>
+      <span class="buttonText">Google Sign-In</span>
+    </div>
+
+    <div ng-show="vm.user.isSignedIn">
+      <span class="logged-name">{{vm.user.getName()}}</span>
+      <a href="" ng-click="vm.user.logout()" id="logout">logout</a>
+    </div>
+  </div>-->
 </div>
+
