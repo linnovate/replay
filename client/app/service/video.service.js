@@ -10,6 +10,8 @@ export default class VideoService {
     this.searchVideo = $resource(ENV.API_URL+'/video/search-by-dist');
     this.list = [];
     this.currentVideoId = '';
+    this.$resource = $resource;
+    this.ENV = ENV;
   }
 
   query(filter = {}) {
@@ -33,5 +35,9 @@ export default class VideoService {
     this.searchVideo.query().$promise.then(result => {
       console.log('searchByDist result: ', result);
     });
+  }
+
+  getMovieLocations() {
+    return this.$resource(this.ENV.API_URL+'/video/get-movie-locations').query().$promise;
   }
 }

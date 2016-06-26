@@ -1,7 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import mapComponent from './map.component';
-import MapService from './map.service';
+import MapService from './services/map.service';
 
 let mapModule = angular.module('map', [
   uiRouter

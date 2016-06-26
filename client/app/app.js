@@ -52,8 +52,7 @@ angular.module('app', [
     $authProvider.google({
       clientId: ENV.GOOGLE.CLIENT_ID,
       //scope: ['email'],
-      url: 'http://server.me:1337/auth/google',
-      redirectUri: 'http://server.me:3000'
+      url: ENV.API_HOST+'/auth/google'
     });
   })
   .component('app', AppComponent);
