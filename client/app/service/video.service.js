@@ -8,6 +8,7 @@ export default class VideoService {
     this.Video = $resource(ENV.API_URL+'/video/:id', { id: '@id' });
     this.Stream = $resource(ENV.API_URL+'/dash/mpd/:id', { id: '@id' });
     this.searchVideo = $resource(ENV.API_URL+'/video/search-by-dist');
+    this.rSearchByPolygon = $resource(ENV.API_URL+'/video/search-by-polygon');
     this.list = [];
     this.currentVideoId = '';
     this.$resource = $resource;
@@ -37,7 +38,16 @@ export default class VideoService {
     });
   }
 
+  searchByPolygon(polygon) {
+    console.log('polygon', polygon);
+    return this.rSearchByPolygon.query({polygon: polygon}).$promise;
+  }
+
   getMovieLocations() {
     return this.$resource(this.ENV.API_URL+'/video/get-movie-locations').query().$promise;
+  }
+
+  setStreamSamples() {
+    return this.$resource(this.ENV.API_URL+'/video/set-stream-samples').get().$promise;
   }
 }

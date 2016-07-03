@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 export default class PolygonMapService {
 
   constructor(map, $mdDialog) {
@@ -5,6 +7,7 @@ export default class PolygonMapService {
     this.$mdDialog = $mdDialog;
     this.enabled = false;
     this.points = [];
+    this.markers = [];
     this.polygon = null;
   }
 
@@ -34,9 +37,18 @@ export default class PolygonMapService {
   buildPolygon(e) {
 
     if (e.originalEvent.altKey) {
+      if (!this.points.length && this.polygon) {
+        this.map.removeLayer(this.polygon);
+        _.each(this.markers, (marker) => {
+          this.map.removeLayer(marker);
+        });
+        delete this.polygon;
+        this.markers = [];
+      }
+
       this.points.push(e.latlng);
 
-      L.marker(e.latlng, {
+      this.markers.push(L.marker(e.latlng, {
         icon:  L.icon({
           iconUrl: require('../assets/icon_dron.png'),
           //iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
@@ -48,7 +60,7 @@ export default class PolygonMapService {
           //shadowSize: [68, 95],
           //shadowAnchor: [22, 94]
         })
-      }).addTo(this.map);
+      }).addTo(this.map));
     } else if (this.points.length > 2) {
       this.polygon = L.polygon(this.points);
       this.polygon.addTo(this.map);

@@ -1,6 +1,3 @@
-import L from 'leaflet/dist/leaflet-src';
-import        'leaflet/dist/leaflet.css';
-
 class MapController {
 
   constructor($timeout, MapService) {

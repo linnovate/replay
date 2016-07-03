@@ -21,9 +21,9 @@ module.exports = {
        { test: /\.css$/, loader: 'style!css' },
        { test: /\.(gif|png|jpg|jpeg|svg|eot|woff2|woff|ttf)$/,
         loader: debug ? 'file?name=assets/[path][name].[hash:6].[ext]' : 'file?name=assets/[hash].[ext]' },
-       { test: /leaflet-src.js$/, loader: 'exports?L' },
+       { test: /leaflet.label-src.js$/, loader: 'imports?this=>window' },
        { test: /dash.all.debug.js$/, loader: 'exports?dashjs' },
-       { test: /ControlBar.js$/, loader: 'exports?ControlBar' }
+      { test: /ControlBar.js$/, loader: 'exports?ControlBar' }
     ]
   },
   resolve: {
@@ -32,11 +32,14 @@ module.exports = {
       path.join(__dirname, 'vendor')
     ],
     alias: {
-      //'dashjs$': 'dashjs/dash.all.debug.js',
+      'leaflet$':     'leaflet/dist/leaflet-src.js',
+      'leaflet-css$': 'leaflet/dist/leaflet.css',
+
+      'leaflet-label$': 'leaflet-label/dist/leaflet.label-src.js',
+      'leaflet-label-css$': 'leaflet-label/dist/leaflet.label.css'
     }
   },
   externals: {
-    gapi: 'gapi'
   },
   plugins: [
     // Injects bundles in your index.html instead of wiring all manually.

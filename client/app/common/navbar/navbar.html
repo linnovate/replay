@@ -8,6 +8,27 @@
       </md-button>
 
       <md-menu-content width="4">
+        <md-menu-item>
+          <md-button ng-click="vm.map.polygon.toggle()">
+            <md-icon class="material-icon">timeline</md-icon>
+            <span ng-if="!vm.map.polygon.enabled">Start polygon tool</span>
+            <span ng-if="vm.map.polygon.enabled">Stop polygon tool</span>
+          </md-button>
+        </md-menu-item>
+
+        <md-menu-item>
+          <md-button ng-click="vm.map.searchByPolygon()">
+            <md-icon class="material-icon">terrain</md-icon>
+            <span>Search by Polygon</span>
+          </md-button>
+        </md-menu-item>
+
+        <md-menu-item>
+          <md-button ng-click="vm.map.setStreamSamples()">
+            <md-icon class="material-icon">view_stream</md-icon>
+            <span>Set stream samples</span>
+          </md-button>
+        </md-menu-item>
 
         <md-menu-item>
           <md-button ng-click="vm.map.heat.drawToggle()">
@@ -18,32 +39,10 @@
         </md-menu-item>
 
         <md-menu-item>
-          <md-button ng-click="vm.map.polygon.toggle()">
-            <md-icon class="material-icon">timeline</md-icon>
-            <span ng-if="!vm.map.polygon.enabled">Start polygon tool</span>
-            <span ng-if="vm.map.polygon.enabled">Stop polygon tool</span>
-          </md-button>
-        </md-menu-item>
-
-        <md-menu-item>
           <md-button ng-click="vm.map.circle.toggle()">
             <md-icon class="material-icon">data_usage</md-icon>
             <span ng-if="!vm.map.circle.enabled">Start adding circles</span>
             <span ng-if="vm.map.circle.enabled">Stop adding circles</span>
-          </md-button>
-        </md-menu-item>
-
-        <md-menu-item>
-          <md-button ng-click="vm.videoSrv.searchByDist()">
-            <md-icon class="material-icon">near_me</md-icon>
-            <span>Test search by dist</span>
-          </md-button>
-        </md-menu-item>
-
-        <md-menu-item>
-          <md-button ng-click="vm.map.addMoviePoints()">
-            <md-icon class="material-icon">local_movies</md-icon>
-            <span>Add movie locations</span>
           </md-button>
         </md-menu-item>
 
