@@ -50,4 +50,17 @@ export default class VideoService {
   setStreamSamples() {
     return this.$resource(this.ENV.API_URL+'/video/set-stream-samples').get().$promise;
   }
+
+  getVideoMetadata(videoId) {
+    return this.$resource(this.ENV.API_VIDEO_URI+'/videometadata').query({
+      videoId: videoId
+    }).$promise;
+  }
+
+  getVideo(points, shapeType = 'polygon') {
+    return this.$resource(this.ENV.API_VIDEO_URI+'/video').query({
+      boundingShapeType: shapeType,
+      boundingShapeCoordinates: JSON.stringify(points)
+    }).$promise;
+  }
 }

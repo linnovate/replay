@@ -10,7 +10,8 @@ export default class MapService {
     "ngInject";
 
     this.mapId = 'map-main';
-    this.startPoint = [32.0808800, 34.7805700];
+    //this.startPoint = [32.0808800, 34.7805700]; // Tel-aviv
+    this.startPoint = [35.527510, 27.105208];
     this.zoom = 13;
     this.$mdDialog = $mdDialog;
     this.videoSrv = VideoService;
@@ -30,13 +31,14 @@ export default class MapService {
     this.circle = new MapCircle(this.map, this.$mdDialog);
     this.polygon = new PolygonMapService(this.map, this.$mdDialog);
 
-    this.addMoviePoints();
+    //this.addMoviePoints();
+    this.addSearchPoints();
   }
 
 
   addMoviePoints() {
     var map = this.map,
-        points = [];
+      points = [];
 
     this.videoSrv.getMovieLocations().then((result) => {
       _.each(result, function (item) {
@@ -85,6 +87,60 @@ export default class MapService {
         .ariaLabel('Alert Dialog Demo')
         .ok(btnCaption)
     );
+  }
+
+  addSearchPoints() {
+    var points = [
+      [35.527510, 27.105208],
+      [35.524920, 27.106178],
+      [35.525464, 27.109094],
+      [35.527510, 27.10520]
+    ];
+    L.polygon(points, {
+      color: 'red',
+      weight: 2,
+    }).bindLabel('Search area').addTo(this.map);
+  }
+
+
+  searchVideo() {
+    var map = this.map,
+      searchPoints = [];
+
+    /*if (!this.polygon.polygon) {
+     this.showAlert('Use polygon tool to define search area');
+     return;
+     }
+
+     _.each(this.polygon.polygon.getLatLngs(), function (item) {
+       searchPoints.push([item.lat, item.lng]);
+     });*/
+
+    searchPoints = [[
+      [35.527510, 27.105208],
+      [35.524920, 27.106178],
+      [35.525464, 27.109094],
+      [35.527510, 27.105208]
+    ]];
+
+    this.videoSrv.getVideo(searchPoints).then((result) => {
+      _.each(result, (item) => {
+        this.videoSrv.getVideoMetadata(item._id).then((meta) => {
+          _.each(meta, (metaItem) => {
+            switch (metaItem.sensorTrace.type) {
+              case 'polygon':
+                L.polygon(metaItem.sensorTrace.coordinates, {
+                  stroke: false,
+                  fillColor: '#08780e',
+                  fillOpacity: 0.5
+                }).bindLabel(item.name).addTo(map);
+                break;
+            }
+          });
+        });
+
+      });
+    });
   }
 
 }
