@@ -24,12 +24,10 @@ export default class VideoService {
     return this.Stream.get({id: videoId}).$promise;
   }
 
-  playVideo(videoId) {
-    this.currentVideoId = videoId;
-    var stream = this.getStream(videoId).then((result) => {
-      this.videoPlayer.init(result.url, true);
-      this.videoPlayer.setVisible(true);
-    });
+  playVideo(videoUri) {
+    this.currentVideoId = videoUri;
+    this.videoPlayer.init(videoUri, true);
+    this.videoPlayer.setVisible(true);
   }
 
   searchByDist() {
