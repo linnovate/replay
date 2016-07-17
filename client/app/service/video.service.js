@@ -6,7 +6,7 @@ export default class VideoService {
     this.$resource = $resource;
     this.videoPlayer = dashJS;
     this.Video = $resource(ENV.API_URL+'/video/:id', { id: '@id' });
-    this.Stream = $resource(ENV.API_URL+'/dash/mpd/:id', { id: '@id' });
+    this.Stream = $resource(ENV.API_URL+'/media/:id', { id: '@id' });
     this.searchVideo = $resource(ENV.API_URL+'/video/search-by-dist');
     this.rSearchByPolygon = $resource(ENV.API_URL+'/video/search-by-polygon');
     this.list = [];
@@ -24,10 +24,14 @@ export default class VideoService {
     return this.Stream.get({id: videoId}).$promise;
   }
 
-  playVideo(videoUri) {
-    this.currentVideoId = videoUri;
-    this.videoPlayer.init(videoUri, true);
-    this.videoPlayer.setVisible(true);
+  playVideo(videoId) {
+    this.currentVideoId = videoId;
+    this.getStream(videoId).then((res) => {
+      console.log('playVideo', JSON.stringify(res, null, 4));
+      this.videoPlayer.init(res.url, true);
+      this.videoPlayer.setVisible(true);
+    });
+
   }
 
   searchByDist() {
