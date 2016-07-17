@@ -52,13 +52,13 @@ export default class VideoService {
   }
 
   getVideoMetadata(videoId) {
-    return this.$resource(this.ENV.API_VIDEO_URI+'/videometadata').query({
+    return this.$resource(this.ENV.API_URL+'/videometadata').query({
       videoId: videoId
     }).$promise;
   }
 
   getVideo(points, shapeType = 'polygon') {
-    return this.$resource(this.ENV.API_VIDEO_URI+'/video').query({
+    return this.$resource(this.ENV.API_URL+'/video').query({
       boundingShapeType: shapeType,
       boundingShapeCoordinates: JSON.stringify(points)
     }).$promise;
