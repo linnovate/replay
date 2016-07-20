@@ -10,9 +10,9 @@ export default class MapService {
     "ngInject";
 
     this.mapId = 'map-main';
-    //this.startPoint = [32.0808800, 34.7805700]; // Tel-aviv
-    this.startPoint = [35.527510, 27.105208];
-    this.zoom = 13;
+    // this.startPoint = [32.0808800, 34.7805700]; // Tel-aviv
+    this.startPoint = [27.105208, 35.527510];
+    this.zoom = 15;
     this.$mdDialog = $mdDialog;
     this.videoSrv = VideoService;
   }
@@ -91,10 +91,10 @@ export default class MapService {
 
   addSearchPoints() {
     var points = [
-      [35.527510, 27.105208],
-      [35.524920, 27.106178],
-      [35.525464, 27.109094],
-      [35.527510, 27.10520]
+      [27.105208, 35.527510],
+      [27.106178, 35.524920],
+      [27.109094, 35.525464],
+      [27.105208, 35.527510]
     ];
     L.polygon(points, {
       color: 'red',
@@ -102,40 +102,31 @@ export default class MapService {
     }).bindLabel('Search area').addTo(this.map);
   }
 
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   searchVideo() {
     var map = this.map,
       searchPoints = [];
 
-    /*if (!this.polygon.polygon) {
-     this.showAlert('Use polygon tool to define search area');
-     return;
-     }
+    if (!this.polygon.polygon) {
+      this.showAlert('Use polygon tool to define search area');
+      return;
+    }
 
-     _.each(this.polygon.polygon.getLatLngs(), function (item) {
-       searchPoints.push([item.lat, item.lng]);
-     });*/
-
-    searchPoints = [[
-      [35.527510, 27.105208],
-      [35.524920, 27.106178],
-      [35.525464, 27.109094],
-      [35.527510, 27.105208]
-    ]];
+    searchPoints = this.polygon.polygon.toGeoJSON().geometry.coordinates;
 
     this.videoSrv.getVideo(searchPoints).then((result) => {
       _.each(result, (item) => {
         this.videoSrv.getVideoMetadata(item._id).then((meta) => {
           _.each(meta, (metaItem) => {
-            switch (metaItem.sensorTrace.type) {
-              case 'polygon':
-                L.polygon(metaItem.sensorTrace.coordinates, {
-                  stroke: false,
-                  fillColor: '#08780e',
-                  fillOpacity: 0.5
-                }).bindLabel(item.name).addTo(map);
-                break;
-            }
+            metaItem.sensorTrace.type = this.capitalizeFirstLetter(metaItem.sensorTrace.type);
+            L.geoJson(metaItem.sensorTrace, {
+              stroke: false,
+              fillColor: '#08780e',
+              fillOpacity: 0.5
+            }).addTo(map);
           });
         });
 
