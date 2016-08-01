@@ -27,25 +27,29 @@ export default class FilterFormService {
       location: {
         label: 'Location',
         menuIcon: 'my_location'
+      },
+      shapeType: {
+        label: 'Shape type',
+        menuIcon: 'my_location'
       }
     };
     // at the beginning we have all available filters to select
     this.availableFilters = _.clone(this.filterList);
   }
 
-  addFilter(controlType) {
-    if (!_.isEmpty(this.activeFilters[controlType])) return;
+  addFilter(controlName) {
+    if (!_.isEmpty(this.activeFilters[controlName])) return;
 
-    this.activeFilters[controlType] = this.filterList[controlType];
-    delete this.availableFilters[controlType];
+    this.activeFilters[controlName] = this.filterList[controlName];
+    delete this.availableFilters[controlName];
   }
 
-  removeFilter(controlType) {
-    if (_.isEmpty(this.activeFilters[controlType])) return;
+  removeFilter(controlName) {
+    if (_.isEmpty(this.activeFilters[controlName])) return;
 
-    delete  this.activeFilters[controlType];
-    delete  this.values[controlType];
-    this.availableFilters[controlType] = this.filterList[controlType];
+    delete  this.activeFilters[controlName];
+    delete  this.values[controlName];
+    this.availableFilters[controlName] = this.filterList[controlName];
   }
 
   isEmptyActiveFilters() {

@@ -1,4 +1,4 @@
-export default function saveApplyService ($rootScope) {
+export default function safeApplyService ($rootScope) {
   "ngInject";
 
   return function (fn) {
