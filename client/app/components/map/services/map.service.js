@@ -77,18 +77,18 @@ export default class MapService {
     this._captureGroup.clearLayers();
 
     this.videoSrv.getVideo(this.drawSearchSrv.getFrame().geometry).then((result) => {
+      this.videoSrv.list = result;
       _.each(result, (vItem) => {
+        console.log('getVideo', JSON.stringify(vItem, null, 4));
         this.videoSrv.getVideoMetadata(vItem._id).then((meta) => {
           var featureCollection = this.convertToFeatures(meta, {'video': vItem});
           // console.log('featureCollection', JSON.stringify(featureCollection, null, 4));
-
           this.geojson = L.geoJson(featureCollection, {
             style: this.style.bind(this),
             onEachFeature: this.onEachFeature.bind(this)
           }).addTo(this._captureGroup);
         });
       });
-      // this._captureGroup.addLayer(geoLayer);
     });
   }
 
@@ -168,7 +168,7 @@ export default class MapService {
     return collection;
   }
 
-  addSearchPoints() {
+  _addSearchPoints() {
     var points = [
       [27.105208, 35.527510],
       [27.106178, 35.524920],
