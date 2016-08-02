@@ -56,6 +56,14 @@
                           on-change="vm.onChange(controlType, value)"
                           on-remove="vm.filterFormSrv.removeFilter(controlType)"></filter-selectbox>
 
+        <filter-graphic-button ng-switch-when="shapeType"
+                          flex
+                          label="{{actFilter.label}}"
+                          label-icon="{{actFilter.menuIcon}}"
+                          control-type="{{controlType}}"
+                          on-change="vm.onChange(controlType, value)"
+                          on-remove="vm.filterFormSrv.removeFilter(controlType)"></filter-graphic-button>
+
         <filter-num-interval
                           ng-switch-when="length"
                           flex
@@ -72,7 +80,7 @@
 
       <div layout="row" layout-align="center center">
         <span flex></span>
-        <md-button ng-click="vm.showResults()" flex="none" ng-hide="vm.filterFormSrv.isEmptyActiveFilters()" class="md-primary md-raised">Search</md-button>
+        <md-button ng-disabled="!vm.searchable()" ng-click="vm.search()" flex="none" ng-hide="vm.filterFormSrv.isEmptyActiveFilters()" class="md-primary md-raised">Search</md-button>
       </div>
     </form>
 

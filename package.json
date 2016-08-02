@@ -18,6 +18,7 @@
     "leaflet-label": "^0.2.1-0",
     "leaflet.heat": "^0.2.0",
     "lodash": "^4.11.1",
+    "moment": "^2.14.1",
     "normalize.css": "^3.0.3",
     "satellizer": "^0.14.1"
   },

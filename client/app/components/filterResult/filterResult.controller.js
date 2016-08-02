@@ -1,9 +1,12 @@
+import moment from 'moment';
+
 class FilterResultController {
 
   constructor(VideoService) {
     "ngInject";
 
     this.videoSrv = VideoService;
+    this.moment = moment;
   }
 
   setActiveRow($event) {
@@ -13,10 +16,6 @@ class FilterResultController {
       tr.addClass('active');
     }
 
-  }
-
-  $onInit() {
-    this.videoSrv.query();
   }
 
 }

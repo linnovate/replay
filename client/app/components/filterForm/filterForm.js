@@ -1,14 +1,14 @@
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
 import filterFormComponent from './filterForm.component';
 import filterSelectbox from './filterSelectbox/filterSelectbox';
 import filterNumInterval from './filterNumInterval/filterNumInterval';
+import filterGraphicButton from './filterGraphicButton/filterGraphicButton';
 import FilterFormService from './filterForm.service';
 
 let filterFormModule = angular.module('filterForm', [
-  uiRouter,
   filterSelectbox.name,
-  filterNumInterval.name
+  filterNumInterval.name,
+  filterGraphicButton.name
 ])
   .service({FilterFormService})
   .component('filterForm', filterFormComponent);
