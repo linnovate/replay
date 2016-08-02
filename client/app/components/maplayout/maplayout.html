@@ -1,11 +1,36 @@
-<navbar></navbar>
+<div class="map-layout" layout="row" layout-fill>
 
-<div class="map-layout">
-  <div class="sidebar">
+  <md-sidenav layout="column" layout-fill
+              class="md-sidenav-left md-whiteframe-z2"
+              md-component-id="left"
+              md-is-locked-open="$mdMedia('gt-sm')">
+    <md-content flex>
+      <md-tabs md-dynamic-height md-border-bottom class="md-primary md-hue-1">
+        <md-tab label="search">
+          <md-content class="">
+            <filter-form flex="none"></filter-form>
+            <filter-result flex="none"></filter-result>
+          </md-content>
+        </md-tab>
+        <md-tab label="playlist">
+          <md-content class="">
+            <play-list></play-list>
+          </md-content>
+        </md-tab>
+      </md-tabs>
+    </md-content>
+
+
+  </md-sidenav>
+
+
+  <div layout="column" flex="auto">
+    <navbar flex="none"></navbar>
+
+    <div class="viewport" flex="auto">
+      <map></map>
+      <player></player>
+    </div>
   </div>
 
-  <div class="viewport">
-    <player></player>
-    <map></map>
-  </div>
 </div>

@@ -1,0 +1,28 @@
+<div class="video-results">
+  <md-toolbar class="md-hue-3 md-toolbar-slim">
+    <h2 class="md-toolbar-tools">Query Results ({{vm.videoSrv.list.length}})</h2>
+  </md-toolbar>
+
+  <table>
+    <thead>
+    <tr>
+      <td>Title</td>
+      <td>Source</td>
+      <td>Length</td>
+      <td></td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr
+      data-ng-repeat="video in vm.videoSrv.list"
+      ng-click="vm.setActiveRow($event)"
+      ng-class="{ 'playing-video': video.id == vm.videoSrv.currentVideoId }">
+      <td>{{video.name}}</td>
+      <td>{{video.sourceId}}</td>
+      <td>{{vm.moment.utc(video.providerData.msDuration).format("HH:mm:ss")}}</td>
+      <td class="td-video-panel"><video-panel data-video="video"></video-panel></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,22 @@
+<div layout="row" layout-align="center center">
+  <md-button class="md-icon-button md-primary md-hue-1 ml0"
+             aria-label="Remove filter"
+             flex="none"
+             ng-click="vm.onRemove({controlType: vm.controlType})">
+    <md-icon class="material-icons">remove_circle_outline</md-icon>
+  </md-button>
+
+  <label flex="25">{{vm.label}}</label>
+
+  <md-input-container flex="75">
+    <md-icon class="material-icon">{{vm.labelIcon}}</md-icon>
+    <input type="number"
+           ng-model="vm.valueMin"
+           aria-label="{{vm.labelMin}}"
+          >
+  </md-input-container>
+<!--  <input type="number"
+         ng-model="vm.valueMax"
+         aria-label="{{vm.maxLabel}}"
+         placeholder="{{vm.maxLabel}}">-->
+</div>

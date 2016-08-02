@@ -1,0 +1,90 @@
+<div class="filter-form">
+  <md-toolbar class="md-hue-3 md-toolbar-slim">
+    <div class="md-toolbar-tools">
+      <h2>Query</h2>
+      <span flex></span>
+
+
+      <md-menu>
+        <md-button class="md-icon-button"
+                   aria-label="Add new filter"
+                   flex="none"
+                   ng-click="$mdOpenMenu($event)"
+                   ng-disabled="vm.filterFormSrv.isEmptyAvailableFilters()">
+          <md-icon class="material-icons">add_circle_outline</md-icon>
+        </md-button>
+
+        <md-menu-content width="4">
+          <md-menu-item ng-repeat="(controlType, avFilter) in vm.filterFormSrv.availableFilters">
+            <md-button ng-if="!vm.filterFormSrv.oneAvailableFilterLeft()"
+              ng-click="vm.filterFormSrv.addFilter(controlType)"
+              md-prevent-menu-close>
+              <md-icon class="material-icon">{{avFilter.menuIcon}}</md-icon>
+              <span>{{avFilter.label}}</span>
+            </md-button>
+
+            <md-button ng-if="vm.filterFormSrv.oneAvailableFilterLeft()"
+                       ng-click="vm.filterFormSrv.addFilter(controlType)">
+              <md-icon class="material-icon">{{avFilter.menuIcon}}</md-icon>
+              <span>{{avFilter.label}}</span>
+            </md-button>
+
+          </md-menu-item>
+
+        </md-menu-content>
+
+      </md-menu>
+
+
+    </div>
+
+  </md-toolbar>
+
+
+  <div class="filter-form-content">
+    <form name="filterForm">
+      <div ng-repeat="(controlType, actFilter) in vm.filterFormSrv.activeFilters"
+           ng-switch="controlType"
+           class="filter-item"
+           layout="row"
+           layout-align="center center">
+        <filter-selectbox ng-switch-default
+                          flex
+                          label="{{actFilter.label}}"
+                          label-icon="{{actFilter.menuIcon}}"
+                          control-type="{{controlType}}"
+                          on-change="vm.onChange(controlType, value)"
+                          on-remove="vm.filterFormSrv.removeFilter(controlType)"></filter-selectbox>
+
+        <filter-graphic-button ng-switch-when="shapeType"
+                          flex
+                          label="{{actFilter.label}}"
+                          label-icon="{{actFilter.menuIcon}}"
+                          control-type="{{controlType}}"
+                          on-change="vm.onChange(controlType, value)"
+                          on-remove="vm.filterFormSrv.removeFilter(controlType)"></filter-graphic-button>
+
+        <filter-num-interval
+                          ng-switch-when="length"
+                          flex
+                          label="{{actFilter.label}}"
+                          label-icon="{{actFilter.menuIcon}}"
+                          label-min="Min"
+                          label-max="Max"
+                          control-type="{{controlType}}"
+                          value-min="10"
+                          value-max="40"
+                          on-change="vm.onChange(controlType, value)"
+                          on-remove="vm.filterFormSrv.removeFilter(controlType)"></filter-num-interval>
+      </div>
+
+      <div layout="row" layout-align="center center">
+        <span flex></span>
+        <md-button ng-disabled="!vm.searchable()" ng-click="vm.search()" flex="none" ng-hide="vm.filterFormSrv.isEmptyActiveFilters()" class="md-primary md-raised">Search</md-button>
+      </div>
+    </form>
+
+    <p class="filter-form-note" ng-show="vm.filterFormSrv.isEmptyActiveFilters()">No filters selected</p>
+  </div>
+
+</div>

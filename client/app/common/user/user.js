@@ -1,8 +1,9 @@
 import angular from 'angular';
-import UserFactory from './user.factory';
+import UserService from './user.service';
+import userComponent from './user.component';
 
 let userModule = angular.module('user', [])
-
-.factory('User', UserFactory);
+.service('User', UserService)
+.component('userLogin', userComponent);
 
 export default userModule;

@@ -1,16 +1,18 @@
 'use strict';
 
-import gulp     from 'gulp';
-import webpack  from 'webpack';
-import path     from 'path';
-import sync     from 'run-sequence';
-import rename   from 'gulp-rename';
-import template from 'gulp-template';
-import fs       from 'fs';
-import yargs    from 'yargs';
-import lodash   from 'lodash';
-import gutil    from 'gulp-util';
-import serve    from 'browser-sync';
+import gulp       from 'gulp';
+import webpack    from 'webpack';
+import path       from 'path';
+import sync       from 'run-sequence';
+import rename     from 'gulp-rename';
+import ngConstant from 'gulp-ng-constant';
+import template   from 'gulp-template';
+import fs         from 'fs';
+import yargs      from 'yargs';
+import lodash     from 'lodash';
+import gutil      from 'gulp-util';
+import serve      from 'browser-sync';
+import del        from 'del';
 import webpackDevMiddelware from 'webpack-dev-middleware';
 import webpachHotMiddelware from 'webpack-hot-middleware';
 import colorsSupported      from 'supports-color';
@@ -35,18 +37,22 @@ let paths = {
     resolveToApp('**/*.html'),
     path.join(root, 'index.html')
   ],
-  entry: path.join(__dirname, root, 'app/app.js'),
+  entry: [
+    'babel-polyfill',
+    path.join(__dirname, root, 'app/app.js')
+  ],
   output: root,
-  blankTemplates: path.join(__dirname, 'generator', 'component/**/*.**')
+  blankTemplates: path.join(__dirname, 'generator', 'component/**/*.**'),
+  dest: path.join(__dirname, 'dist')
 };
 
 // use webpack.config.js to build modules
-gulp.task('webpack', (cb) => {
+gulp.task('webpack', ['clean', 'constants'], (cb) => {
   const config = require('./webpack.dist.config');
   config.entry.app = paths.entry;
 
   webpack(config, (err, stats) => {
-    if(err)  {
+    if (err) {
       throw new gutil.PluginError("webpack", err);
     }
 
@@ -60,15 +66,14 @@ gulp.task('webpack', (cb) => {
   });
 });
 
-gulp.task('serve', () => {
+gulp.task('serve', ['constants'], () => {
   const config = require('./webpack.dev.config');
   config.entry.app = [
     // this modules required to make HRM working
     // it responsible for all this webpack magic
     'webpack-hot-middleware/client?reload=true',
     // application entry point
-    paths.entry
-  ];
+  ].concat(paths.entry);
 
   var compiler = webpack(config);
 
@@ -91,7 +96,7 @@ gulp.task('serve', () => {
   });
 });
 
-gulp.task('watch', ['serve']);
+gulp.task('watch', ['constants', 'serve']);
 
 gulp.task('component', () => {
   const cap = (val) => {
@@ -112,4 +117,29 @@ gulp.task('component', () => {
     .pipe(gulp.dest(destPath));
 });
 
-gulp.task('default', ['serve']);
+gulp.task('clean', (cb) => {
+  del([paths.dest]).then(function (paths) {
+    gutil.log("[clean]", paths);
+    cb();
+  })
+});
+
+gulp.task('constants', function () {
+  var jsonConfig = require('./env.config.json'),
+      nodeEnv = process.env.NODE_ENV ? process.env.NODE_ENV : 'local',
+      envConfig;
+
+  if (jsonConfig['all']) envConfig = lodash.merge(jsonConfig['all'], jsonConfig[nodeEnv]);
+  else envConfig = jsonConfig[nodeEnv];
+
+  return ngConstant({
+    name: "app.config",
+    constants: envConfig,
+    stream: true,
+    wrap: "es6"
+  })
+    .pipe(rename('config.js'))
+    .pipe(gulp.dest('client/app'));
+});
+
+gulp.task('default', ['watch']);

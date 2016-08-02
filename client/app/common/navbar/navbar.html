@@ -1,9 +1,59 @@
-<nav class="navbar">
-  <div class="logo">
-    <h1><a ui-sref="home">Home ({{ vm.name }})</a></h1>
+<md-toolbar class="md-toolbar-slim">
+  <div class="md-toolbar-tools">
+    <md-menu>
+      <md-button class="md-icon-button"
+                 aria-label="Left panel"
+                 ng-click="vm.openMenu($mdOpenMenu, $event)">
+        <md-icon class="material-icons">menu</md-icon>
+      </md-button>
+
+      <md-menu-content width="4">
+        <!--<md-menu-item>
+          <md-button ng-click="vm.map.polygon.toggle()">
+            <md-icon class="material-icon">timeline</md-icon>
+            <span ng-if="!vm.map.polygon.enabled">Start polygon tool</span>
+            <span ng-if="vm.map.polygon.enabled">Stop polygon tool</span>
+          </md-button>
+        </md-menu-item>-->
+
+        <!--<md-menu-item>
+          <md-button ng-click="vm.map.searchByPolygon()">
+            <md-icon class="material-icon">terrain</md-icon>
+            <span>Search by Polygon</span>
+          </md-button>
+        </md-menu-item>-->
+
+        <!--<md-menu-item>
+          <md-button ng-click="vm.map.setStreamSamples()">
+            <md-icon class="material-icon">view_stream</md-icon>
+            <span>Set stream samples</span>
+          </md-button>
+        </md-menu-item>-->
+
+        <md-menu-item>
+          <md-button ng-click="vm.map.heat.drawToggle()">
+            <md-icon class="material-icon">add_location</md-icon>
+            <span ng-if="!vm.map.heat.enabled">Start drawing HeatMap</span>
+            <span ng-if="vm.map.heat.enabled">Stop drawing HeatMap</span>
+          </md-button>
+        </md-menu-item>
+
+        <!--<md-menu-item>
+          <md-button ng-click="vm.map.circle.toggle()">
+            <md-icon class="material-icon">data_usage</md-icon>
+            <span ng-if="!vm.map.circle.enabled">Start adding circles</span>
+            <span ng-if="vm.map.circle.enabled">Stop adding circles</span>
+          </md-button>
+        </md-menu-item>-->
+
+      </md-menu-content>
+
+    </md-menu>
+
+
+    <md-button ui-sref="home">Home</md-button>
+    <md-button ui-sref="map">Map</md-button>
+    <span flex></span>
+    <div class="login-block"><user-login></user-login></div>
   </div>
-  <ul class="nav-links">
-    <li><a ui-sref="map">Map</a></li>
-    <li><a ui-sref="about">About</a></li>
-  </ul>
-</nav>
+</md-toolbar>

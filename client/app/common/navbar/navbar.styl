@@ -1,24 +1,25 @@
 @import '../common'
 
 .navbar
+  color: #fff;
   background-color $primaryColor
   padding 1rem
+  overflow: hidden;
+  .login-block
+    float: right;
   a
     color $lightTextColor
     text-decoration none;
   .nav-links
-    float right;
+    margin: 0;
+    padding: 0;
+    float: left;
     li
-      display inline;
       float left;
+      display inline;
       margin-right 15px;
-      a:hover
-        color #000;
-
-  .logo
-    display inline-block
-  .logo
-    color $lightTextColor
-  .nav-links
-    a
-      font-size 1.6rem
+  a, .logged-name
+    font-size 1.5rem
+  .logged-name
+    font-style: italic;
+    margin-right: 10px;

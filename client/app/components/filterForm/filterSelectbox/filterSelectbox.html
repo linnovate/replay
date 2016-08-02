@@ -1,0 +1,19 @@
+<div layout="row" layout-align="center center">
+  <md-button class="md-icon-button md-primary md-hue-1 ml0"
+             aria-label="Remove filter"
+             flex="none"
+             ng-click="vm.removeFilter(vm.controlType)">
+    <md-icon class="material-icons">remove_circle_outline</md-icon>
+  </md-button>
+
+  <label flex="25">{{vm.label}}</label>
+
+  <md-input-container flex="75">
+    <md-icon class="material-icon">{{vm.labelIcon}}</md-icon>
+    <md-select ng-change="vm.changed()" ng-model="vm.value" placeholder="{{vm.label}}">
+      <md-option ng-repeat="opt in vm.options" value="{{opt.value}}">
+        {{opt.name}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+</div>
