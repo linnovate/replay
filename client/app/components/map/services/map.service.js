@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 export default class MapService {
 
-  constructor($mdDialog, VideoService) {
+  constructor($mdDialog, VideoService, FilterFormService) {
     "ngInject";
 
     this.mapId = 'map-main';
@@ -15,6 +15,7 @@ export default class MapService {
     this.zoom = 15;
     this.$mdDialog = $mdDialog;
     this.videoSrv = VideoService;
+    this.filterFormSrv = FilterFormService;
     this._captureGroup = new L.FeatureGroup();
     this.geojson = null;
     this._mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw';
@@ -67,19 +68,28 @@ export default class MapService {
   }
 
   searchVideo() {
-    var map = this.map;
+    var map = this.map,
+      params = {};
 
-    if (!this.drawSearchSrv.isReady()) {
-      this.showAlert('Select search area first');
-      return;
+    if (this.drawSearchSrv.isReady()) {
+      params.boundingShapeType = 'Polygon';
+      params.boundingShapeCoordinates = JSON.stringify(this.drawSearchSrv.getFrame().geometry);
     }
+
+    if (!_.isUndefined(this.filterFormSrv.values['source']))
+      params['sourceId'] = this.filterFormSrv.values['source'];
+
+    if (!_.isEmpty(this.filterFormSrv.values['tag']))
+      params['tagsIds'] = JSON.stringify(this.filterFormSrv.values['tag']);
+
+    console.log('this.filterFormSrv.values', JSON.stringify(this.filterFormSrv.values, null, 4));
+    console.log('params', JSON.stringify(params, null, 4));
 
     this._captureGroup.clearLayers();
 
-    this.videoSrv.getVideo(this.drawSearchSrv.getFrame().geometry).then((result) => {
+    this.videoSrv.getVideo(params).then((result) => {
       this.videoSrv.list = result;
       _.each(result, (vItem) => {
-        console.log('getVideo', JSON.stringify(vItem, null, 4));
         this.videoSrv.getVideoMetadata(vItem._id).then((meta) => {
           var featureCollection = this.convertToFeatures(meta, {'video': vItem});
           // console.log('featureCollection', JSON.stringify(featureCollection, null, 4));

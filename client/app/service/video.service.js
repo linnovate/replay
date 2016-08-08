@@ -31,10 +31,7 @@ export default class VideoService {
     }).$promise;
   }
 
-  getVideo(points, shapeType = 'polygon') {
-    return this.$resource(this.ENV.API_URL+'/video').query({
-      boundingShapeType: shapeType,
-      boundingShapeCoordinates: JSON.stringify(points)
-    }).$promise;
+  getVideo(params = {}) {
+    return this.$resource(this.ENV.API_URL+'/video').query(params).$promise;
   }
 }

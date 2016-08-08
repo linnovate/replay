@@ -12,6 +12,10 @@ export default class FilterFormService {
         label: 'Source',
         menuIcon: 'input'
       },
+      tag: {
+        label: 'Tag',
+        menuIcon: 'label'
+      },
       copyright: {
         label: 'Copyright',
         menuIcon: 'copyright'
