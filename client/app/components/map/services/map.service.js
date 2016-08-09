@@ -82,9 +82,6 @@ export default class MapService {
     if (!_.isEmpty(this.filterFormSrv.values['tag']))
       params['tagsIds'] = JSON.stringify(this.filterFormSrv.values['tag']);
 
-    console.log('this.filterFormSrv.values', JSON.stringify(this.filterFormSrv.values, null, 4));
-    console.log('params', JSON.stringify(params, null, 4));
-
     this._captureGroup.clearLayers();
 
     this.videoSrv.getVideo(params).then((result) => {

@@ -10,7 +10,10 @@ class FilterFormController {
   }
 
   onChange(controlName, value) {
-    this.filterFormSrv.values[controlName] = value;
+    if (_.isArray(value) && _.isEmpty(value))
+      delete this.filterFormSrv.values[controlName];
+    else
+      this.filterFormSrv.values[controlName] = value;
   }
 
   search() {
