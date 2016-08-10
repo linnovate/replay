@@ -76,11 +76,23 @@ export default class MapService {
       params.boundingShapeCoordinates = JSON.stringify(this.drawSearchSrv.getFrame().geometry);
     }
 
-    if (!_.isUndefined(this.filterFormSrv.values['source']))
+    if (!_.isUndefined(this.filterFormSrv.values['source'])) {
       params['sourceId'] = this.filterFormSrv.values['source'];
+    }
 
-    if (!_.isEmpty(this.filterFormSrv.values['tag']))
+    if (!_.isEmpty(this.filterFormSrv.values['tag'])) {
       params['tagsIds'] = JSON.stringify(this.filterFormSrv.values['tag']);
+    }
+
+    if (!_.isEmpty(this.filterFormSrv.values['length'])) {
+      if (!_.isUndefined(this.filterFormSrv.values['length'].min))
+        params.minVideoDuration = this.filterFormSrv.values['length'].min;
+
+      if (!_.isUndefined(this.filterFormSrv.values['length'].max))
+        params.maxVideoDuration = this.filterFormSrv.values['length'].max;
+    }
+
+    console.log('params', JSON.stringify(params, null, 4));
 
     this._captureGroup.clearLayers();
 
@@ -89,7 +101,6 @@ export default class MapService {
       _.each(result, (vItem) => {
         this.videoSrv.getVideoMetadata(vItem._id).then((meta) => {
           var featureCollection = this.convertToFeatures(meta, {'video': vItem});
-          // console.log('featureCollection', JSON.stringify(featureCollection, null, 4));
           this.geojson = L.geoJson(featureCollection, {
             style: this.style.bind(this),
             onEachFeature: this.onEachFeature.bind(this)

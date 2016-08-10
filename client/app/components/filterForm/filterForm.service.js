@@ -25,7 +25,7 @@ export default class FilterFormService {
         menuIcon: 'access_time'
       },
       length: {
-        label: 'Length',
+        label: 'Length, sec',
         menuIcon: 'timelapse'
       },
       location: {
