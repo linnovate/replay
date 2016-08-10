@@ -104,7 +104,7 @@ export default class MapService {
           this.geojson = L.geoJson(featureCollection, {
             style: this.style.bind(this),
             onEachFeature: this.onEachFeature.bind(this)
-          }).addTo(this._captureGroup);
+          }).bindLabel('Found object').addTo(this._captureGroup);
         });
       });
     });
