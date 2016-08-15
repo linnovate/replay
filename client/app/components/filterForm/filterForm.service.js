@@ -20,8 +20,8 @@ export default class FilterFormService {
         label: 'Copyright',
         menuIcon: 'copyright'
       },
-      timeframe: {
-        label: 'Time frame',
+      timeRange: {
+        label: 'Time range',
         menuIcon: 'access_time'
       },
       length: {

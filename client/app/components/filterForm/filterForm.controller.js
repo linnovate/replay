@@ -10,6 +10,9 @@ class FilterFormController {
   }
 
   onChange(controlName, value) {
+    console.log('controlName', JSON.stringify(controlName, null, 4));
+    console.log('control value', JSON.stringify(value, null, 4));
+
     if (_.isArray(value) && _.isEmpty(value))
       delete this.filterFormSrv.values[controlName];
     else
