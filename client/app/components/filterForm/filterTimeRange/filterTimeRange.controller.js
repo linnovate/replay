@@ -4,25 +4,25 @@ class FilterTimeRangeController {
     "ngInject";
 
     this.$scope = $scope;
+    this.valueFrom = '';
+    this.valueTo = '';
 
-    this.$scope.$watch('valueFrom', this.coolNumberChanged());
-
-    /*this.$scope.$watch('valueTo', (newValue, oldValue) => {
-      this.onChange({
-        controlType:  this.controlType,
-        value:        { from: this.valueFrom, to: newValue }
-      });
-    });*/
-
+    this.$scope.$watch(() => this.valueFrom, this.updateFrom.bind(this));
+    this.$scope.$watch(() => this.valueTo, this.updateTo.bind(this));
   }
 
-  coolNumberChanged(newValue, oldValue) {
-    return () => {
-      this.onChange({
-        controlType:  this.controlType,
-        value:        { from: newValue, to: this.valueTo }
-      });
-    };
+  updateFrom(newValue) {
+    this.onChange({
+      controlType: this.controlType,
+      value: {from: newValue, to: this.valueTo}
+    });
+  }
+
+  updateTo(newValue) {
+    this.onChange({
+      controlType: this.controlType,
+      value: {from: this.valueFrom, to: newValue}
+    });
   }
 
 }
