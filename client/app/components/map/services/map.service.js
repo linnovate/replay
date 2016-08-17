@@ -69,27 +69,37 @@ export default class MapService {
 
   searchVideo() {
     var map = this.map,
-      params = {};
+      params = {},
+      filter = this.filterFormSrv.values;
+
+    console.log('filter', JSON.stringify(filter, null, 4));
 
     if (this.drawSearchSrv.isReady()) {
       params.boundingShapeType = 'Polygon';
       params.boundingShapeCoordinates = JSON.stringify(this.drawSearchSrv.getFrame().geometry);
     }
 
-    if (!_.isUndefined(this.filterFormSrv.values['source'])) {
-      params['sourceId'] = this.filterFormSrv.values['source'];
+    if (!_.isUndefined(filter['source'])) {
+      params['sourceId'] = filter['source'];
     }
 
-    if (!_.isEmpty(this.filterFormSrv.values['tag'])) {
-      params['tagsIds'] = JSON.stringify(this.filterFormSrv.values['tag']);
+    if (!_.isEmpty(filter['tag'])) {
+      params['tagsIds'] = JSON.stringify(filter['tag']);
     }
 
-    if (!_.isEmpty(this.filterFormSrv.values['length'])) {
-      if (!_.isUndefined(this.filterFormSrv.values['length'].min))
-        params.minVideoDuration = this.filterFormSrv.values['length'].min;
+    if (!_.isEmpty(filter['timeRange'])) {
+      if (!_.isUndefined(filter['timeRange'].from))
+        params['fromVideoTime'] = filter['timeRange'].from;
+      if (!_.isUndefined(filter['timeRange'].to))
+        params['toVideoTime'] = filter['timeRange'].to;
+    }
 
-      if (!_.isUndefined(this.filterFormSrv.values['length'].max))
-        params.maxVideoDuration = this.filterFormSrv.values['length'].max;
+    if (!_.isEmpty(filter['length'])) {
+      if (!_.isUndefined(filter['length'].min))
+        params.minVideoDuration = filter['length'].min;
+
+      if (!_.isUndefined(filter['length'].max))
+        params.maxVideoDuration = filter['length'].max;
     }
 
     console.log('params', JSON.stringify(params, null, 4));

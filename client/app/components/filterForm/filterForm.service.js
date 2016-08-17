@@ -28,12 +28,8 @@ export default class FilterFormService {
         label: 'Length, sec',
         menuIcon: 'timelapse'
       },
-      location: {
-        label: 'Location',
-        menuIcon: 'my_location'
-      },
       shapeType: {
-        label: 'Shape type',
+        label: 'Area shape',
         menuIcon: 'my_location'
       }
     };

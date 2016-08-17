@@ -10,25 +10,25 @@
 
   <div flex="75" layout="column">
 
-    <md-input-container class="mt30" layout="row" layout-align="center center">
-      <label>{{vm.labelFrom}}</label>
+    <md-input-container class="mt10" layout="row" layout-align="center center">
+      <label></label>
       <input mdc-datetime-picker
              date="true"
              time="true"
              type="text"
-             placeholder="Date"
+             placeholder="{{vm.labelFrom}}"
              max-date="vm.valueTo"
              ng-model="vm.valueFrom"
       />
     </md-input-container>
 
-    <md-input-container class="mt30" layout="row" layout-align="center center">
-      <label>{{vm.labelTo}}</label>
+    <md-input-container class="mt10" layout="row" layout-align="center center">
+      <label></label>
       <input mdc-datetime-picker
              date="true"
              time="true"
              type="text"
-             placeholder="Date"
+             placeholder="{{vm.labelTo}}"
              min-date="vm.valueFrom"
              ng-model="vm.valueTo"
       />

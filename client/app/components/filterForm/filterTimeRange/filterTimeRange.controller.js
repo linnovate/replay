@@ -13,15 +13,15 @@ class FilterTimeRangeController {
 
   updateFrom(newValue) {
     this.onChange({
-      controlType: this.controlType,
-      value: {from: newValue, to: this.valueTo}
+      controlType:  this.controlType,
+      value: { from: newValue, to: this.valueTo }
     });
   }
 
   updateTo(newValue) {
     this.onChange({
-      controlType: this.controlType,
-      value: {from: this.valueFrom, to: newValue}
+      controlType:  this.controlType,
+      value: { from: this.valueFrom, to: newValue }
     });
   }
 
