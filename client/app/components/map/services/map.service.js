@@ -113,8 +113,6 @@ export default class MapService {
   }
 
   renderBoundingGroup(boundingFeature) {
-    this._boundingGroup.clearLayers();
-
     this.geojson = L.geoJson(boundingFeature, {
       style: this.style.bind(this),
       onEachFeature: this.onEachFeature.bind(this)
