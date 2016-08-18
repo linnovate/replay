@@ -13,11 +13,12 @@ export default class dashJS {
     this.visible = false;
     this.ttmlDiv = null;
     this.controlbar = null;
+    this.view = document.getElementById(playerID);
+    this.player = this.dashjs.MediaPlayer().create();
   }
 
   init(url, autoPlay = false) {
-    this.player = this.dashjs.MediaPlayer().create();
-    this.player.initialize(document.getElementById(playerID), url, autoPlay);
+    this.player.initialize(this.view, url, autoPlay);
 
     this.player.attachVideoContainer(document.getElementById("videoContainer"));
     // Add HTML-rendered TTML subtitles except for Firefox (issue #1164)

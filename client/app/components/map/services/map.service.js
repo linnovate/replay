@@ -2,6 +2,7 @@ import HeatMap from './heatmap.service';
 import MapCircle from './circle.service';
 import PolygonMapService from './polygon.service';
 import DrawSearchService from './drawSearch.service';
+import TrackService from './track.service';
 import _ from 'lodash';
 
 export default class MapService {
@@ -10,9 +11,9 @@ export default class MapService {
     "ngInject";
 
     this.mapId = 'map-main';
-    // this.startPoint = [32.0808800, 34.7805700]; // Tel-aviv
-    this.startPoint = [27.105208, 35.527510];
-    this.zoom = 15;
+    this.startPoint = [32.0808800, 34.7805700]; // Tel-aviv
+    // this.startPoint = [27.105208, 35.527510];
+    this.zoom = 10;
     this.$mdDialog = $mdDialog;
     this.videoSrv = VideoService;
     this.filterFormSrv = FilterFormService;
@@ -34,7 +35,7 @@ export default class MapService {
     this.map = L.map(this.mapId, {
       center: this.startPoint,
       zoom: this.zoom,
-      layers: [grayscaleTile, this._captureGroup]
+      layers: [streetsTile, this._captureGroup]
     });
     baseLayers = {
       "Grayscale": grayscaleTile,
@@ -62,9 +63,12 @@ export default class MapService {
 
     // init heat class
     this.heat = new HeatMap(this.map, this.$mdDialog);
+    this.drawSearchSrv = new DrawSearchService(this.map);
+    // TODO: consider cleaning
     this.circle = new MapCircle(this.map, this.$mdDialog);
     this.polygon = new PolygonMapService(this.map, this.$mdDialog);
-    this.drawSearchSrv = new DrawSearchService(this.map);
+
+    new TrackService(this.map, this.videoSrv.dashJSrv);
   }
 
   searchVideo() {
