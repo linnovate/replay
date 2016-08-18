@@ -1,19 +1,17 @@
 class MapController {
 
-  constructor($timeout, MapService) {
+  constructor($timeout, MapService, TrackService) {
     "ngInject";
 
     this.$timeout = $timeout;
-    this.map = MapService;
-  }
-
-  init() {
-    this.map.init();
+    this.mapSrv = MapService;
+    this.TrackSrv = TrackService;
   }
 
   $onInit() {
     this.$timeout(() => {
-      this.init()
+      this.mapSrv.init();
+      this.TrackSrv.init();
     });
   }
 }

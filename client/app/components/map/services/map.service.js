@@ -2,7 +2,6 @@ import HeatMap from './heatmap.service';
 import MapCircle from './circle.service';
 import PolygonMapService from './polygon.service';
 import DrawSearchService from './drawSearch.service';
-import TrackService from './track.service';
 import _ from 'lodash';
 
 export default class MapService {
@@ -54,7 +53,7 @@ export default class MapService {
     };
     this.ctrlInfo.update = function (props) {
       this._div.innerHTML = '<h4>Search details</h4>' + (props ?
-        '<b>Name: </b>' + props.video.name + '<br /><b>ID: </b>' + props._id
+        '<b>Name: </b>' + '<br /><b>ID: </b>' + props._id
           : 'Do some search then hover on result');
     };
     this.ctrlInfo.addTo(this.map);
@@ -67,16 +66,12 @@ export default class MapService {
     // TODO: consider cleaning
     this.circle = new MapCircle(this.map, this.$mdDialog);
     this.polygon = new PolygonMapService(this.map, this.$mdDialog);
-
-    new TrackService(this.map, this.videoSrv.dashJSrv);
   }
 
   searchVideo() {
     var map = this.map,
       params = {},
       filter = this.filterFormSrv.values;
-
-    console.log('filter', JSON.stringify(filter, null, 4));
 
     if (this.drawSearchSrv.isReady()) {
       params.boundingShapeType = 'Polygon';
@@ -106,22 +101,27 @@ export default class MapService {
         params.maxVideoDuration = filter['length'].max;
     }
 
-    console.log('params', JSON.stringify(params, null, 4));
-
-    this._captureGroup.clearLayers();
-
     this.videoSrv.getVideo(params).then((result) => {
       this.videoSrv.list = result;
       _.each(result, (vItem) => {
         this.videoSrv.getVideoMetadata(vItem._id).then((meta) => {
-          var featureCollection = this.convertToFeatures(meta, {'video': vItem});
-          this.geojson = L.geoJson(featureCollection, {
-            style: this.style.bind(this),
-            onEachFeature: this.onEachFeature.bind(this)
-          }).bindLabel('Found object').addTo(this._captureGroup);
+          // get only first polygon slice
+          var reversed = _.reverse(meta);
+          var featureCollection = this.convertToFeatures([reversed[0]], {'video': vItem});
+          this.renderCaptureGroup(featureCollection);
+
         });
       });
     });
+  }
+
+  renderCaptureGroup(featureCollection) {
+    this._captureGroup.clearLayers();
+
+    this.geojson = L.geoJson(featureCollection, {
+      style: this.style.bind(this),
+      onEachFeature: this.onEachFeature.bind(this)
+    }).bindLabel('Found object').addTo(this._captureGroup);
   }
 
   getColor() {

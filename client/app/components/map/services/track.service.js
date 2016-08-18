@@ -2,16 +2,20 @@ import _ from 'lodash';
 
 export default class TrackService {
 
-  constructor(map, dashjs) {
-    this.map = map;
-    this.dashJSrv = dashjs;
-    this.init();
+  constructor(MapService, dashJS) {
+    "ngInject";
+
+    this.mapSrv = MapService;
+    this.dashJSrv = dashJS;
+
     this._group = new L.FeatureGroup();
-    this._group.addTo(this.map);
     this.marker = null;
   }
 
   init() {
+    this.map = this.mapSrv.map;
+    this._group.addTo(this.map);
+
     this.dashJSrv.player.on(
       this.dashJSrv.dashjs.MediaPlayer.events['PLAYBACK_METADATA_LOADED'],
       this.metadataLoaded.bind(this)
@@ -62,6 +66,17 @@ export default class TrackService {
 
       data = JSON.parse(cue.text);
       cPoint= self.getLatLngCenter(data.sensorTrace.coordinates[0]);
+      console.debug('data', data);
+
+      self.mapSrv.renderCaptureGroup({
+        type: 'FeatureCollection',
+        features: [{
+          type: 'Feature',
+          properties: {},
+          geometry: data.sensorTrace
+        }]
+      });
+
       self.marker.setLatLng(cPoint);
       self.map.panTo(cPoint);
     };
