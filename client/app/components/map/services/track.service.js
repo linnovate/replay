@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export default class TrackService {
 
   constructor(map, dashjs) {
@@ -6,47 +8,72 @@ export default class TrackService {
     this.init();
     this._group = new L.FeatureGroup();
     this._group.addTo(this.map);
+    this.marker = null;
   }
 
   init() {
-    this.dashJSrv.player.on(this.dashJSrv.dashjs.MediaPlayer.events['PLAYBACK_METADATA_LOADED'], (e) => {
-      if (_.isEmpty(this.dashJSrv.view.textTracks)) return;
-
-      console.debug('PLAYBACK_METADATA_LOADED', e);
-
-      var textTrack = this.dashJSrv.view.textTracks[0],
-        data,
-        poly,
-        cPoint,
-        startPosition,
-        path = [];
-
-      textTrack.mode = 'hidden';
-      _.each(textTrack.cues, (cue) => {
-        data = JSON.parse(cue.text);
-        poly = data.sensorTrace.coordinates[0];
-        cPoint = this.getLatLngCenter(poly);
-        if (!startPosition) {
-          startPosition = [poly[0][1], poly[0][0]];
-        }
-        path.push(cPoint);
-        console.debug('cPoint', JSON.stringify(cPoint, null, 4));
-      });
-      this.map.panTo(startPosition);
-      console.debug('path', JSON.stringify(path, null, 4));
-
-      L.polyline(path, {color: 'red'}).addTo(this._group);
-
-      textTrack.oncuechange = function() {
-        var cue = this.activeCues[0];
-        // console.debug('activeCues', cue);
-      };
-
-    });
+    this.dashJSrv.player.on(
+      this.dashJSrv.dashjs.MediaPlayer.events['PLAYBACK_METADATA_LOADED'],
+      this.metadataLoaded.bind(this)
+    );
   }
 
-  rad2degr(rad) { return rad * 180 / Math.PI; }
-  degr2rad(degr) { return degr * Math.PI / 180; }
+  metadataLoaded(e) {
+    if (_.isEmpty(this.dashJSrv.view.textTracks)) return;
+
+    var textTrack = this.dashJSrv.view.textTracks[0],
+      data,
+      poly,
+      cPoint,
+      startPosition,
+      path = [],
+      self = this;
+
+    textTrack.mode = 'hidden';
+    _.each(textTrack.cues, (cue) => {
+      data = JSON.parse(cue.text);
+      poly = data.sensorTrace.coordinates[0];
+      cPoint = this.getLatLngCenter(poly);
+      if (!startPosition) {
+        startPosition = [poly[0][1], poly[0][0]];
+      }
+      path.push(cPoint);
+    });
+
+    if (startPosition) {
+      this.marker = L.marker(startPosition, {
+        icon: L.icon({
+          iconUrl: require('../assets/icon_dron.png'),
+          iconSize: [32, 32],
+        })
+      }).addTo(this._group);
+
+      this.map.panTo(startPosition);
+    }
+    // console.debug('path', JSON.stringify(path, null, 4));
+    if (!_.isEmpty(path)) L.polyline(path, {color: 'red'}).addTo(this._group);
+
+    textTrack.oncuechange = function () {
+      let cue = this.activeCues[0],
+        data,
+        cPoint;
+
+      if (_.isUndefined(cue)) return;
+
+      data = JSON.parse(cue.text);
+      cPoint= self.getLatLngCenter(data.sensorTrace.coordinates[0]);
+      self.marker.setLatLng(cPoint);
+      self.map.panTo(cPoint);
+    };
+  }
+
+  rad2degr(rad) {
+    return rad * 180 / Math.PI;
+  }
+
+  degr2rad(degr) {
+    return degr * Math.PI / 180;
+  }
 
   getLatLngCenter(latLngInDegr) {
     var LATIDX = 1;
@@ -55,7 +82,7 @@ export default class TrackService {
     var sumY = 0;
     var sumZ = 0;
 
-    for (var i=0; i<latLngInDegr.length; i++) {
+    for (var i = 0; i < latLngInDegr.length; i++) {
       var lat = this.degr2rad(latLngInDegr[i][LATIDX]);
       var lng = this.degr2rad(latLngInDegr[i][LNGIDX]);
       // sum of cartesian coordinates

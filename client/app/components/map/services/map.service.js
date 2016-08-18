@@ -13,7 +13,7 @@ export default class MapService {
     this.mapId = 'map-main';
     this.startPoint = [32.0808800, 34.7805700]; // Tel-aviv
     // this.startPoint = [27.105208, 35.527510];
-    this.zoom = 10;
+    this.zoom = 13;
     this.$mdDialog = $mdDialog;
     this.videoSrv = VideoService;
     this.filterFormSrv = FilterFormService;
