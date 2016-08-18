@@ -2,19 +2,29 @@ import _ from 'lodash';
 
 export default class TrackService {
 
-  constructor(MapService, dashJS) {
+  constructor(MapService, dashJS, $rootScope) {
     "ngInject";
 
     this.mapSrv = MapService;
     this.dashJSrv = dashJS;
 
-    this._group = new L.FeatureGroup();
+    this._trackGroup = new L.FeatureGroup();
     this.marker = null;
+    this.$rootScope = $rootScope;
+
+    /*$rootScope.$on('dashjs:init', function (event, data) {
+      console.debug(data);
+    });*/
+
+    $rootScope.$on('dashjs:close', (event, data) => {
+      this.clearTrackGroup();
+      this.mapSrv.clearMovingGroup();
+    });
   }
 
   init() {
     this.map = this.mapSrv.map;
-    this._group.addTo(this.map);
+    this._trackGroup.addTo(this.map);
 
     this.dashJSrv.player.on(
       this.dashJSrv.dashjs.MediaPlayer.events['PLAYBACK_METADATA_LOADED'],
@@ -22,9 +32,14 @@ export default class TrackService {
     );
   }
 
+  clearTrackGroup() {
+    this._trackGroup.clearLayers();
+  }
+
   metadataLoaded(e) {
     if (_.isEmpty(this.dashJSrv.view.textTracks)) return;
 
+    this.clearTrackGroup();
     var textTrack = this.dashJSrv.view.textTracks[0],
       data,
       poly,
@@ -50,12 +65,12 @@ export default class TrackService {
           iconUrl: require('../assets/icon_dron.png'),
           iconSize: [32, 32],
         })
-      }).addTo(this._group);
+      }).addTo(this._trackGroup);
 
       this.map.panTo(startPosition);
     }
     // console.debug('path', JSON.stringify(path, null, 4));
-    if (!_.isEmpty(path)) L.polyline(path, {color: 'red'}).addTo(this._group);
+    if (!_.isEmpty(path)) L.polyline(path, {color: 'red'}).addTo(this._trackGroup);
 
     textTrack.oncuechange = function () {
       let cue = this.activeCues[0],
@@ -66,9 +81,8 @@ export default class TrackService {
 
       data = JSON.parse(cue.text);
       cPoint= self.getLatLngCenter(data.sensorTrace.coordinates[0]);
-      console.debug('data', data);
 
-      self.mapSrv.renderCaptureGroup({
+      self.mapSrv.renderMovingGroup({
         type: 'FeatureCollection',
         features: [{
           type: 'Feature',

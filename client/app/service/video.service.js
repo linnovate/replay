@@ -21,7 +21,6 @@ export default class VideoService {
     this.currentVideoId = videoId;
     this.getStream(videoId).then((res) => {
       this.dashJSrv.init(res.url, true);
-      this.dashJSrv.setVisible(true);
     });
   }
 
