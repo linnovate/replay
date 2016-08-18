@@ -103,10 +103,10 @@ export default class MapService {
         params.maxVideoDuration = filter['length'].max;
     }
 
+    this._boundingGroup.clearLayers();
     this.videoSrv.getVideo(params).then((result) => {
       this.videoSrv.list = result;
       _.each(result, (vItem) => {
-        console.log('vItem', vItem);
         this.renderBoundingGroup(vItem.boundingPolygon);
       });
     });
