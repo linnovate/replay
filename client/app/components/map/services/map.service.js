@@ -17,6 +17,7 @@ export default class MapService {
     this.videoSrv = VideoService;
     this.filterFormSrv = FilterFormService;
     this._captureGroup = new L.FeatureGroup();
+    this._boundingGroup = new L.FeatureGroup();
     this.geojson = null;
     this._mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw';
   }
@@ -34,14 +35,15 @@ export default class MapService {
     this.map = L.map(this.mapId, {
       center: this.startPoint,
       zoom: this.zoom,
-      layers: [streetsTile, this._captureGroup]
+      layers: [streetsTile, this._captureGroup, this._boundingGroup]
     });
     baseLayers = {
       "Grayscale": grayscaleTile,
       "Streets": streetsTile
     };
     overlays = {
-      "Search": this._captureGroup
+      "Search": this._captureGroup,
+      "Bounding shape": this._boundingGroup,
     };
 
     // info control
@@ -104,15 +106,19 @@ export default class MapService {
     this.videoSrv.getVideo(params).then((result) => {
       this.videoSrv.list = result;
       _.each(result, (vItem) => {
-        this.videoSrv.getVideoMetadata(vItem._id).then((meta) => {
-          // get only first polygon slice
-          var reversed = _.reverse(meta);
-          var featureCollection = this.convertToFeatures([reversed[0]], {'video': vItem});
-          this.renderCaptureGroup(featureCollection);
-
-        });
+        console.log('vItem', vItem);
+        this.renderBoundingGroup(vItem.boundingPolygon);
       });
     });
+  }
+
+  renderBoundingGroup(boundingFeature) {
+    this._boundingGroup.clearLayers();
+
+    this.geojson = L.geoJson(boundingFeature, {
+      style: this.style.bind(this),
+      onEachFeature: this.onEachFeature.bind(this)
+    }).bindLabel('Bounding polygon').addTo(this._boundingGroup);
   }
 
   renderCaptureGroup(featureCollection) {
@@ -124,18 +130,16 @@ export default class MapService {
     }).bindLabel('Found object').addTo(this._captureGroup);
   }
 
-  getColor() {
-    return 'green';
-  }
-
   style(feature) {
+    var bounding = feature.geometry.type == 'MultiPolygon';
+
     return {
       weight: 2,
       opacity: 1,
       color: 'white',
-      dashArray: '3',
-      fillOpacity: 0.7,
-      fillColor: this.getColor()
+      dashArray: bounding ? '3' : '',
+      fillOpacity: bounding ? 0.3 : 1,
+      fillColor: bounding ? 'green' : 'magenta'
     };
   }
 
