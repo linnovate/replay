@@ -66,7 +66,7 @@ export default class DrawSearch {
   }
 
   startTool(name) {
-    if (!_.isEmpty(this._activeHandler)) this._activeHandler.disable();
+    if (!_.isEmpty(this._activeHandler)) this.activeHandlerDisable();
 
     switch (name) {
       case 'rectangle':
@@ -82,12 +82,20 @@ export default class DrawSearch {
         break;
     }
 
-    this._activeHandler.enable();
+    this.activeHandlerEnable();
   }
 
   removeFrame() {
     this._drawGroup.clearLayers();
     this._frame = null;
+  }
+
+  activeHandlerDisable() {
+    this._activeHandler.disable();
+  }
+
+  activeHandlerEnable() {
+    this._activeHandler.enable();
   }
 
 }

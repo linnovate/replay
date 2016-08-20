@@ -39,11 +39,17 @@ class FilterFormController {
     var allow = false,
       values = this.filterFormSrv.values;
 
-    if (_.isEmpty(values)) return allow;
-    else allow = true;
 
-    if (!_.isUndefined(values['shapeType']) &&
-      this.mapSrv.drawSearchSrv.isReady()) allow = true;
+    _.each(values, (value, name) => {
+      switch (name) {
+        case 'shapeType':
+          if (this.mapSrv.drawSearchSrv.isReady()) allow = true;
+          break;
+
+        default:
+          if (!_.isEmpty(values)) allow = true;
+      }
+    });
 
     return allow;
   }
