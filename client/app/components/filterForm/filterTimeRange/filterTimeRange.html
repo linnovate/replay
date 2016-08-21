@@ -1,0 +1,39 @@
+<div layout="row" layout-align="center center">
+  <md-button class="md-icon-button md-primary md-hue-1 ml0"
+             aria-label="Remove filter"
+             flex="none"
+             ng-click="vm.onRemove({controlType: vm.controlType})">
+    <md-icon class="material-icons">remove_circle_outline</md-icon>
+  </md-button>
+
+  <label flex="25">{{vm.label}}</label>
+
+  <div flex="75" layout="column">
+
+    <md-input-container class="mt10" layout="row" layout-align="center center">
+      <label></label>
+      <input mdc-datetime-picker
+             date="true"
+             time="true"
+             type="text"
+             placeholder="{{vm.labelFrom}}"
+             max-date="vm.valueTo"
+             ng-model="vm.valueFrom"
+      />
+    </md-input-container>
+
+    <md-input-container class="mt10" layout="row" layout-align="center center">
+      <label></label>
+      <input mdc-datetime-picker
+             date="true"
+             time="true"
+             type="text"
+             placeholder="{{vm.labelTo}}"
+             min-date="vm.valueFrom"
+             ng-model="vm.valueTo"
+      />
+    </md-input-container>
+
+  </div>
+
+</div>

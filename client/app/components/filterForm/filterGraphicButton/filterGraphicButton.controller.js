@@ -36,6 +36,8 @@ class FilterGraphicButtonController {
   }
 
   removeFilter(controlType) {
+    this.mapSrv.drawSearchSrv.removeFrame();
+    this.mapSrv.drawSearchSrv.activeHandlerDisable();
     this.onRemove({
       controlType:  controlType
     });

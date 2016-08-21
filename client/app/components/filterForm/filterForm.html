@@ -72,10 +72,19 @@
                           label-min="Min"
                           label-max="Max"
                           control-type="{{controlType}}"
-                          value-min="10"
-                          value-max="40"
                           on-change="vm.onChange(controlType, value)"
                           on-remove="vm.filterFormSrv.removeFilter(controlType)"></filter-num-interval>
+
+        <filter-time-range
+                          ng-switch-when="timeRange"
+                          flex
+                          label="{{actFilter.label}}"
+                          label-icon="{{actFilter.menuIcon}}"
+                          label-from="Start Date/Time"
+                          label-to="End Date/Time"
+                          control-type="{{controlType}}"
+                          on-change="vm.onChange(controlType, value)"
+                          on-remove="vm.filterFormSrv.removeFilter(controlType)"></filter-time-range>
       </div>
 
       <div layout="row" layout-align="center center">

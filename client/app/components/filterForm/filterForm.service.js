@@ -12,24 +12,24 @@ export default class FilterFormService {
         label: 'Source',
         menuIcon: 'input'
       },
+      tag: {
+        label: 'Tag',
+        menuIcon: 'label'
+      },
       copyright: {
         label: 'Copyright',
         menuIcon: 'copyright'
       },
-      timeframe: {
-        label: 'Time frame',
+      timeRange: {
+        label: 'Time range',
         menuIcon: 'access_time'
       },
       length: {
-        label: 'Length',
+        label: 'Length, sec',
         menuIcon: 'timelapse'
       },
-      location: {
-        label: 'Location',
-        menuIcon: 'my_location'
-      },
       shapeType: {
-        label: 'Shape type',
+        label: 'Area shape',
         menuIcon: 'my_location'
       }
     };

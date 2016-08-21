@@ -4,7 +4,7 @@ export default class VideoService {
     "ngInject";
 
     this.$resource = $resource;
-    this.videoPlayer = dashJS;
+    this.dashJSrv = dashJS;
     this.Video = $resource(ENV.API_URL+'/video/:id', { id: '@id' });
     this.Stream = $resource(ENV.API_URL+'/media/:id', { id: '@id' });
     this.list = [];
@@ -20,8 +20,7 @@ export default class VideoService {
   playVideo(videoId) {
     this.currentVideoId = videoId;
     this.getStream(videoId).then((res) => {
-      this.videoPlayer.init(res.url, true);
-      this.videoPlayer.setVisible(true);
+      this.dashJSrv.init(res.url, true);
     });
   }
 
@@ -31,10 +30,7 @@ export default class VideoService {
     }).$promise;
   }
 
-  getVideo(points, shapeType = 'polygon') {
-    return this.$resource(this.ENV.API_URL+'/video').query({
-      boundingShapeType: shapeType,
-      boundingShapeCoordinates: JSON.stringify(points)
-    }).$promise;
+  getVideo(params = {}) {
+    return this.$resource(this.ENV.API_URL+'/video').query(params).$promise;
   }
 }

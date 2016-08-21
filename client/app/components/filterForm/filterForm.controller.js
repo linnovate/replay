@@ -10,7 +10,24 @@ class FilterFormController {
   }
 
   onChange(controlName, value) {
+    // console.log('controlName', JSON.stringify(controlName, null, 4));
+    // console.log('control value', JSON.stringify(value, null, 4));
+
     this.filterFormSrv.values[controlName] = value;
+
+    if (_.isArray(value) && _.isEmpty(value))
+      delete this.filterFormSrv.values[controlName];
+
+    // if it is an object - check at least one prop is set
+    // e.g. for timeRange filter
+    if (_.isObject(value)) {
+      let somethingSet = false;
+      _.each(value, function (prop) {
+        if (prop) somethingSet = true;
+      });
+      if (!somethingSet)
+        delete this.filterFormSrv.values[controlName];
+    }
   }
 
   search() {
@@ -19,12 +36,20 @@ class FilterFormController {
   }
 
   searchable() {
-    var allow = false;
+    var allow = false,
+      values = this.filterFormSrv.values;
 
-    if (_.isEmpty(this.filterFormSrv.values)) return allow;
 
-    if (!_.isUndefined(this.filterFormSrv.values['shapeType']) &&
-      this.mapSrv.drawSearchSrv.isReady()) allow = true;
+    _.each(values, (value, name) => {
+      switch (name) {
+        case 'shapeType':
+          if (this.mapSrv.drawSearchSrv.isReady()) allow = true;
+          break;
+
+        default:
+          if (!_.isEmpty(values)) allow = true;
+      }
+    });
 
     return allow;
   }

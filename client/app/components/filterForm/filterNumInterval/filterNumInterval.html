@@ -8,15 +8,26 @@
 
   <label flex="25">{{vm.label}}</label>
 
-  <md-input-container flex="75">
-    <md-icon class="material-icon">{{vm.labelIcon}}</md-icon>
-    <input type="number"
-           ng-model="vm.valueMin"
-           aria-label="{{vm.labelMin}}"
-          >
-  </md-input-container>
-<!--  <input type="number"
-         ng-model="vm.valueMax"
-         aria-label="{{vm.maxLabel}}"
-         placeholder="{{vm.maxLabel}}">-->
+  <div flex="75" layout="column">
+
+    <md-slider-container layout="row" layout-align="center center">
+      <span flex="none" class="slider-label">Min</span>
+      <md-slider flex="75" min="0" max="18000" step="10" ng-model="vm.valueMin" ng-change="vm.changed()" aria-label="Min" id="length-min-slider">
+      </md-slider>
+      <md-input-container flex="25">
+        <input type="number" ng-model="vm.valueMin" ng-change="vm.changed()" aria-label="Min" aria-controls="length-min-slider">
+      </md-input-container>
+    </md-slider-container>
+
+    <md-slider-container layout="row" layout-align="center center">
+      <span flex="none" class="slider-label">Max</span>
+      <md-slider flex="75" min="{{vm.valueMin}}" max="36000" step="10" ng-model="vm.valueMax" ng-change="vm.changed()" aria-label="Max" id="length-max-slider">
+      </md-slider>
+      <md-input-container flex="25">
+        <input type="number" ng-model="vm.valueMax" ng-change="vm.changed()" aria-label="Max" aria-controls="length-max-slider">
+      </md-input-container>
+    </md-slider-container>
+
+  </div>
+
 </div>

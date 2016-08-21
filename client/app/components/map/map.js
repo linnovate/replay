@@ -8,11 +8,13 @@ import leafletLabel from  'leaflet-label';
 import                    'leaflet-label-css';
 import mapComponent from './map.component';
 import MapService from './services/map.service';
+import TrackService from './services/track.service';
 
 let mapModule = angular.module('map', [
   uiRouter
 ])
   .service({MapService})
+  .service({TrackService})
   .component('map', mapComponent);
 
 export default mapModule;

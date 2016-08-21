@@ -5,7 +5,7 @@ const  playerID = 'video-player';
 
 export default class dashJS {
 
-  constructor(safeApply) {
+  constructor(safeApply, $rootScope) {
     "ngInject";
 
     this.safeApply = safeApply;
@@ -13,20 +13,32 @@ export default class dashJS {
     this.visible = false;
     this.ttmlDiv = null;
     this.controlbar = null;
+    this.view = document.getElementById(playerID);
+    this.player = this.dashjs.MediaPlayer().create();
+    this.inited = false;
+    this.$rootScope = $rootScope;
   }
 
   init(url, autoPlay = false) {
-    this.player = this.dashjs.MediaPlayer().create();
-    this.player.initialize(document.getElementById(playerID), url, autoPlay);
+    if (!this.inited) {
+      this.player.initialize(this.view, url, autoPlay);
+      this.player.attachVideoContainer(document.getElementById("videoContainer"));
+      // Add HTML-rendered TTML subtitles except for Firefox (issue #1164)
+      if (typeof navigator !== 'undefined' && !navigator.userAgent.match(/Firefox/)) {
+        this.ttmlDiv = document.querySelector("#video-caption");
+        this.player.attachTTMLRenderingDiv(this.ttmlDiv);
+      }
+      this.controlbar = new ControlBar(this.player);
+      this.controlbar.initialize();
 
-    this.player.attachVideoContainer(document.getElementById("videoContainer"));
-    // Add HTML-rendered TTML subtitles except for Firefox (issue #1164)
-    if (typeof navigator !== 'undefined' && !navigator.userAgent.match(/Firefox/)) {
-      this.ttmlDiv = document.querySelector("#video-caption");
-      this.player.attachTTMLRenderingDiv(this.ttmlDiv);
+      this.inited = true;
+    } else {
+      this.player.attachSource(url);
+      this.player.play();
     }
-    this.controlbar = new ControlBar(this.player);
-    this.controlbar.initialize();
+
+    this.$rootScope.$emit('dashjs:init', 'Inited!');
+    this.setVisible(true);
   }
 
   setVisible(visible) {
@@ -35,8 +47,9 @@ export default class dashJS {
   }
 
   close() {
-    this.player.reset();
+    this.player.pause();
     this.setVisible(false);
+    this.$rootScope.$emit('dashjs:close', 'Closed!');
   }
 
 

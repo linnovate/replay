@@ -6,16 +6,18 @@ import _ from 'lodash';
 
 export default class MapService {
 
-  constructor($mdDialog, VideoService) {
+  constructor($mdDialog, VideoService, FilterFormService) {
     "ngInject";
 
     this.mapId = 'map-main';
-    // this.startPoint = [32.0808800, 34.7805700]; // Tel-aviv
-    this.startPoint = [27.105208, 35.527510];
-    this.zoom = 15;
+    this.startPoint = [32.0808800, 34.7805700]; // Tel-aviv
+    // this.startPoint = [27.105208, 35.527510];
+    this.zoom = 13;
     this.$mdDialog = $mdDialog;
     this.videoSrv = VideoService;
-    this._captureGroup = new L.FeatureGroup();
+    this.filterFormSrv = FilterFormService;
+    this._movingGroup = new L.FeatureGroup();
+    this._boundingGroup = new L.FeatureGroup();
     this.geojson = null;
     this._mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw';
   }
@@ -33,14 +35,14 @@ export default class MapService {
     this.map = L.map(this.mapId, {
       center: this.startPoint,
       zoom: this.zoom,
-      layers: [grayscaleTile, this._captureGroup]
+      layers: [streetsTile, this._movingGroup, this._boundingGroup]
     });
     baseLayers = {
       "Grayscale": grayscaleTile,
       "Streets": streetsTile
     };
     overlays = {
-      "Search": this._captureGroup
+      "Bounding shape": this._boundingGroup
     };
 
     // info control
@@ -52,7 +54,7 @@ export default class MapService {
     };
     this.ctrlInfo.update = function (props) {
       this._div.innerHTML = '<h4>Search details</h4>' + (props ?
-        '<b>Name: </b>' + props.video.name + '<br /><b>ID: </b>' + props._id
+        '<b>Name: </b>' + '<br /><b>ID: </b>' + props._id
           : 'Do some search then hover on result');
     };
     this.ctrlInfo.addTo(this.map);
@@ -61,49 +63,84 @@ export default class MapService {
 
     // init heat class
     this.heat = new HeatMap(this.map, this.$mdDialog);
+    this.drawSearchSrv = new DrawSearchService(this.map);
+    // TODO: consider cleaning
     this.circle = new MapCircle(this.map, this.$mdDialog);
     this.polygon = new PolygonMapService(this.map, this.$mdDialog);
-    this.drawSearchSrv = new DrawSearchService(this.map);
   }
 
   searchVideo() {
-    var map = this.map;
+    var map = this.map,
+      params = {},
+      filter = this.filterFormSrv.values;
 
-    if (!this.drawSearchSrv.isReady()) {
-      this.showAlert('Select search area first');
-      return;
+    if (this.drawSearchSrv.isReady()) {
+      params.boundingShapeType = 'Polygon';
+      params.boundingShapeCoordinates = JSON.stringify(this.drawSearchSrv.getFrame().geometry);
     }
 
-    this._captureGroup.clearLayers();
+    if (!_.isUndefined(filter['source'])) {
+      params['sourceId'] = filter['source'];
+    }
 
-    this.videoSrv.getVideo(this.drawSearchSrv.getFrame().geometry).then((result) => {
+    if (!_.isEmpty(filter['tag'])) {
+      params['tagsIds'] = JSON.stringify(filter['tag']);
+    }
+
+    if (!_.isEmpty(filter['timeRange'])) {
+      if (!_.isUndefined(filter['timeRange'].from))
+        params['fromVideoTime'] = filter['timeRange'].from;
+      if (!_.isUndefined(filter['timeRange'].to))
+        params['toVideoTime'] = filter['timeRange'].to;
+    }
+
+    if (!_.isEmpty(filter['length'])) {
+      if (!_.isUndefined(filter['length'].min))
+        params.minVideoDuration = filter['length'].min;
+
+      if (!_.isUndefined(filter['length'].max))
+        params.maxVideoDuration = filter['length'].max;
+    }
+
+    this._boundingGroup.clearLayers();
+    this.videoSrv.getVideo(params).then((result) => {
       this.videoSrv.list = result;
       _.each(result, (vItem) => {
-        console.log('getVideo', JSON.stringify(vItem, null, 4));
-        this.videoSrv.getVideoMetadata(vItem._id).then((meta) => {
-          var featureCollection = this.convertToFeatures(meta, {'video': vItem});
-          // console.log('featureCollection', JSON.stringify(featureCollection, null, 4));
-          this.geojson = L.geoJson(featureCollection, {
-            style: this.style.bind(this),
-            onEachFeature: this.onEachFeature.bind(this)
-          }).addTo(this._captureGroup);
-        });
+        this.renderBoundingGroup(vItem.boundingPolygon);
       });
     });
   }
 
-  getColor() {
-    return 'green';
+  renderBoundingGroup(boundingFeature) {
+    this.geojson = L.geoJson(boundingFeature, {
+      style: this.style.bind(this),
+      onEachFeature: this.onEachFeature.bind(this)
+    }).bindLabel('Bounding polygon').addTo(this._boundingGroup);
+  }
+
+  clearMovingGroup() {
+    this._movingGroup.clearLayers();
+  }
+
+  renderMovingGroup(featureCollection) {
+    this.clearMovingGroup();
+
+    this.geojson = L.geoJson(featureCollection, {
+      style: this.style.bind(this),
+      onEachFeature: this.onEachFeature.bind(this)
+    }).bindLabel('Moving object').addTo(this._movingGroup);
   }
 
   style(feature) {
+    var bounding = feature.geometry.type == 'MultiPolygon';
+
     return {
       weight: 2,
       opacity: 1,
       color: 'white',
-      dashArray: '3',
-      fillOpacity: 0.7,
-      fillColor: this.getColor()
+      dashArray: bounding ? '3' : '',
+      fillOpacity: bounding ? 0.3 : 1,
+      fillColor: bounding ? 'green' : 'magenta'
     };
   }
 
