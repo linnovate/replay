@@ -9,7 +9,7 @@ import ngConstant from 'gulp-ng-constant';
 import template   from 'gulp-template';
 import fs         from 'fs';
 import yargs      from 'yargs';
-import lodash     from 'lodash';
+import _          from 'lodash';
 import gutil      from 'gulp-util';
 import serve      from 'browser-sync';
 import del        from 'del';
@@ -129,8 +129,20 @@ gulp.task('constants', function () {
       nodeEnv = process.env.NODE_ENV ? process.env.NODE_ENV : 'local',
       envConfig;
 
-  if (jsonConfig['all']) envConfig = lodash.merge(jsonConfig['all'], jsonConfig[nodeEnv]);
+  if (jsonConfig['all']) envConfig = _.merge(jsonConfig['all'], jsonConfig[nodeEnv]);
   else envConfig = jsonConfig[nodeEnv];
+
+  if (!_.isUndefined(process.env['GOOGLE_CLIENT_ID'])) {
+    envConfig['ENV']['GOOGLE']['CLIENT_ID'] = process.env['GOOGLE_CLIENT_ID'];
+  }
+
+  if (!_.isUndefined(process.env['FE_API_HOST'])) {
+    envConfig['ENV']['API_HOST'] = process.env['FE_API_HOST'];
+  }
+
+  if (!_.isUndefined(process.env['FE_API_URL'])) {
+    envConfig['ENV']['API_URL'] = process.env['FE_API_URL'];
+  }
 
   return ngConstant({
     name: "app.config",
