@@ -43,7 +43,7 @@ gulp serve
 ```
 Run with different variables
 ```
-FE_API_HOST=http://example.com:1337 FE_API_URL=http://example.com:1337/api/v0.1 gulp server
+FE_API_HOST=http://example.com:1337 FE_API_URL=http://example.com:1337/api/v0.1 gulp serve
 ```
 Production deployment
 * Step 1: Make a bundle
