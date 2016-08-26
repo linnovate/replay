@@ -30,14 +30,6 @@
           </md-button>
         </md-menu-item>-->
 
-        <md-menu-item>
-          <md-button ng-click="vm.map.heat.drawToggle()">
-            <md-icon class="material-icon">add_location</md-icon>
-            <span ng-if="!vm.map.heat.enabled">Start drawing HeatMap</span>
-            <span ng-if="vm.map.heat.enabled">Stop drawing HeatMap</span>
-          </md-button>
-        </md-menu-item>
-
         <!--<md-menu-item>
           <md-button ng-click="vm.map.circle.toggle()">
             <md-icon class="material-icon">data_usage</md-icon>
@@ -51,8 +43,7 @@
     </md-menu>
 
 
-    <md-button ui-sref="home">Home</md-button>
-    <md-button ui-sref="map">Map</md-button>
+    <md-button ui-sref="auth.map">Map</md-button>
     <span flex></span>
     <div class="login-block"><user-login></user-login></div>
   </div>

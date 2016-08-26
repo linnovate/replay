@@ -30,7 +30,7 @@ angular.module('app', [
   .service({PlayListService})
   .service({Auth})
   .service({starService})
-  .config((ENV, $locationProvider, $mdThemingProvider, $httpProvider, $authProvider) => {
+  .config((ENV, $locationProvider, $mdThemingProvider, $httpProvider, $authProvider, $stateProvider) => {
     "ngInject";
 
     $locationProvider.html5Mode(true).hashPrefix('!');
@@ -54,5 +54,31 @@ angular.module('app', [
       //scope: ['email'],
       url: ENV.API_HOST+'/auth/google'
     });
+
+    // base route that implements auth check
+    $stateProvider
+      .state('auth', {
+        url: '',
+        abstract: true,
+        data: {
+          requiredLogin: true
+        },
+        resolve: {
+          authenticate: function (Auth, $q, $timeout, $state) {
+            var auth = Auth;
+
+            if (auth.isAuthenticated()) {
+              return $q.when();
+            } else {
+              $timeout(function () {
+                $state.go(auth._stateLogin);
+              });
+
+              return $q.reject();
+            }
+          }
+        },
+        template: '<ui-view>'
+      });
   })
   .component('app', AppComponent);

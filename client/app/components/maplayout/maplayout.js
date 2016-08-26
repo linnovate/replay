@@ -5,21 +5,16 @@ import maplayoutComponent from './maplayout.component';
 let maplayoutModule = angular.module('maplayout', [
   uiRouter
 ])
-.config(($stateProvider) => {
-  "ngInject";
+  .config(($stateProvider) => {
+    "ngInject";
 
-  $stateProvider
-    .state('map', {
-      url: '/map',
-      data: {
-        access: {
-          requiredLogin: true
+    $stateProvider
+      .state('auth.map', {
+          url: '/map',
+          template: '<maplayout></maplayout>'
         }
-      },
-      template: '<maplayout></maplayout>'
-    }
-    );
-})
-.component('maplayout', maplayoutComponent);
+      );
+  })
+  .component('maplayout', maplayoutComponent);
 
 export default maplayoutModule;

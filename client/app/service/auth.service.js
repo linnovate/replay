@@ -8,9 +8,8 @@ export default class AuthService {
     this.$rootScope = $rootScope;
 
     this._stateLogin = 'loginPage';
-    this._stateAfterLogout = 'home';
-    this._stateChangeBypass = false;
-    this.$rootScope.$on('$stateChangeStart', this.stateChange.bind(this));
+    this._stateAfterLogout = 'loginPage';
+    this._stateAfterLogin = 'auth.map';
   }
 
   authenticate(name, userData) {
@@ -18,6 +17,7 @@ export default class AuthService {
 
     promise.then((response) => {
       this.$rootScope.$emit('user:login', response);
+      this.$state.go(this._stateAfterLogin);
     });
 
     return promise;
@@ -30,7 +30,7 @@ export default class AuthService {
   logout() {
     this.$auth.logout().then(() => {
       var state = this.$state.current;
-      if (state.data && state.data.access && state.data.access.requiredLogin) {
+      if (state.data && state.data.requiredLogin) {
         this.$state.go(this._stateAfterLogout);
       }
 
@@ -46,20 +46,4 @@ export default class AuthService {
     return this.$rootScope.$on('user:logout', callback);
   }
 
-  stateChange(event, toState, toParams, fromState, fromParams, options) {
-    if (this._stateChangeBypass ||
-      (!toState.data || !toState.data.access || !toState.data.access.requiredLogin)) {
-      this._stateChangeBypass = false;
-      return;
-    }
-
-    event.preventDefault();
-
-    if (this.isAuthenticated()) {
-      this._stateChangeBypass = true;
-      this.$state.go(toState, toParams);
-    } else {
-      this.$state.go(this._stateLogin);
-    }
-  }
 }
