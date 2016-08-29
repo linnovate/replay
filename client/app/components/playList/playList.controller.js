@@ -5,16 +5,9 @@ class PlayListController {
   constructor(PlayListService, VideoService) {
     "ngInject";
 
-    this.playList = PlayListService;
+    this.playListSrv = PlayListService;
     this.videoSrv = VideoService;
-  }
-
-  setActiveRow($event) {
-    if ($event.target) {
-      var tr = angular.element($event.target).parent();
-      tr.parent().find('tr').removeClass('active');
-      tr.addClass('active');
-    }
+    this.playlist = this.playListSrv.getPlaylist();
   }
 
 }

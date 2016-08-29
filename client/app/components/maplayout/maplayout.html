@@ -6,15 +6,21 @@
               md-is-locked-open="$mdMedia('gt-sm')">
     <md-content flex>
       <md-tabs md-dynamic-height md-border-bottom class="md-primary md-hue-1">
-        <md-tab label="search">
+        <md-tab
+          label="search"
+          ui-sref="auth.map"
+          md-active="vm.$state.is('auth.map')">
           <md-content class="">
             <filter-form flex="none"></filter-form>
             <filter-result flex="none"></filter-result>
           </md-content>
         </md-tab>
-        <md-tab label="playlist">
+        <md-tab
+          label="playlist"
+          ui-sref="auth.map.playlist"
+          md-active="vm.$state.is('auth.map.playlist') || vm.$state.is('auth.map.playlistDetails')">
           <md-content class="">
-            <play-list></play-list>
+            <div ui-view></div>
           </md-content>
         </md-tab>
       </md-tabs>

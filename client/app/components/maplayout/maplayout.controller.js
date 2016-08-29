@@ -1,6 +1,9 @@
 class MaplayoutController {
-  constructor() {
+  constructor($state) {
+    "ngInject";
+
     this.name = 'maplayout';
+    this.$state = $state;
   }
 }
 

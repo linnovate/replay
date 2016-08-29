@@ -1,30 +1,33 @@
-<div class="video-results">
-  <md-toolbar class="md-hue-3 md-toolbar-slim">
+<md-toolbar class="md-hue-3 md-toolbar-slim">
 
-    <div class="md-toolbar-tools">
-      <h2>List items ({{vm.playList.count()}})</h2>
-      <span flex></span>
-
-
-      <md-button class="md-icon-button"
-                 aria-label="Playlist play"
-                 flex="none"
-                 ng-click=""
-                 ng-disabled="!vm.playList.count()">
-        <md-icon class="material-icons">playlist_play</md-icon>
-      </md-button>
-
-    </div>
-
-  </md-toolbar>
-
-  <div ng-if="vm.playList.count()">
-    <div ng-repeat="video in vm.playList.list">
-      <span>{{video.name}}</span><br>
-    </div>
+  <div class="md-toolbar-tools">
+    <h2>All playlists</h2>
+    <span flex></span>
+    <!--<md-button class="md-icon-button"
+               aria-label="Playlist play"
+               flex="none"
+               ng-click=""
+               ng-disabled="">
+      <md-icon class="material-icons">playlist_play</md-icon>
+    </md-button>-->
   </div>
+</md-toolbar>
 
-  <md-subheader class="md-primary" ng-if="!vm.playList.count()">
-    No playlist items added yet
-  </md-subheader>
-</div>
+<md-list-item
+  md-ink-ripple
+  ng-repeat="item in vm.playlist"
+  class=""
+  ui-sref="auth.map.playlistDetails({playListId: item._id})"
+>
+  <p>{{ item.name }}</p>
+  <md-button class="md-secondary md-icon-button"
+             aria-label="Delete from playlist"
+             ng-click=""
+             ng-disabled="">
+    <md-icon class="material-icon">delete</md-icon>
+  </md-button>
+</md-list-item>
+
+<md-subheader class="md-primary" ng-if="!vm.playlist.length">
+  No playlist items added yet
+</md-subheader>

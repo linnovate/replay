@@ -5,7 +5,28 @@ import playListComponent from './playList.component';
 let playListModule = angular.module('playList', [
   uiRouter
 ])
+  .config(($stateProvider) => {
+    "ngInject";
 
-.component('playList', playListComponent);
+    $stateProvider
+      .state('auth.map.playlist', {
+          url: '/playlist',
+          template: '<play-list></play-list>'
+        }
+      )
+      .state('auth.map.playlistDetails', {
+          url: '/playlist/:playListId',
+          template: require('./playListDetails.html'),
+          resolve: {
+            items: function (PlayListService, $stateParams) {
+              return PlayListService.getItemsByListId($stateParams.playListId)
+            }
+          }
+        }
+      );
+
+  })
+
+  .component('playList', playListComponent);
 
 export default playListModule;
