@@ -1,0 +1,29 @@
+<md-toolbar class="md-hue-3 md-toolbar-slim">
+
+  <div class="md-toolbar-tools">
+    <h2>Details!</h2>
+    <span flex></span>
+    <!--<md-button class="md-icon-button"
+               aria-label="Playlist play"
+               flex="none"
+               ng-click=""
+               ng-disabled="">
+      <md-icon class="material-icons">playlist_play</md-icon>
+    </md-button>-->
+  </div>
+</md-toolbar>
+
+<md-list-item
+  md-ink-ripple
+  ng-repeat="item in $resolve.items"
+  class=""
+  ng-click="{}"
+>
+  <p>{{ item.name }}</p>
+  <md-button class="md-secondary md-icon-button"
+             aria-label="Delete from playlist"
+             ng-click=""
+             ng-disabled="">
+    <md-icon class="material-icon">delete</md-icon>
+  </md-button>
+</md-list-item>
