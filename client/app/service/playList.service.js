@@ -82,4 +82,10 @@ export default class PlayListService {
     return _.filter(this._items, ['playlist', id]);
   }
 
+  getItemsCountByListId(id) {
+    if (!id) return;
+
+    return _.filter(this._items, ['playlist', id]).length;
+  }
+
 }

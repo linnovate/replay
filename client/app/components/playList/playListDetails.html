@@ -1,15 +1,33 @@
 <md-toolbar class="md-hue-3 md-toolbar-slim">
 
   <div class="md-toolbar-tools">
-    <h2>Details!</h2>
+    <md-button class="md-icon-button"
+               aria-label="Back to playlist"
+               flex="none"
+               ui-sref="auth.map.playlist"
+               ng-disabled="">
+      <md-icon class="material-icons">keyboard_arrow_left</md-icon>
+    </md-button>
+
+    <h2>{{$resolve.playlist.name}}</h2>
+
     <span flex></span>
-    <!--<md-button class="md-icon-button"
-               aria-label="Playlist play"
+
+    <md-button class="md-icon-button"
+               aria-label="Play all"
                flex="none"
                ng-click=""
                ng-disabled="">
       <md-icon class="material-icons">playlist_play</md-icon>
-    </md-button>-->
+    </md-button>
+
+    <md-button class="md-icon-button"
+               aria-label="Do more"
+               flex="none"
+               ng-click=""
+               ng-disabled="">
+      <md-icon class="material-icons">more_vert</md-icon>
+    </md-button>
   </div>
 </md-toolbar>
 

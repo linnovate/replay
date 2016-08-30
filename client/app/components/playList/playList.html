@@ -19,13 +19,8 @@
   class=""
   ui-sref="auth.map.playlistDetails({playListId: item._id})"
 >
-  <p>{{ item.name }}</p>
-  <md-button class="md-secondary md-icon-button"
-             aria-label="Delete from playlist"
-             ng-click=""
-             ng-disabled="">
-    <md-icon class="material-icon">delete</md-icon>
-  </md-button>
+  <div class="playlist-symbol">{{ vm.getFirstLetters(item.name) }}</div>
+  <p>{{ item.name }} <span class="playlist-count">({{item.count}} videos)</span></p>
 </md-list-item>
 
 <md-subheader class="md-primary" ng-if="!vm.playlist.length">

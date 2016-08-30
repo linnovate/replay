@@ -20,7 +20,10 @@ let playListModule = angular.module('playList', [
           resolve: {
             items: function (PlayListService, $stateParams) {
               return PlayListService.getItemsByListId($stateParams.playListId)
-            }
+            },
+            playlist: function (PlayListService, $stateParams) {
+              return PlayListService.getPlaylist($stateParams.playListId)[0]
+            },
           }
         }
       );
