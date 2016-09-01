@@ -9,6 +9,7 @@ import VideoPanel from './videoPanel/videoPanel';
 import Player from './player/player';
 import userLoginPage from './userLoginPage/userLoginPage';
 import playList from './playList/playList';
+import playListItems from './playListItems/playListItems';
 
 let componentModule = angular.module('app.components', [
   Home.name,
@@ -21,6 +22,7 @@ let componentModule = angular.module('app.components', [
   userLoginPage.name,
   sidebar.name,
   playList.name,
+  playListItems.name
 ]);
 
 export default componentModule;

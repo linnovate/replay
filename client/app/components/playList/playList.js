@@ -11,23 +11,11 @@ let playListModule = angular.module('playList', [
     $stateProvider
       .state('auth.map.playlist', {
           url: '/playlist',
-          template: '<play-list></play-list>'
-        }
-      )
-      .state('auth.map.playlistDetails', {
-          url: '/playlist/:playListId',
-          template: require('./playListDetails.html'),
-          resolve: {
-            items: function (PlayListService, $stateParams) {
-              return PlayListService.getItemsByListId($stateParams.playListId)
-            },
-            playlist: function (PlayListService, $stateParams) {
-              return PlayListService.getPlaylist($stateParams.playListId)[0]
-            },
-          }
+          component: 'playList',
+          /*resolve: {
+          }*/
         }
       );
-
   })
 
   .component('playList', playListComponent);

@@ -9,7 +9,7 @@
       <md-icon class="material-icons">keyboard_arrow_left</md-icon>
     </md-button>
 
-    <h2>{{$resolve.playlist.name}}</h2>
+    <h2>{{vm.currentList.name}}</h2>
 
     <span flex></span>
 
@@ -33,9 +33,9 @@
 
 <md-list-item
   md-ink-ripple
-  ng-repeat="item in $resolve.items"
+  ng-repeat="item in vm.items"
   class=""
-  ng-click="{}"
+  ng-click="vm.videoSrv.playVideo('57b576ae3a70e1cf65b0b829')"
 >
   <p>{{ item.name }}</p>
   <md-button class="md-secondary md-icon-button"

@@ -17,7 +17,7 @@
   md-ink-ripple
   ng-repeat="item in vm.playlist"
   class=""
-  ui-sref="auth.map.playlistDetails({playListId: item._id})"
+  ui-sref="auth.map.playlistItems({playListId: item._id})"
 >
   <div class="playlist-symbol">{{ vm.getFirstLetters(item.name) }}</div>
   <p>{{ item.name }} <span class="playlist-count">({{item.count}} videos)</span></p>
