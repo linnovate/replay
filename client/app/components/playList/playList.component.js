@@ -4,7 +4,9 @@ import './playList.styl';
 
 let playListComponent = {
   restrict: 'E',
-  bindings: {},
+  bindings: {
+    playlist: '<'
+  },
   template,
   controller,
   controllerAs: 'vm'

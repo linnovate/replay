@@ -12,8 +12,9 @@ let playListModule = angular.module('playList', [
       .state('auth.map.playlist', {
           url: '/playlist',
           component: 'playList',
-          /*resolve: {
-          }*/
+          resolve: {
+            playlist: (PlayListService) => PlayListService.getPlaylist()
+          }
         }
       );
   })

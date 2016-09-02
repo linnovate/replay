@@ -19,7 +19,7 @@
   class=""
   ui-sref="auth.map.playlistItems({playListId: item._id})"
 >
-  <div class="playlist-symbol">{{ vm.getFirstLetters(item.name) }}</div>
+  <div class="playlist-symbol">{{ item.avatar }}</div>
   <p>{{ item.name }} <span class="playlist-count">({{item.count}} videos)</span></p>
 </md-list-item>
 

@@ -4,31 +4,54 @@ export default class PlayListService {
 
   constructor() {
     this._items = [
-      {'_id': 1, 'playlist': '57c1d7f0a11062c5694de9b8', 'name': 'Video 1'},
-      {'_id': 2, 'playlist': '57c1d7f0a11062c5694de9b8', 'name': 'Video 2'},
-      {'_id': 3, 'playlist': '57c1d7f0a11062c5694de9b8', 'name': 'Video 3'},
-      {'_id': 4, 'playlist': '57c1d7f0a11062c5694de9b8', 'name': 'Video 4'},
-      {'_id': 5, 'playlist': '57c1d7f0a11062c5694de9b8', 'name': 'Video 5'},
-      {'_id': 6, 'playlist': '57c1d7fca11062c5694de9b9', 'name': 'Video 6'},
-      {'_id': 7, 'playlist': '57c1d7fca11062c5694de9b9', 'name': 'Video 7'},
-      {'_id': 8, 'playlist': '57c1d7fca11062c5694de9b9', 'name': 'Video 8'},
-      {'_id': 9, 'playlist': '57c1d7fca11062c5694de9b9', 'name': 'Video 9'},
-      {'_id': 10, 'playlist': '57c1d7fca11062c5694de9b9', 'name': 'Video 10'},
-      {'_id': 11, 'playlist': '57c1d7fea11062c5694de9ba', 'name': 'Video 11'},
-      {'_id': 12, 'playlist': '57c1d7fea11062c5694de9ba', 'name': 'Video 12'},
-      {'_id': 13, 'playlist': '57c1d7fea11062c5694de9ba', 'name': 'Video 13'},
-      {'_id': 14, 'playlist': '57c1d7fea11062c5694de9ba', 'name': 'Video 14'},
-      {'_id': 15, 'playlist': '57c1d7fea11062c5694de9ba', 'name': 'Video 15'},
-      {'_id': 16, 'playlist': '57c1d7fea11062c5694de9ba', 'name': 'Video 16'},
-      {'_id': 17, 'playlist': '57c1d7ffa11062c5694de9bb', 'name': 'Video 17'},
-      {'_id': 18, 'playlist': '57c1d7ffa11062c5694de9bb', 'name': 'Video 18'},
-      {'_id': 19, 'playlist': '57c1d7ffa11062c5694de9bb', 'name': 'Video 19'},
-      {'_id': 20, 'playlist': '57c1d7ffa11062c5694de9bb', 'name': 'Video 20'},
-      {'_id': 21, 'playlist': '57c1d800a11062c5694de9bc', 'name': 'Video 21'},
-      {'_id': 22, 'playlist': '57c1d800a11062c5694de9bc', 'name': 'Video 22'},
-      {'_id': 23, 'playlist': '57c1d800a11062c5694de9bc', 'name': 'Video 23'},
-      {'_id': 24, 'playlist': '57c1d800a11062c5694de9bc', 'name': 'Video 24'},
-      {'_id': 25, 'playlist': '57c1d800a11062c5694de9bc', 'name': 'Video 25'},
+      {'_id': 1, 'list': '57c1d7f0a11062c5694de9b8'},
+      {'_id': 2, 'list': '57c1d7f0a11062c5694de9b8'},
+      {'_id': 3, 'list': '57c1d7f0a11062c5694de9b8'},
+      {'_id': 4, 'list': '57c1d7f0a11062c5694de9b8'},
+      {'_id': 5, 'list': '57c1d7f0a11062c5694de9b8'},
+      {'_id': 11, 'list': '57c1d7fea11062c5694de9ba'},
+      {'_id': 12, 'list': '57c1d7fea11062c5694de9ba'},
+      {'_id': 13, 'list': '57c1d7fea11062c5694de9ba'},
+      {'_id': 14, 'list': '57c1d7fea11062c5694de9ba'},
+      {'_id': 15, 'list': '57c1d7fea11062c5694de9ba'},
+      {'_id': 16, 'list': '57c1d7fea11062c5694de9ba'},
+      {'_id': 17, 'list': '57c1d7ffa11062c5694de9bb'},
+      {'_id': 18, 'list': '57c1d7ffa11062c5694de9bb'},
+      {'_id': 19, 'list': '57c1d7ffa11062c5694de9bb'},
+      {'_id': 20, 'list': '57c1d7ffa11062c5694de9bb'},
+      {'_id': 21, 'list': '57c1d800a11062c5694de9bc'},
+      {'_id': 22, 'list': '57c1d800a11062c5694de9bc'},
+      {'_id': 23, 'list': '57c1d800a11062c5694de9bc'},
+      {'_id': 24, 'list': '57c1d800a11062c5694de9bc'},
+      {'_id': 25, 'list': '57c1d800a11062c5694de9bc'},
+    ];
+
+    this._itemsMeta = [
+      {'_id': 1, 'name': 'Video 1'},
+      {'_id': 2, 'name': 'Video 2'},
+      {'_id': 3, 'name': 'Video 3'},
+      {'_id': 4, 'name': 'Video 4'},
+      {'_id': 5, 'name': 'Video 5'},
+      {'_id': 6, 'name': 'Video 6'},
+      {'_id': 7, 'name': 'Video 7'},
+      {'_id': 8, 'name': 'Video 8'},
+      {'_id': 9, 'name': 'Video 9'},
+      {'_id': 10, 'name': 'Video 10'},
+      {'_id': 11, 'name': 'Video 11'},
+      {'_id': 12, 'name': 'Video 12'},
+      {'_id': 13, 'name': 'Video 13'},
+      {'_id': 14, 'name': 'Video 14'},
+      {'_id': 15, 'name': 'Video 15'},
+      {'_id': 16, 'name': 'Video 16'},
+      {'_id': 17, 'name': 'Video 17'},
+      {'_id': 18, 'name': 'Video 18'},
+      {'_id': 19, 'name': 'Video 19'},
+      {'_id': 20, 'name': 'Video 20'},
+      {'_id': 21, 'name': 'Video 21'},
+      {'_id': 22, 'name': 'Video 22'},
+      {'_id': 23, 'name': 'Video 23'},
+      {'_id': 24, 'name': 'Video 24'},
+      {'_id': 25, 'name': 'Video 25'},
     ];
 
     this._playlist = [
@@ -55,8 +78,10 @@ export default class PlayListService {
     ];
   }
 
-  addItem(item) {
-    if (!this.isItemAdded(video)) this._items.push(item);
+  addItem(id, listId) {
+    if (!id || !listId) return;
+
+    this._items.push(item);
   }
 
   removeItem(item) {
@@ -68,7 +93,21 @@ export default class PlayListService {
   }
 
   getPlaylist(id = null, limit = 10) {
-    return id ? _.filter(this._playlist, ['_id', id]) : _.slice(this._playlist, 0, limit);
+    var list =  id ? _.filter(this._playlist, ['_id', id]) : _.slice(this._playlist, 0, limit);
+
+    return _.map(list, (item) => {
+      return _.assign(
+        item,
+        { count: this.getItemsCountByListId(item._id) },
+        { avatar: this.getFirstLetters(item.name) }
+      )
+    });
+  }
+
+  getVideoMetaById(id) {
+    if (!id) return;
+
+    return _.find(this._itemsMeta, ['_id', id]);
   }
 
   /**
@@ -76,16 +115,39 @@ export default class PlayListService {
    * @param id Playlist ID
    * @returns {Array.<T>|*}
    */
-  getItemsByListId(id) {
-    if (!id) return;
+  getItemsByListId(listId) {
+    if (!listId) return;
 
-    return _.filter(this._items, ['playlist', id]);
+    var res = [];
+
+    _.each(this._items, (item) => {
+      if (item.list == listId) {
+        res.push({
+          _id: item._id,
+          name: this.getVideoMetaById(item._id).name
+        });
+      }
+    });
+
+    console.log('res', res);
+    return res;
   }
 
   getItemsCountByListId(id) {
     if (!id) return;
 
-    return _.filter(this._items, ['playlist', id]).length;
+    return _.filter(this._items, ['list', id]).length;
+  }
+
+  getFirstLetters(str, maxWords = 2) {
+    var splitted = str.split(' '),
+      letters = '';
+
+    _.each(splitted, function (word) {
+      if (word.length && letters.length < maxWords) letters += word[0];
+    });
+
+    return letters;
   }
 
 }
