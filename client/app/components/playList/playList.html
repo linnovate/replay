@@ -3,13 +3,13 @@
   <div class="md-toolbar-tools">
     <h2>All playlists</h2>
     <span flex></span>
-    <!--<md-button class="md-icon-button"
+    <md-button class="md-icon-button"
                aria-label="Playlist play"
                flex="none"
-               ng-click=""
+               ng-click="vm.add()"
                ng-disabled="">
-      <md-icon class="material-icons">playlist_play</md-icon>
-    </md-button>-->
+      <md-icon class="material-icons">playlist_add</md-icon>
+    </md-button>
   </div>
 </md-toolbar>
 
@@ -20,7 +20,7 @@
   ui-sref="auth.map.playlistItems({playListId: item._id})"
 >
   <div class="playlist-symbol">{{ item.avatar }}</div>
-  <p>{{ item.name }} <span class="playlist-count">({{item.count}} videos)</span></p>
+  <p>{{ item.name }} <span ng-if="item.count" class="playlist-count">({{item.count}} videos)</span></p>
 </md-list-item>
 
 <md-subheader class="md-primary" ng-if="!vm.playlist.length">

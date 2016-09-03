@@ -8,6 +8,7 @@ import TokenInterceptor from './service/tokenInterceptor.service';
 import SessionRecoverer from './service/sessionRecoverer';
 import VideoService from './service/video.service';
 import PlayListService from './service/playList.service';
+import DialogService from './service/dialog.service';
 import starService from './service/star.service';
 import Common from './common/common';
 import Components from './components/components';
@@ -27,6 +28,7 @@ angular.module('app', [
   .factory({TokenInterceptor})
   .factory({SessionRecoverer})
   .service({VideoService})
+  .service({DialogService})
   .service({PlayListService})
   .service({Auth})
   .service({starService})

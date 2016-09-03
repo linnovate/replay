@@ -13,18 +13,13 @@ let playListItemsModule = angular.module('playListItems', [
           url: '/playlist/:playListId',
           component: 'playListItems',
           resolve: {
-            items: function (PlayListService, $stateParams) {
-              return PlayListService.getItemsByListId($stateParams.playListId)
-            },
-            currentList: function (PlayListService, $stateParams) {
-              return PlayListService.getPlaylist($stateParams.playListId)[0]
-            }
+            items:        (PlayListService, $stateParams) => PlayListService.getItemsByListId($stateParams.playListId),
+            currentList:  (PlayListService, $stateParams) => PlayListService.getPlaylist($stateParams.playListId)[0]
           }
         }
       );
 
   })
-
   .component('playListItems', playListItemsComponent);
 
 export default playListItemsModule;

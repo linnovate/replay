@@ -13,7 +13,6 @@ export default class dashJS {
     this.visible = false;
     this.ttmlDiv = null;
     this.controlbar = null;
-    this.view = document.getElementById(playerID);
     this.player = this.dashjs.MediaPlayer().create();
     this.inited = false;
     this.$rootScope = $rootScope;
@@ -21,6 +20,7 @@ export default class dashJS {
 
   init(url, autoPlay = false) {
     if (!this.inited) {
+      this.view = document.getElementById(playerID);
       this.player.initialize(this.view, url, autoPlay);
       this.player.attachVideoContainer(document.getElementById("videoContainer"));
       // Add HTML-rendered TTML subtitles except for Firefox (issue #1164)
@@ -37,7 +37,7 @@ export default class dashJS {
       this.player.play();
     }
 
-    this.$rootScope.$emit('dashjs:init', 'Inited!');
+    this.$rootScope.$emit('dashjs:init', 'dashjs:inited');
     this.setVisible(true);
   }
 
@@ -49,7 +49,7 @@ export default class dashJS {
   close() {
     this.player.pause();
     this.setVisible(false);
-    this.$rootScope.$emit('dashjs:close', 'Closed!');
+    this.$rootScope.$emit('dashjs:close', 'dashjs:closed');
   }
 
 

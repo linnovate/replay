@@ -35,12 +35,12 @@
   md-ink-ripple
   ng-repeat="item in vm.items"
   class=""
-  ng-click="vm.videoSrv.playVideo('57b576ae3a70e1cf65b0b829')"
+  ng-click="vm.playlistSrv.playVideo(item._id)"
 >
   <p>{{ item.name }}</p>
   <md-button class="md-secondary md-icon-button"
              aria-label="Delete from playlist"
-             ng-click=""
+             ng-click="vm.removeItem(item)"
              ng-disabled="">
     <md-icon class="material-icon">delete</md-icon>
   </md-button>

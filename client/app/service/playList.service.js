@@ -2,7 +2,11 @@ import _ from 'lodash';
 
 export default class PlayListService {
 
-  constructor() {
+  constructor(VideoService) {
+    "ngInject";
+
+    this.videoSrv = VideoService;
+
     this._items = [
       {'_id': 1, 'list': '57c1d7f0a11062c5694de9b8'},
       {'_id': 2, 'list': '57c1d7f0a11062c5694de9b8'},
@@ -52,6 +56,7 @@ export default class PlayListService {
       {'_id': 23, 'name': 'Video 23'},
       {'_id': 24, 'name': 'Video 24'},
       {'_id': 25, 'name': 'Video 25'},
+      {'_id': '57b576ae3a70e1cf65b0b829', 'name': 'Cool video'},
     ];
 
     this._playlist = [
@@ -81,25 +86,41 @@ export default class PlayListService {
   addItem(id, listId) {
     if (!id || !listId) return;
 
-    this._items.push(item);
+    this._items.push({
+      _id: id,
+      list: listId
+    });
   }
 
-  removeItem(item) {
-    if (this.isItemAdded(video)) _.remove(this._items, ['_id', item._id])
+  removeItem(id, listId) {
+    _.remove(this._items, {_id: id, list: listId});
   }
 
-  isItemAdded(id) {
-    return !!_.find(this._items, ['_id', id]);
+  addPlayList(name) {
+    if (!name) return;
+
+    this._playlist.push({
+      _id: _.random(1, 100000),
+      name: name
+    })
+  }
+
+  removePlayList(listId) {
+    _.remove(this._playlist, {_id: listId });
+  }
+
+  isItemAdded(id, listId) {
+    // return !!_.find(this._items, ['_id', id]);
   }
 
   getPlaylist(id = null, limit = 10) {
-    var list =  id ? _.filter(this._playlist, ['_id', id]) : _.slice(this._playlist, 0, limit);
+    var list = id ? _.filter(this._playlist, ['_id', id]) : _.slice(this._playlist, 0, limit);
 
     return _.map(list, (item) => {
       return _.assign(
         item,
-        { count: this.getItemsCountByListId(item._id) },
-        { avatar: this.getFirstLetters(item.name) }
+        {count: this.getItemsCountByListId(item._id)},
+        {avatar: this.getFirstLetters(item.name)}
       )
     });
   }
@@ -118,19 +139,9 @@ export default class PlayListService {
   getItemsByListId(listId) {
     if (!listId) return;
 
-    var res = [];
-
-    _.each(this._items, (item) => {
-      if (item.list == listId) {
-        res.push({
-          _id: item._id,
-          name: this.getVideoMetaById(item._id).name
-        });
-      }
+    return _.map(_.filter(this._items, ['list', listId]), (item) => {
+      return _.assign(item, {name: this.getVideoMetaById(item._id).name});
     });
-
-    console.log('res', res);
-    return res;
   }
 
   getItemsCountByListId(id) {
@@ -150,4 +161,14 @@ export default class PlayListService {
     return letters;
   }
 
+  playVideo(id) {
+    // TODO: TMP! REMOVE AFTERWORDS!
+    this.addItem(id, watchedId);
+    id = '57b576ae3a70e1cf65b0b829';
+    this.videoSrv.playVideo(id);
+  }
+
 }
+
+const watchedId = '57c1d7fca11062c5694de9b9';
+const favouritesId = '57c1d7f0a11062c5694de9b8';
