@@ -6,7 +6,7 @@ export default class DialogService {
     this.$mdDialog = $mdDialog;
   }
 
-  showAlert(msg, title = 'Interesting fact...', btnCaption = 'OK') {
+    showAlert(msg, title = 'Interesting fact...', btnCaption = 'OK') {
     this.$mdDialog.show(
       this.$mdDialog.alert()
         .parent(angular.element(document.getElementById('map-main')))

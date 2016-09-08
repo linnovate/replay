@@ -24,7 +24,6 @@ let playListItemsModule = angular.module('playListItems', [
           }
         }
       );
-
   })
   .component('playListItems', playListItemsComponent);
 
