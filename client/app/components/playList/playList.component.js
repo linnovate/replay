@@ -1,11 +1,10 @@
-import template from './playList.html';
+import template from './viewport.html';
 import controller from './playList.controller';
 import './playList.styl';
 
 let playListComponent = {
   restrict: 'E',
   bindings: {
-    playlist: '<'
   },
   template,
   controller,

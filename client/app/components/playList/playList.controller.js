@@ -9,6 +9,10 @@ class PlayListController {
     this.dialogSrv = DialogService;
   }
 
+  $onInit() {
+    this.playlist = this.playlistSrv.getPlaylist();
+  }
+
   add() {
     let dialog = this.dialogSrv.showPrompt('Add new playlist');
 
@@ -20,6 +24,14 @@ class PlayListController {
     }, () => {
       console.log('dialog', 'you hit cancel');
     })
+  }
+
+  onEditList(list) {
+    console.debug('onEditList', list);
+  }
+
+  onDeleteList(list) {
+    console.debug('onDeleteList', list);
   }
 }
 

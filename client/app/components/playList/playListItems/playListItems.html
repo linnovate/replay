@@ -21,13 +21,33 @@
       <md-icon class="material-icons">playlist_play</md-icon>
     </md-button>
 
-    <md-button class="md-icon-button"
-               aria-label="Do more"
-               flex="none"
-               ng-click=""
-               ng-disabled="">
-      <md-icon class="material-icons">more_vert</md-icon>
-    </md-button>
+    <md-menu>
+      <md-button class="md-icon-button"
+                 aria-label="Do more"
+                 flex="none"
+                 ng-click="$mdOpenMenu($event);"
+                 ng-disabled="">
+        <md-icon class="material-icons">more_vert</md-icon>
+      </md-button>
+
+      <md-menu-content width="4">
+        <md-menu-item>
+          <md-button ng-click="vm.onEditList({list: vm.currentList})">
+            <md-icon class="material-icon">mode_edit</md-icon>
+            <span>Rename playlist</span>
+          </md-button>
+        </md-menu-item>
+
+        <md-menu-item>
+          <md-button ng-click="vm.onDeleteList({list: vm.currentList})">
+            <md-icon class="material-icon">delete_sweep</md-icon>
+            <span>Delete playlist</span>
+          </md-button>
+        </md-menu-item>
+
+      </md-menu-content>
+    </md-menu>
+
   </div>
 </md-toolbar>
 

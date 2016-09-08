@@ -1,9 +1,11 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import playListComponent from './playList.component';
+import playListItems from './playListItems/playListItems';
 
 let playListModule = angular.module('playList', [
-  uiRouter
+  uiRouter,
+  playListItems.name
 ])
   .config(($stateProvider) => {
     "ngInject";
@@ -11,9 +13,10 @@ let playListModule = angular.module('playList', [
     $stateProvider
       .state('auth.map.playlist', {
           url: '/playlist',
-          component: 'playList',
-          resolve: {
-            playlist: (PlayListService) => PlayListService.getPlaylist()
+          views: {
+            playList: {
+              template: require('./playList.html'),
+            }
           }
         }
       );

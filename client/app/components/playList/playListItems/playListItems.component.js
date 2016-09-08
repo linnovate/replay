@@ -5,8 +5,9 @@ import './playListItems.styl';
 let playListItemsComponent = {
   restrict: 'E',
   bindings: {
-    items: '<',
-    currentList: '<'
+    onDeleteItem: '&',
+    onEditList: '&',
+    onDeleteList: '&'
   },
   template,
   controller,

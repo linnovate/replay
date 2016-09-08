@@ -11,10 +11,16 @@ let playListItemsModule = angular.module('playListItems', [
     $stateProvider
       .state('auth.map.playlistItems', {
           url: '/playlist/:playListId',
-          component: 'playListItems',
-          resolve: {
-            items:        (PlayListService, $stateParams) => PlayListService.getItemsByListId($stateParams.playListId),
-            currentList:  (PlayListService, $stateParams) => PlayListService.getPlaylist($stateParams.playListId)[0]
+          views: {
+            playListItems: {
+              template: `
+                <play-list-items 
+                  on-delete-item="vm.onDeleteItem(item)" 
+                  on-delete-list="vm.onDeleteList(list)" 
+                  on-edit-list="vm.onEditList(list)">
+                </play-list-items>
+              `
+            }
           }
         }
       );
