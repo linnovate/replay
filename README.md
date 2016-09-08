@@ -50,6 +50,7 @@ Production deployment
 ```
 FE_API_HOST=http://production.com FE_API_URL=http://api.production.com/api/v0.1 gulp webpack
 ```
+<<<<<<< HEAD
 * Step 2: Use generated folter `dist`
 
 
@@ -63,3 +64,6 @@ Folder organization
 `common`: components that are used across multiple places
 `components`: the majority of the components reside here
 `service`: common services widely used
+=======
+* Step 2: Use generated folder `dist`
+>>>>>>> 6be7b804528e0233e498824be5181798173c628c
