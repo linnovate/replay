@@ -4,8 +4,6 @@ import ngResource from 'angular-resource';
 import uiRouter from 'angular-ui-router';
 import satellizer from 'satellizer';
 import Auth from './service/auth.service.js';
-import TokenInterceptor from './service/tokenInterceptor.service';
-import SessionRecoverer from './service/sessionRecoverer';
 import VideoService from './service/video.service';
 import PlayListService from './service/playList.service';
 import DialogService from './service/dialog.service';
@@ -25,8 +23,6 @@ angular.module('app', [
   Common.name,
   Components.name
 ])
-  .factory({TokenInterceptor})
-  .factory({SessionRecoverer})
   .service({VideoService})
   .service({DialogService})
   .service({PlayListService})
@@ -48,8 +44,6 @@ angular.module('app', [
         'default': '500'
       });
 
-    //$httpProvider.interceptors.push('SessionRecoverer');
-    //$httpProvider.interceptors.push('TokenInterceptor');
 
     $authProvider.google({
       clientId: ENV.GOOGLE.CLIENT_ID,
