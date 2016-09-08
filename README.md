@@ -51,3 +51,15 @@ Production deployment
 FE_API_HOST=http://production.com FE_API_URL=http://api.production.com/api/v0.1 gulp webpack
 ```
 * Step 2: Use generated folter `dist`
+
+
+## App structure
+App is built in a component or modular way, almost everything is a component.
+![](http://joxi.ru/NDrlXdnHEXwvrP?d=1)
+
+Folder organization
+![](http://joxi.ru/WKAxl1OUQgPlA8?d=1)
+
+`common`: components that are used across multiple places
+`components`: the majority of the components reside here
+`service`: common services widely used
