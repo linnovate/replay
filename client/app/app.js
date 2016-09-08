@@ -5,7 +5,6 @@ import uiRouter from 'angular-ui-router';
 import satellizer from 'satellizer';
 import Auth from './service/auth.service.js';
 import VideoService from './service/video.service';
-import PlayListService from './service/playList.service';
 import DialogService from './service/dialog.service';
 import starService from './service/star.service';
 import Common from './common/common';
@@ -25,7 +24,6 @@ angular.module('app', [
 ])
   .service({VideoService})
   .service({DialogService})
-  .service({PlayListService})
   .service({Auth})
   .service({starService})
   .config((ENV, $locationProvider, $mdThemingProvider, $httpProvider, $authProvider, $stateProvider) => {

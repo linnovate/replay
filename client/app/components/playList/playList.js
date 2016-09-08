@@ -1,5 +1,6 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
+import PlayListService from './playList.service';
 import playListComponent from './playList.component';
 import playListItems from './playListItems/playListItems';
 
@@ -7,6 +8,7 @@ let playListModule = angular.module('playList', [
   uiRouter,
   playListItems.name
 ])
+  .service({PlayListService})
   .config(($stateProvider) => {
     "ngInject";
 
