@@ -95,3 +95,8 @@ Available routes so far:
 /map/playlist
 /map/playlist/57c1d7f0a11062c5694de9b8
 ```
+
+
+## Map business logic
+All map related logic resides in `components/map` component. The main file is `map.service.js`
+All map features, e.g. heated map, video tracking etc, are done with separate services sush as: `track.service.js` & `heamap.service.js` and so (service directory inside the component). 
