@@ -50,8 +50,7 @@ Production deployment
 ```
 FE_API_HOST=http://production.com FE_API_URL=http://api.production.com/api/v0.1 gulp webpack
 ```
-<<<<<<< HEAD
-* Step 2: Use generated folter `dist`
+* Step 2: Use generated folder `dist`
 
 
 ## App structure
@@ -64,6 +63,35 @@ Folder organization
 `common`: components that are used across multiple places
 `components`: the majority of the components reside here
 `service`: common services widely used
-=======
-* Step 2: Use generated folder `dist`
->>>>>>> 6be7b804528e0233e498824be5181798173c628c
+
+## Authentication
+[Satellizer lib](https://github.com/sahat/satellizer) is used for request authorizations
+Satellizer is a simple to use, end-to-end, token-based authentication module for AngularJS with built-in support for Google, Facebook, LinkedIn, Twitter, Instagram, GitHub, Bitbucket, Yahoo, Twitch, Microsoft (Windows Live) OAuth providers, as well as Email and Password sign-in. However, you are not limited to the sign-in options above, in fact you can add any OAuth 1.0 or OAuth 2.0 provider by passing provider-specific information in the app config block.
+No sessions are stored on the server, as JWT encoded token is passed with every request.
+State is stored only locally in the browser (localStorage or sessionStorage available to use)
+Also, an important thing is that: JWT token is not revocable, it expires after some time (default 14 days)
+  
+## Component structure
+From angular 1.5 we can you .component method to create our own components with well designed API inputs & outputs [read more here](https://docs.angularjs.org/guide/component)
+  
+### Component detail view  
+Most of the page elements are made of this simple entities: 
+  ```
+  ⋅⋅home/ * home component
+  ⋅⋅⋅⋅home.js * home entry file (routes, configurations, and declarations occur here)
+  ⋅⋅⋅⋅home.component.js * home "directive"
+  ⋅⋅⋅⋅home.controller.js * home controller
+  ⋅⋅⋅⋅home.styl * home styles
+  ⋅⋅⋅⋅home.html * home template
+  ⋅⋅⋅⋅home.spec.js * home specs (for entry, component, and controller)
+  ```
+
+## Routing
+For the routing we use [angular-ui-router](https://github.com/angular-ui/ui-router) as it is the most robust and flexible solution currently.
+Available routes so far:
+```
+/
+/map
+/map/playlist
+/map/playlist/57c1d7f0a11062c5694de9b8
+```
