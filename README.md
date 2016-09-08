@@ -63,7 +63,9 @@ Folder organization
 ![](http://joxi.ru/WKAxl1OUQgPlA8?d=1)
 
 `common`: components that are used across multiple places
+
 `components`: the majority of the components reside here
+
 `service`: common services widely used
 
 ## Authentication
