@@ -12,9 +12,9 @@ export default class TrackService {
     this.marker = null;
     this.$rootScope = $rootScope;
 
-    /*$rootScope.$on('dashjs:init', function (event, data) {
-      console.debug(data);
-    });*/
+    this.mapSrv.getMap().then((map) => {
+      this.init();
+    });
 
     $rootScope.$on('dashjs:close', (event, data) => {
       this.clearTrackGroup();

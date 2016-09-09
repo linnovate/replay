@@ -1,14 +1,13 @@
 import HeatMap from './heatmap.service';
-import MapCircle from './circle.service';
-import PolygonMapService from './polygon.service';
 import DrawSearchService from './drawSearch.service';
 import _ from 'lodash';
 
 export default class MapService {
 
-  constructor($mdDialog, VideoService, FilterFormService) {
+  constructor($mdDialog, VideoService, FilterFormService, $q) {
     "ngInject";
 
+    this._mapDeferred = $q.defer();
     this.mapId = 'map-main';
     this.startPoint = [32.0808800, 34.7805700]; // Tel-aviv
     // this.startPoint = [27.105208, 35.527510];
@@ -64,9 +63,12 @@ export default class MapService {
     // init heat class
     this.heat = new HeatMap(this.map, this.$mdDialog);
     this.drawSearchSrv = new DrawSearchService(this.map);
-    // TODO: consider cleaning
-    this.circle = new MapCircle(this.map, this.$mdDialog);
-    this.polygon = new PolygonMapService(this.map, this.$mdDialog);
+
+    this._mapDeferred.resolve(this.map);
+  }
+
+  getMap() {
+    return this._mapDeferred.promise;
   }
 
   searchVideo() {
@@ -203,31 +205,6 @@ export default class MapService {
     });
 
     return collection;
-  }
-
-  _addSearchPoints() {
-    var points = [
-      [27.105208, 35.527510],
-      [27.106178, 35.524920],
-      [27.109094, 35.525464],
-      [27.105208, 35.527510]
-    ];
-    L.polygon(points, {
-      color: 'red',
-      weight: 2,
-    }).bindLabel('Search area').addTo(this.map);
-  }
-
-  showAlert(msg, title = 'Interesting fact...', btnCaption = 'OK') {
-    this.$mdDialog.show(
-      this.$mdDialog.alert()
-        .parent(angular.element(document.getElementById('map-main')))
-        .clickOutsideToClose(true)
-        .title(title)
-        .textContent(msg)
-        .ariaLabel('Alert Dialog Demo')
-        .ok(btnCaption)
-    );
   }
 
   capitalizeFirstLetter(string) {

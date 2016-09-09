@@ -91,11 +91,11 @@ export default class DrawSearch {
   }
 
   activeHandlerDisable() {
-    if (this._activeHandler) this._activeHandler.disable();
+    this._activeHandler.disable();
   }
 
   activeHandlerEnable() {
-    if (this._activeHandler) this._activeHandler.enable();
+    this._activeHandler.enable();
   }
 
 }
