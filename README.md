@@ -106,4 +106,4 @@ All map related logic resides in `components/map` component. The main file is `m
 All map features, e.g. heated map, video tracking etc, are done with separate services sush as: `track.service.js` & `heamap.service.js` and so (service directory inside the component). 
 
 
-trigger jenkins test1
+trigger jenkins test2
