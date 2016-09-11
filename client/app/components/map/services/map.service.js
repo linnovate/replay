@@ -1,4 +1,3 @@
-import HeatMap from './heatmap.service';
 import DrawSearchService from './drawSearch.service';
 import _ from 'lodash';
 
@@ -60,8 +59,6 @@ export default class MapService {
     // add layer control
     L.control.layers(baseLayers, overlays).addTo(this.map);
 
-    // init heat class
-    this.heat = new HeatMap(this.map, this.$mdDialog);
     this.drawSearchSrv = new DrawSearchService(this.map);
 
     this._mapDeferred.resolve(this.map);
