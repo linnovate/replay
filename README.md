@@ -50,6 +50,6 @@ Production deployment
 ```
 FE_API_HOST=http://production.com FE_API_URL=http://api.production.com/api/v0.1 gulp webpack
 ```
-* Step 2: Use generated folter `dist`
+* Step 2: Use generated folder `dist`
 * 
 
