@@ -114,4 +114,4 @@ All map features, e.g. heated map, video tracking etc, are done with separate se
 
 
 
-trigger jenkins test1
+trigger jenkins test2
