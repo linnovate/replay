@@ -103,7 +103,15 @@ Available routes so far:
 
 ## Map business logic
 All map related logic resides in `components/map` component. The main file is `map.service.js`
-All map features, e.g. heated map, video tracking etc, are done with separate services sush as: `track.service.js` & `heamap.service.js` and so (service directory inside the component). 
+All map features, e.g. heated map, video tracking etc, are done with separate services sush as: `track.service.js` & `heamap.service.js` and so (service directory inside the component).
+ 
+## UI overveiw
+[![](http://joxi.ru/wRmzG7WFlpO82O?d=1)](http://www.youtube.com/embed/NEz3whBVLgY?vq=hd1080&autoplay=1 "UI overview")
+
+
+## Folder overview
+[![](http://joxi.ru/jgmvBxoHz5Z5ma?d=1)](http://www.youtube.com/embed/eLmYEGI9LYg?vq=hd1080&autoplay=1 "Project folder overview")
+
 
 
 trigger jenkins test1
