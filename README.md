@@ -112,6 +112,7 @@ All map features, e.g. heated map, video tracking etc, are done with separate se
 ## Folder overview
 [![](http://joxi.ru/jgmvBxoHz5Z5ma?d=1)](http://www.youtube.com/embed/eLmYEGI9LYg?vq=hd1080&autoplay=1 "Project folder overview")
 
-
+## Angular component intro
+[![](http://joxi.ru/gV2V9w1tJ0gWmv?d=1)](http://www.youtube.com/embed/Xiw28WEOk0g?vq=hd1080&autoplay=1 "Angular component intro")
 
 trigger jenkins test4
