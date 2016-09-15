@@ -115,4 +115,9 @@ All map features, e.g. heated map, video tracking etc, are done with separate se
 ## Angular component intro
 [![](http://joxi.ru/gV2V9w1tJ0gWmv?d=1)](http://www.youtube.com/embed/Xiw28WEOk0g?vq=hd1080&autoplay=1 "Angular component intro")
 
+## Extending map functionality
+### Add circle and handle events
+
+[![](http://joxi.ru/Bv29BgZHlYK3AG?d=1)](https://www.youtube.com/embed/ZXh6BWNSzRc?hd=1&autoplay=1 "Add circle and handle events")
+
 trigger jenkins test4
