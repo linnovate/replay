@@ -17,6 +17,8 @@ export default class AuthService {
 
     promise.then((response) => {
       this.$rootScope.$emit('user:login', response);
+      // treat `adfs` provider differently
+      if (name == 'adfs') this.$auth.setToken(response.token);
       this.$state.go(this._stateAfterLogin);
     });
 

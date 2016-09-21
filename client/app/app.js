@@ -49,6 +49,13 @@ angular.module('app', [
       url: ENV.API_HOST+'/auth/google'
     });
 
+    $authProvider.oauth2({
+      name: 'adfs',
+      redirectUri: window.location.origin,
+      responseType: 'token',
+      authorizationEndpoint: ENV.API_HOST+'/auth/adfs-saml',
+    });
+
     // base route that implements auth check
     $stateProvider
       .state('auth', {

@@ -1,6 +1,7 @@
 <div layout="row">
   <div flex="none">
-    <md-button ng-if="!vm.auth.isAuthenticated()" class="md-accent" ng-click="vm.auth.authenticate('google')">Sign In</md-button>
+    <md-button ng-if="!vm.auth.isAuthenticated()" class="md-accent" ng-click="vm.auth.authenticate('google')">Sign In Google</md-button>
+    <md-button ng-if="!vm.auth.isAuthenticated()" class="md-accent" ng-click="vm.auth.authenticate('adfs')">Sign In ADFS</md-button>
     <md-button ng-if="vm.auth.isAuthenticated()" class="md-accent" ng-click="vm.auth.logout()">Logout</md-button>
   </div>
 </div>
