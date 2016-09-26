@@ -118,7 +118,7 @@ All map features, e.g. heated map, video tracking etc, are done with separate se
 ## Extending map functionality
 ### Add circle and handle events
 
-[![](http://joxi.ru/Bv29BgZHlYK3AG?d=1)](https://www.youtube.com/embed/ZXh6BWNSzRc?hd=1&autoplay=1 "Add circle and handle events")
+[![](http://joxi.ru/Bv29BgZHlYK3AG?d=1)](?hd=1&autoplay=1 "Add circle and handle events")
 
 ## DialogService & VideoService 
 [![](https://3.downloader.disk.yandex.ru/preview/0846ab18973488a57f0f187f8ba78809af021ab13eda1ea8baa63f88bd1042be/inf/2_xHWF97CSgWQOsdk2Zv30XMuszgzzZMqrAxUHHExnmvgG3A6800YOMAI1xKgoHW7D1ffANA_2UnK9JQASgm8w%3D%3D?uid=0&filename=2016-09-25_18-28-08.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=XXL&crop=0)](https://www.youtube.com/embed/IIpTMRM-Fus?hd=1&autoplay=1 "DialogService & VideoService")
