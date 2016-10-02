@@ -80,6 +80,7 @@ gulp.task('serve', ['constants'], () => {
   serve({
     port: process.env.PORT || 3000,
     open: false,
+    https: true,
     server: {baseDir: root},
     middleware: [
       historyApiFallback(),
