@@ -10,17 +10,19 @@ class PlayListController {
   }
 
   $onInit() {
-    this.playlist = this.playlistSrv.getPlaylist();
+    this.playlistSrv.getPlaylist()
+      .then((result) => this.playlist = result);
   }
 
   add() {
     let dialog = this.dialogSrv.showPrompt('Add new playlist');
 
-    dialog.then((result) => {
-      if (!result) return;
+    dialog.then((listName) => {
+      if (!listName) return;
 
-      this.playlistSrv.addPlayList(result);
-      this.playlist = this.playlistSrv.getPlaylist();
+      // add to the remote, add to the list
+      this.playlistSrv.addPlayList(listName)
+        .then((result) => this.playlist.push(result));
     }, () => {
       console.log('dialog', 'you hit cancel');
     })

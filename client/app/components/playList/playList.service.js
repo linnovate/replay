@@ -2,10 +2,12 @@ import _ from 'lodash';
 
 export default class PlayListService {
 
-  constructor(MissionService) {
+  constructor(MissionService, $resource, ENV) {
     "ngInject";
 
     this.missionSrv = MissionService;
+    this.$resource = $resource;
+    this.resPlaylist = this.$resource(ENV.API_URL+'/playlist/:id');
 
     this._items = [
       {'_id': 1, 'list': '57c1d7f0a11062c5694de9b8'},
@@ -83,6 +85,26 @@ export default class PlayListService {
     ];
   }
 
+  /**
+   * Add new playlist
+   * @param name
+   * @return promise on save
+   */
+  addPlayList(name) {
+    if (!name) {
+      console.error('no name provided for new playlist');
+      return;
+    }
+
+    var list = new this.resPlaylist();
+    list.name = name;
+    return list.$save();
+  }
+
+  getPlaylist(id = null, limit = 10) {
+    return this.resPlaylist.query().$promise;
+  }
+
   addItem(id, listId) {
     if (!id || !listId) return;
 
@@ -96,14 +118,7 @@ export default class PlayListService {
     _.remove(this._items, {_id: id, list: listId});
   }
 
-  addPlayList(name) {
-    if (!name) return;
 
-    this._playlist.push({
-      _id: _.random(1, 100000),
-      name: name
-    })
-  }
 
   removePlayList(listId) {
     _.remove(this._playlist, {_id: listId });
@@ -111,18 +126,6 @@ export default class PlayListService {
 
   isItemAdded(id, listId) {
     // return !!_.find(this._items, ['_id', id]);
-  }
-
-  getPlaylist(id = null, limit = 10) {
-    var list = id ? _.filter(this._playlist, ['_id', id]) : _.slice(this._playlist, 0, limit);
-
-    return _.map(list, (item) => {
-      return _.assign(
-        item,
-        {count: this.getItemsCountByListId(item._id)},
-        {avatar: this.getFirstLetters(item.name)}
-      )
-    });
   }
 
   getVideoMetaById(id) {
@@ -148,17 +151,6 @@ export default class PlayListService {
     if (!id) return;
 
     return _.filter(this._items, ['list', id]).length;
-  }
-
-  getFirstLetters(str, maxWords = 2) {
-    var splitted = str.split(' '),
-      letters = '';
-
-    _.each(splitted, function (word) {
-      if (word.length && letters.length < maxWords) letters += word[0];
-    });
-
-    return letters;
   }
 
   playVideo(id) {

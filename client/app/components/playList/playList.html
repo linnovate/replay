@@ -19,8 +19,8 @@
   class=""
   ui-sref="auth.map.playlistItems({playListId: item._id})"
 >
-  <div class="playlist-symbol">{{ item.avatar }}</div>
-  <p>{{ item.name }} <span ng-if="item.count" class="playlist-count">({{item.count}} videos)</span></p>
+  <div class="playlist-symbol">{{ item.name | firstLetters }}</div>
+  <p>{{ item.name }}</p>
 </md-list-item>
 
 <md-subheader class="md-primary" ng-if="!vm.playlist.length">
