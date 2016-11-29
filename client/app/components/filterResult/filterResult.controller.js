@@ -2,10 +2,10 @@ import moment from 'moment';
 
 class FilterResultController {
 
-  constructor(VideoService) {
+  constructor(MissionService) {
     "ngInject";
 
-    this.videoSrv = VideoService;
+    this.missionSrv = MissionService;
     this.moment = moment;
   }
 

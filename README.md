@@ -120,7 +120,7 @@ All map features, e.g. heated map, video tracking etc, are done with separate se
 
 [![](http://joxi.ru/Y82Q9wdtvPLg2d?d=1)](https://www.youtube.com/embed/wFj72igRkC4?hd=1&autoplay=1 "Add circle and handle events")
 
-## DialogService & VideoService 
-[![](http://joxi.ru/Bv29BgZHlE1RAG?d=1)](https://www.youtube.com/embed/IIpTMRM-Fus?hd=1&autoplay=1 "DialogService & VideoService")
+## DialogService & MissionService 
+[![](http://joxi.ru/Bv29BgZHlE1RAG?d=1)](https://www.youtube.com/embed/IIpTMRM-Fus?hd=1&autoplay=1 "DialogService & MissionService")
 
 trigger jenkins test4

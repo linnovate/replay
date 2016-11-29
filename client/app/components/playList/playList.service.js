@@ -2,10 +2,10 @@ import _ from 'lodash';
 
 export default class PlayListService {
 
-  constructor(VideoService) {
+  constructor(MissionService) {
     "ngInject";
 
-    this.videoSrv = VideoService;
+    this.missionSrv = MissionService;
 
     this._items = [
       {'_id': 1, 'list': '57c1d7f0a11062c5694de9b8'},
@@ -165,7 +165,7 @@ export default class PlayListService {
     // TODO: TMP! REMOVE AFTERWORDS!
     this.addItem(id, watchedId);
     id = '57b576ae3a70e1cf65b0b829';
-    this.videoSrv.playVideo(id);
+    this.missionSrv.playVideo(id);
   }
 
 }

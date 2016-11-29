@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 export default class MapService {
 
-  constructor($mdDialog, VideoService, FilterFormService, $q) {
+  constructor($mdDialog, MissionService, FilterFormService, $q) {
     "ngInject";
 
     this._mapDeferred = $q.defer();
@@ -12,7 +12,7 @@ export default class MapService {
     // this.startPoint = [27.105208, 35.527510];
     this.zoom = 13;
     this.$mdDialog = $mdDialog;
-    this.videoSrv = VideoService;
+    this.missionSrv = MissionService;
     this.filterFormSrv = FilterFormService;
     this._movingGroup = new L.FeatureGroup();
     this._boundingGroup = new L.FeatureGroup();
@@ -102,8 +102,8 @@ export default class MapService {
     }
 
     this._boundingGroup.clearLayers();
-    this.videoSrv.getVideo(params).then((result) => {
-      this.videoSrv.list = result;
+    this.missionSrv.getMission(params).then((result) => {
+      this.missionSrv.list = result;
       _.each(result, (vItem) => {
         this.renderBoundingGroup(vItem.boundingPolygon);
       });

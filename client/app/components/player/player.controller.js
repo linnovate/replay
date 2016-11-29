@@ -1,15 +1,15 @@
 class PlayerController {
 
-  constructor(dashJS, VideoService) {
+  constructor(dashJS, MissionService) {
     "ngInject";
 
     this.video = dashJS;
-    this.videoSrv = VideoService;
+    this.missionSrv = MissionService;
   }
 
   close() {
     this.video.close();
-    this.videoSrv.currentVideoId = '';
+    this.missionSrv.currentVideoId = '';
   }
 
   $onInit() {

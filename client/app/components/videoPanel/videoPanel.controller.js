@@ -1,11 +1,11 @@
 class VideoPanelController {
 
-  constructor(PlayListService, starService, VideoService) {
+  constructor(PlayListService, starService, MissionService) {
     "ngInject";
 
     this.playList = PlayListService;
     this.star = starService;
-    this.videoSrv = VideoService;
+    this.missionSrv = MissionService;
   }
 
 }

@@ -1,9 +1,23 @@
 #!/bin/bash
-# MONGO_HOST=dev.replay.linnovate.net:27017
 
+# general
+export MONGO_HOST=13.94.255.166
+# authentication-service
+export BASE_URL=https://replay.server.me
+export FRONTEND_URL=https://replay.server.me
+export FRONTEND_PORT=443
+# frontend
+export FE_API_HOST=https://replay.server.me
+export FE_API_URL=https://replay.server.me/api/v0.1
+
+# clean up before run
 killall -s KILL node
 killall -s KILL gulp
-BASE_URL=http://server.me nodemon ../replay-api/api-service &
+
+# run
+node ../replay-api/authentication-service &
 node ../replay-api/query-service/app.js &
+node ../replay-api/authorization-service/app.js &
 node ../replay-api/media-url-provider/app.js &
-NODE_ENV=devbr gulp
+node ../replay-api/playlist-service/app.js &
+gulp

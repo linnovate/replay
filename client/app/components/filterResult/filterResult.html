@@ -1,6 +1,6 @@
 <div class="video-results">
   <md-toolbar class="md-hue-3 md-toolbar-slim">
-    <h2 class="md-toolbar-tools">Query Results ({{vm.videoSrv.list.length}})</h2>
+    <h2 class="md-toolbar-tools">Query Results ({{vm.missionSrv.list.length}})</h2>
   </md-toolbar>
 
   <table>
@@ -15,9 +15,9 @@
 
     <tbody>
     <tr
-      data-ng-repeat="video in vm.videoSrv.list"
+      data-ng-repeat="video in vm.missionSrv.list"
       ng-click="vm.setActiveRow($event)"
-      ng-class="{ 'playing-video': video.id == vm.videoSrv.currentVideoId }">
+      ng-class="{ 'playing-video': video.id == vm.missionSrv.currentVideoId }">
       <td>{{video.name}}</td>
       <td>{{video.sourceId}}</td>
       <td>{{vm.moment.utc(video.providerData.msDuration).format("HH:mm:ss")}}</td>

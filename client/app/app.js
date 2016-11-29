@@ -4,7 +4,7 @@ import ngResource from 'angular-resource';
 import uiRouter from 'angular-ui-router';
 import satellizer from 'satellizer';
 import Auth from './service/auth.service.js';
-import VideoService from './service/video.service';
+import MissionService from './service/video.service';
 import DialogService from './service/dialog.service';
 import starService from './service/star.service';
 import Common from './common/common';
@@ -22,7 +22,7 @@ angular.module('app', [
   Common.name,
   Components.name
 ])
-  .service({VideoService})
+  .service({MissionService})
   .service({DialogService})
   .service({Auth})
   .service({starService})

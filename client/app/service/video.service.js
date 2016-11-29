@@ -1,11 +1,10 @@
-export default class VideoService {
+export default class MissionService {
 
   constructor($resource, ENV, dashJS) {
     "ngInject";
 
     this.$resource = $resource;
     this.dashJSrv = dashJS;
-    this.Video = $resource(ENV.API_URL+'/video/:id', { id: '@id' });
     this.Stream = $resource(ENV.API_URL+'/media/:id', { id: '@id' });
     this.list = [];
     this.currentVideoId = '';
@@ -30,7 +29,7 @@ export default class VideoService {
     }).$promise;
   }
 
-  getVideo(params = {}) {
-    return this.$resource(this.ENV.API_URL+'/video').query(params).$promise;
+  getMission(params = {}) {
+    return this.$resource(this.ENV.API_URL+'/mission').query(params).$promise;
   }
 }
