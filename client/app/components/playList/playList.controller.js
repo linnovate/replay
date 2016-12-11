@@ -1,17 +1,23 @@
-import _ from 'lodash';
-
 class PlayListController {
 
-  constructor(PlayListService, DialogService) {
+  constructor(PlayListService, DialogService, $state, $transitions) {
     "ngInject";
 
     this.playlistSrv = PlayListService;
     this.dialogSrv = DialogService;
+    this.$state = $state;
+
+    // reload the list - there could be some changes: renamed, deleted
+    $transitions.onStart({to: 'auth.map.playlist'}, (trans) => this.loadList());
+  }
+
+  loadList() {
+    this.playlistSrv.getPlaylist()
+      .then((result) => this.playlist = result);
   }
 
   $onInit() {
-    this.playlistSrv.getPlaylist()
-      .then((result) => this.playlist = result);
+    this.loadList();
   }
 
   add() {
@@ -24,16 +30,28 @@ class PlayListController {
       this.playlistSrv.addPlayList(listName)
         .then((result) => this.playlist.push(result));
     }, () => {
-      console.log('dialog', 'you hit cancel');
     })
   }
 
-  onEditList(list) {
-    console.debug('onEditList', list);
+  onUpdateListName(list) {
+    this.playlistSrv.updateListName(list._id, list.name)
+      .then((result) => {
+      });
   }
 
   onDeleteList(list) {
-    console.debug('onDeleteList', list);
+    let dialog = this.dialogSrv.showConfirm('Delete "' + list.name + '" playlist', 'Are you' +
+      ' sure?');
+    dialog.then(() => {
+      this.playlistSrv.deleteList(list._id)
+        .then((result) => {
+          // reload list cause we just deleted one
+          this.loadList();
+          // go to playlist state
+          this.$state.go('auth.map.playlist');
+        });
+    });
+
   }
 }
 

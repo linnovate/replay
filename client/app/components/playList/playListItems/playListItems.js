@@ -17,7 +17,7 @@ let playListItemsModule = angular.module('playListItems', [
                 <play-list-items 
                   on-delete-item="vm.onDeleteItem(item)" 
                   on-delete-list="vm.onDeleteList(list)" 
-                  on-edit-list="vm.onEditList(list)">
+                  on-update-list-name="vm.onUpdateListName(list)">
                 </play-list-items>
               `
             }

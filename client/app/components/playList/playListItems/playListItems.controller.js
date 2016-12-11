@@ -11,24 +11,19 @@ class PlayListItemsController {
   }
 
   $onInit() {
-    this.items = this.playlistSrv.getItemsByListId(this.$stateParams.playListId);
-    this.currentList = this.playlistSrv.getPlaylist(this.$stateParams.playListId)[0];
+    this.playlistSrv.getPlaylistById(this.$stateParams.playListId)
+      .then(result => this.currentList = result);
   }
 
-  removeItem(item) {
-    _.remove(this.items, item);
-    this.playlistSrv.removeItem(item._id, item.list);
-    this.onDeleteItem(item);
-  }
-
-  editList(list) {
-    let dialog = this.dialogSrv.showPrompt('Change playlist name', '', 'name', list.name);
+  updateListName(list) {
+    let dialog = this.dialogSrv
+      .showPrompt('Change playlist name', '', 'name', list.name);
 
     dialog.then((result) => {
       if (!result) return;
 
       list.name = result;
-      this.onEditList({list: list});
+      this.onUpdateListName({list: list});
     })
   }
 

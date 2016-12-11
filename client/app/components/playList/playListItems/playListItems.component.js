@@ -6,7 +6,7 @@ let playListItemsComponent = {
   restrict: 'E',
   bindings: {
     onDeleteItem: '&',
-    onEditList: '&',
+    onUpdateListName: '&',
     onDeleteList: '&'
   },
   template,
