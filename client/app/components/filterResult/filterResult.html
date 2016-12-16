@@ -18,7 +18,7 @@
       data-ng-repeat="video in vm.missionSrv.list"
       ng-click="vm.setActiveRow($event)"
       ng-class="{ 'playing-video': video.id == vm.missionSrv.currentVideoId }">
-      <td>{{video.name}}</td>
+      <td>{{video.missionName}}</td>
       <td>{{video.sourceId}}</td>
       <td>{{vm.moment.utc(video.providerData.msDuration).format("HH:mm:ss")}}</td>
       <td class="td-video-panel"><video-panel data-video="video"></video-panel></td>

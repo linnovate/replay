@@ -12,12 +12,13 @@ class PlayListController {
   }
 
   loadList() {
+    console.log('load data for controller');
     this.playlistSrv.getPlaylist()
       .then((result) => this.playlist = result);
   }
 
   $onInit() {
-    this.loadList();
+    if (this.$state.includes('auth.map.playlist')) this.loadList();
   }
 
   add() {
@@ -27,16 +28,13 @@ class PlayListController {
       if (!listName) return;
 
       // add to the remote, add to the list
-      this.playlistSrv.addPlayList(listName)
-        .then((result) => this.playlist.push(result));
+      this.playlistSrv.addPlaylist(listName);
     }, () => {
-    })
+    });
   }
 
   onUpdateListName(list) {
-    this.playlistSrv.updateListName(list._id, list.name)
-      .then((result) => {
-      });
+    this.playlistSrv.updateListName(list._id, list.name);
   }
 
   onDeleteList(list) {
@@ -45,8 +43,6 @@ class PlayListController {
     dialog.then(() => {
       this.playlistSrv.deleteList(list._id)
         .then((result) => {
-          // reload list cause we just deleted one
-          this.loadList();
           // go to playlist state
           this.$state.go('auth.map.playlist');
         });

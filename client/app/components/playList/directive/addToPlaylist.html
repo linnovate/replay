@@ -1,0 +1,18 @@
+<div>
+  <input ng-model="searchList.name"
+         type="search"
+         placeholder="Playlist..."
+         class="playlist-searchbox md-text">
+
+  <div class="checkbox-list">
+    <div class="md-checkbox-item"
+         ng-repeat="item in ctrl.playlistData | filter:searchList"
+         ng-click="ctrl.addToList(item._id, ctrl.missionId)">
+      <md-checkbox ng-checked="ctrl.selected.indexOf(item._id) > -1">
+        {{ item.name }}
+      </md-checkbox>
+    </div>
+  </div>
+
+  <md-button ng-click="ctrl.createPlaylist()">Create new playlist</md-button>
+</div>

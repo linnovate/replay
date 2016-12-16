@@ -51,17 +51,23 @@
   </div>
 </md-toolbar>
 
-<md-list-item
-  md-ink-ripple
-  ng-repeat="item in vm.currentList.missions"
-  class=""
-  ng-click="vm.playlistSrv.playVideo(item._id)"
->
-  <p>{{ item.name }}</p>
-  <md-button class="md-secondary md-icon-button"
-             aria-label="Delete from playlist"
-             ng-click="vm.removeItem(item)"
-             ng-disabled="">
-    <md-icon class="material-icon">delete</md-icon>
-  </md-button>
-</md-list-item>
+<table>
+  <thead>
+  <tr>
+    <td>Title</td>
+    <td>Source</td>
+    <td>Length</td>
+    <td></td>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr
+    data-ng-repeat="video in vm.currentList.missions">
+    <td>{{video.missionName}}</td>
+    <td>{{video.sourceId}}</td>
+    <td>{{vm.moment.utc(video.providerData.msDuration).format("HH:mm:ss")}}</td>
+    <td class="td-video-panel"><video-panel data-video="video"></video-panel></td>
+  </tr>
+  </tbody>
+</table>

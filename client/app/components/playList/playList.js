@@ -3,6 +3,7 @@ import uiRouter from 'angular-ui-router';
 import PlayListService from './playList.service';
 import playListComponent from './playList.component';
 import playListItems from './playListItems/playListItems';
+import addToPlaylist from './directive/addToPlaylist';
 
 let playListModule = angular.module('playList', [
   uiRouter,
@@ -37,7 +38,7 @@ let playListModule = angular.module('playList', [
         }
       );
   })
-
+  .directive({addToPlaylist})
   .component('playList', playListComponent);
 
 export default playListModule;

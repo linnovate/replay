@@ -12,7 +12,10 @@ class PlayListItemsController {
 
   $onInit() {
     this.playlistSrv.getPlaylistById(this.$stateParams.playListId)
-      .then(result => this.currentList = result);
+      .then(result => {
+        this.currentList = result;
+        console.log('this.currentList', this.currentList);
+      });
   }
 
   updateListName(list) {
