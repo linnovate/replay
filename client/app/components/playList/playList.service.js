@@ -80,17 +80,16 @@ export default class PlayListService {
     });
   }
 
-  addMission(listId, missionId) {
-    return this.resMission.update({id: listId, missionId: missionId}).$promise.then((result) => {
-      // very silly to reload a WHOLE playlist array because no new mission
-      // object is returned from REST
-      this.getPlaylist(true);
-      // if PUT would return mission object...
-      // _.each(this.playlistData, (item, i) => {
-      //   if (item._id == listId) {
-          //   item.missions.push(result);
-        // }
-      // });
+  addMission(listId, mission) {
+    return this.resMission.update({id: listId, missionId: mission._id}).$promise.then((result) => {
+      console.log('addMission result', result);
+
+      // find and add mission
+      _.each(this.playlistData, (item, i) => {
+        if (item._id == listId) {
+          item.missions.push(mission);
+        }
+      });
     });
   }
 
@@ -101,51 +100,12 @@ export default class PlayListService {
           // Find item index using indexOf+find
           var mIndex = _.indexOf(item.missions, _.find(item.missions, {_id: missionId}));
           item.missions.splice(mIndex, 1);
-      // if PUT would return mission object...
-          // _.remove(item, {_id: missionId});
         }
       });
     });
   }
 
-  /*  addItem(id, listId) {
-   if (!id || !listId) return;
-
-   this._items.push({
-   _id: id,
-   list: listId
-   });
-   }
-
-   removeItem(id, listId) {
-   _.remove(this._items, {_id: id, list: listId});
-   }*/
-
-
-  getVideoMetaById(id) {
-    if (!id) return;
-
-    return _.find(this._itemsMeta, ['_id', id]);
-  }
-
   /**
-   * Returns all items that belong certain playlist ID
-   * @param id Playlist ID
-   * @returns {Array.<T>|*}
-   */
-  /*  getItemsByListId(listId) {
-   if (!listId) return;
-
-   return _.map(_.filter(this._items, ['list', listId]), (item) => {
-   return _.assign(item, {name: this.getVideoMetaById(item._id).name});
-   });
-   }
-
-   getItemsCountByListId(id) {
-   if (!id) return;
-
-   return _.filter(this._items, ['list', id]).length;
-   }
 
    playVideo(id) {
    // TODO: TMP! REMOVE AFTERWORDS!
@@ -155,6 +115,3 @@ export default class PlayListService {
    }*/
 
 }
-
-const watchedId = '57c1d7fca11062c5694de9b9';
-const favouritesId = '57c1d7f0a11062c5694de9b8';

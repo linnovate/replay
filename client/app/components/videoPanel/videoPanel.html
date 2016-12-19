@@ -1,25 +1,25 @@
 <ul class="video-panel">
   <li class="panel-item-play">
     <a title="Play video" href=""
-       ng-click="vm.missionSrv.playVideo(vm.video._id)">
+       ng-click="vm.missionSrv.playVideo(vm.mission._id)">
       <md-icon class="material-icons md-10">play_arrow</md-icon>
     </a>
   </li>
 
   <li class="panel-item-playlist">
-    <a title="Add to playlist" href="" add-to-playlist="{{vm.video._id}}" class="">
+    <a title="Add to playlist" href="" add-to-playlist="{{vm.mission}}" class="">
       <md-icon class="material-icons md-10">add</md-icon>
     </a>
   </li>
 
   <li ng-if="vm.favourite != 'false'" class="panel-item-star"
-      ng-switch="vm.star.isAdded(vm.video)">
+      ng-switch="vm.star.isAdded(vm.mission)">
     <a ng-switch-when="false" title="Add to favourite" href=""
-       ng-click="vm.star.add(vm.video)">
+       ng-click="vm.star.add(vm.mission)">
       <md-icon class="material-icons md-10">star_border</md-icon>
     </a>
     <a ng-switch-when="true" title="Remove from favourite" href=""
-       ng-click="vm.star.remove(vm.video)">
+       ng-click="vm.star.remove(vm.mission)">
       <md-icon class="material-icons md-10">star</md-icon>
     </a>
   </li>

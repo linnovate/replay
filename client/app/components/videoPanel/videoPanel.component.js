@@ -5,7 +5,7 @@ import './videoPanel.styl';
 let videoPanelComponent = {
   restrict: 'E',
   bindings: {
-    video: '<',
+    mission: '<',
     favourite: '@'
   },
   template,

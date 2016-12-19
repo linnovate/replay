@@ -8,13 +8,13 @@ export default function ($mdPanel, PlayListService) {
     playlistData,
     selected = [];
 
-  function showMenu(ev, el, missionId) {
+  function showMenu(ev, el, mission) {
     var position, config;
 
     selected = [];
     _.each(playlistData, (item) => {
       _.each(item.missions, (mission) => {
-        if (mission._id == missionId) selected.push(item._id);
+        if (mission._id == mission._id) selected.push(item._id);
       })
     });
 
@@ -33,7 +33,7 @@ export default function ($mdPanel, PlayListService) {
       locals: {
         'selected': selected,
         'playlistData': playlistData,
-        'missionId': missionId,
+        'mission': mission,
       },
       openFrom: ev,
       clickOutsideToClose: true,
@@ -76,7 +76,7 @@ function PanelMenuCtrl(mdPanelRef, PlayListService, $timeout) {
   this.saveSemafor = false;
 }
 
-PanelMenuCtrl.prototype.addToList = function (listId, missionId) {
+PanelMenuCtrl.prototype.addToList = function (listId, mission) {
   var idx = this.selected.indexOf(listId);
   // is currently selected
   if (idx > -1) {
@@ -88,7 +88,7 @@ PanelMenuCtrl.prototype.addToList = function (listId, missionId) {
       this._timeout(() => {
         this._mdPanelRef.close();
 
-        this.playlistSrv.deleteMission(listId, missionId).then((result) => {
+        this.playlistSrv.deleteMission(listId, mission).then((result) => {
           this.saveSemafor = false;
         });
       }, this.saveDelay);
@@ -101,7 +101,7 @@ PanelMenuCtrl.prototype.addToList = function (listId, missionId) {
       this._timeout(() => {
         this._mdPanelRef.close();
 
-        this.playlistSrv.addMission(listId, missionId).then((result) => {
+        this.playlistSrv.addMission(listId, mission).then((result) => {
           this.saveSemafor = false;
         });
       }, this.saveDelay);
