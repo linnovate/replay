@@ -1,0 +1,16 @@
+<div class="component-wrap">
+  <input ng-model="search.name"
+         type="search"
+         placeholder="Filter"
+         class="md-text">
+
+  <div class="items-list">
+    <div class="item"
+         ng-repeat="item in ctrl.data | filter:search"
+         ng-click="ctrl.select(item)">
+      <span>{{ item.name }}</span>
+    </div>
+  </div>
+
+  <md-button ng-click="ctrl.save()">Save query</md-button>
+</div>

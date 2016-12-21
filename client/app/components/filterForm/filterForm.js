@@ -5,6 +5,8 @@ import filterNumInterval from './filterNumInterval/filterNumInterval';
 import filterGraphicButton from './filterGraphicButton/filterGraphicButton';
 import filterTimeRange from './filterTimeRange/filterTimeRange';
 import FilterFormService from './filterForm.service';
+import QuerySaverService from './querySaver/querySaver.service';
+import querySaver from './querySaver/querySaver.directive';
 
 let filterFormModule = angular.module('filterForm', [
   filterSelectbox.name,
@@ -12,7 +14,9 @@ let filterFormModule = angular.module('filterForm', [
   filterTimeRange.name,
   filterGraphicButton.name
 ])
+  .directive({querySaver})
   .service({FilterFormService})
+  .service({QuerySaverService})
   .component('filterForm', filterFormComponent);
 
 export default filterFormModule;

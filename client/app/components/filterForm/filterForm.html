@@ -35,6 +35,15 @@
 
       </md-menu>
 
+      <md-button class="md-icon-button"
+                 aria-label="Save query"
+                 flex="none"
+                 ng-click="$mdOpenMenu($event)"
+                 query-saver
+                 ng-disabled="vm.filterFormSrv.isEmptyAvailableFilters()">
+        <md-icon class="material-icons">history</md-icon>
+      </md-button>
+
 
     </div>
 

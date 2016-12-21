@@ -28,7 +28,7 @@ export default function ($mdPanel, PlayListService) {
       controller: PanelMenuCtrl,
       controllerAs: 'ctrl',
       template: require('./addToPlaylist.html'),
-      panelClass: 'add-to-playlist-panel',
+      panelClass: 'add-to-playlist-panel md-whiteframe-1dp',
       position: position,
       locals: {
         'selected': selected,

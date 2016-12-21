@@ -1,0 +1,28 @@
+.query-saver-panel
+  background-color white;
+  font-size: 15px;
+  padding 16px 16px 0 16px;
+
+  input[type="search"]
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+
+  .items-list
+    max-height: 300px;
+    overflow: auto;
+    margin: 0 -16px;
+    padding: 10px 16px 10px 16px;
+
+    .item:hover, .item:focus
+      background-color: rgb(238, 238, 238)
+
+    .item
+      cursor: pointer
+      padding: 10px 16px;
+      margin: 0 -16px;
+      transition: background 0.15s linear;
+
+  .md-button
+    width: 100%;
+    margin: 0 0 16px 0;
